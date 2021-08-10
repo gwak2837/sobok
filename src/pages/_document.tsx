@@ -54,7 +54,6 @@ export default class SobokDocument extends Document {
           <link rel="canonical" href={CANONICAL_URL} />
           <link rel="manifest" href="manifest.json" />
           <link rel="apple-touch-icon" href="favicon.ico" />
-          <link rel="license" href="copyright.html" />
           <link
             href="/splashes/iphone5_splash.png"
             media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
