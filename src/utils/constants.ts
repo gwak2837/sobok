@@ -5,7 +5,7 @@ export const DESKTOP_MIN_WIDTH = '1024px'
 export const TOP_HEADER_HEIGHT = '3.5rem'
 export const HEADER_HEIGHT = '4rem'
 
-export const PRIMARY_BACKGROUND_COLOR = '#FF9A88'
+export const PRIMARY_BACKGROUND_COLOR = '#FF9A88' // manifest.json 파일의 theme_color 필드랑 일치
 export const PRIMARY_TEXT_COLOR = '#FF5E3D'
 export const PRIMARY_ACHROMATIC_BACKGROUND_COLOR = '#B5B5B5'
 
@@ -15,3 +15,4 @@ export const SECONDARY_ACHROMATIC_COLOR = '#2fccba'
 
 export const APPLICATION_SHORT_NAME = '소복'
 export const APPLICATION_NAME = '소복 (Sobok)'
+export const CANONICAL_URL = 'https://sobok.vercel.app'

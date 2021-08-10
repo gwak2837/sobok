@@ -1,13 +1,12 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
-import { canonicalUrl } from 'src/pages/_document'
-import { APPLICATION_NAME } from 'src/utils/constants'
+import { APPLICATION_NAME, CANONICAL_URL } from 'src/utils/constants'
 
 type Props = {
   children: ReactNode
-  title?: string
-  description?: string // 최대 120자
+  title?: string // 최소 10자 ~ 최대 70자
+  description?: string // 최소 70자 ~ 최대 320자
 }
 
 function PageHead({
@@ -25,9 +24,11 @@ function PageHead({
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content="/og-image.webp" />
-        <meta property="og:url" content={`${canonicalUrl}${pathname}`} />
+        <meta property="og:image:alt" content="/og-image.webp" />
+        <meta property="og:url" content={`${CANONICAL_URL}${pathname}`} />
         <meta property="og:site_name" content={title} />
         <meta property="og:type" content="website" />
+        <meta property="og:locale" content="ko_KR" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image:alt" content="Sobok Logo" />
       </Head>
