@@ -46,16 +46,16 @@ feature 브랜치에서 개발을 진행하고 자유롭게 커밋합니다.
 
 모든 커밋 메시지 제목은 영어로 작성하고 PR 번호를 인용할 수 있습니다. 커밋 메시지 설명은 한국말로 덧붙이거나 작성하지 않아도 됩니다. 커밋 메시지 제목은 목적에 따라 아래와 같이 현재형 동사를 사용하고 마침표는 찍지 않습니다.
 
-- 기능 개발 : Add feature of
-- 버그 수정 : Fix error of
-- CSS 수정 : Update style of
-- 코드 리팩토링 : Refactor, Clean
-- 파일 추가 : Upload, Create
-- 파일 수정 : Move, Rename
-- 파일 삭제 : Remove, Delete
-- 문서 수정 : Update docs
-- 테스트 코드: Test
-- 커밋 되돌리기 : Revert
+- 기능 개발 : `Add feature of`
+- 버그 수정 : `Fix error of`
+- CSS 수정 : `Update style of`
+- 코드 리팩토링 : `Refactor`, `Clean`
+- 파일 추가 : `Upload`, `Create`
+- 파일 수정 : `Move`, `Rename`
+- 파일 삭제 : `Remove`, `Delete`
+- 문서 수정 : `Update docs`
+- 테스트 코드: `Test`
+- 커밋 되돌리기 : `Revert`
 - Update, Modify 의미 차이?
 - Remove, Delete 의미 차이?
 
