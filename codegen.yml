@@ -1,0 +1,19 @@
+overwrite: true
+schema:
+  # 외부 GraphQL API
+  - ${NEXT_PUBLIC_BACKEND_URL}/graphql
+
+  # Client Schema
+  - src/graphql/schema/*.graphql
+documents: src/graphql/**/*.graphql
+generates:
+  src/graphql/generated/types-and-hooks.ts:
+    plugins:
+      - add:
+          content: /* eslint-disable */
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+hooks:
+  afterAllFileWrite:
+    - prettier --write

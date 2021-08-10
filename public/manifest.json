@@ -1,0 +1,29 @@
+{
+  "name": "소복 (Sobok)",
+  "short_name": "소복",
+  "theme_color": "#ff9a88",
+  "background_color": "#fcfcfc",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "sobok-logo-144.webp",
+      "sizes": "144x144",
+      "type": "image/webp",
+      "purpose": "maskable"
+    },
+    {
+      "src": "sobok-logo-192.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "maskable"
+    },
+    {
+      "src": "sobok-logo-512.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
+    }
+  ]
+}
