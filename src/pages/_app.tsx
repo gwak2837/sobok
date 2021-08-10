@@ -1,5 +1,11 @@
+import 'antd/dist/antd.css'
+import 'src/styles/custom-antd.css'
+import 'react-toastify/dist/ReactToastify.min.css'
+import 'animate.css/animate.min.css'
+import 'normalize.css'
+
 import { ApolloProvider } from '@apollo/client'
-import { AppProps } from 'next/app'
+import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { createContext, ReactNode, useEffect } from 'react'
@@ -8,12 +14,6 @@ import { PRIMARY_TEXT_COLOR, TABLET_MIN_WIDTH } from 'src/utils/constants'
 import { pageview } from 'src/utils/google-analytics'
 import { createGlobalStyle } from 'styled-components'
 import { ToastContainer, cssTransition } from 'react-toastify'
-
-import 'antd/dist/antd.css'
-import 'src/styles/custom-antd.css'
-import 'react-toastify/dist/ReactToastify.min.css'
-import 'animate.css/animate.min.css'
-import 'normalize.css'
 
 export const fade = cssTransition({
   enter: 'animate__animated animate__fadeIn',

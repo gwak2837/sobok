@@ -33,7 +33,6 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "root": true,
   "rules": {
     "no-console": [
       "warn",
