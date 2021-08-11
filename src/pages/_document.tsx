@@ -50,7 +50,7 @@ export default class SobokDocument extends Document {
             rel="stylesheet"
           />
           <link rel="shortcut icon" href="favicon.ico" />
-          <link rel="icon" type="image/x-icon" href="favicon.ico" />
+          <link rel="icon" href="favicon.ico" />
           <link rel="canonical" href={CANONICAL_URL} />
           <link rel="manifest" href="manifest.json" />
           <link rel="apple-touch-icon" href="favicon.ico" />

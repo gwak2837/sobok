@@ -33,15 +33,7 @@ git 또는 이미지 첨부
 
 ## 프로젝트 구조
 
-프론트엔드
-
-백엔드
-
-데이터베이스
-
-클라우드 (Cloud Storage, Cloud Run, VPC Network, Compute Engine, Vercel)
-
-Slack 알리미 봇
+![/images/architecture.png](/images/architecture.png)
 
 ## 개발 환경
 
