@@ -23,8 +23,8 @@ function PageHead({
         <meta name="description" content={description} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content="/og-image.webp" />
-        <meta property="og:image:alt" content="/og-image.webp" />
+        <meta property="og:image" content="/images/og-image.webp" />
+        <meta property="og:image:alt" content="/images/og-image.webp" />
         <meta property="og:url" content={`${CANONICAL_URL}${pathname}`} />
         <meta property="og:site_name" content={title} />
         <meta property="og:type" content="website" />
