@@ -33,7 +33,7 @@ git 또는 이미지 첨부
 
 ## 프로젝트 구조
 
-![images/architecture.png](images/architecture.png)
+![images/architecture.webp](images/architecture.webp)
 
 ## 개발 환경
 
