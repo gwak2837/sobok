@@ -50,7 +50,7 @@ export default class SobokDocument extends Document {
             rel="stylesheet"
           />
           <link rel="shortcut icon" href="favicon.ico" />
-          <link rel="icon" href="favicon.ico" />
+          <link rel="icon" type="image/webp" href="favicon.ico" />
           <link rel="canonical" href={CANONICAL_URL} />
           <link rel="manifest" href="manifest.json" />
           <link rel="apple-touch-icon" href="favicon.ico" />
@@ -112,10 +112,10 @@ export default class SobokDocument extends Document {
           <meta name="apple-mobile-web-app-title" content={APPLICATION_SHORT_NAME} />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-          <meta name="robots" content="index,follow" />
           <meta name="generator" content="Next.js 11" />
           <meta name="subject" content={subject} />
           <meta name="rating" content="general" />
+          <meta name="robots" content="index,follow" />
           <meta name="revisit-after" content="7 days" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <script
