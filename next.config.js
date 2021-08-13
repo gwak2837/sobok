@@ -7,12 +7,7 @@ module.exports = withPWA({
     defaultLocale: 'ko',
   },
   images: {
-    domains: [
-      'storage.googleapis.com',
-      'postfiles.pstatic.net',
-      'search.pstatic.net',
-      'map.naver.com',
-    ],
+    domains: ['storage.googleapis.com', 'postfiles.pstatic.net', 'search.pstatic.net'],
   },
   poweredByHeader: process.env.NODE_ENV === 'development',
   pwa: {
