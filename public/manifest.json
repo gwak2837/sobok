@@ -1,8 +1,8 @@
 {
   "name": "소복 (Sobok)",
   "short_name": "소복",
-  "theme_color": "#ff9a88",
-  "background_color": "#fcfcfc",
+  "theme_color": "#FF9F74",
+  "background_color": "#FCFCFC",
   "display": "fullscreen",
   "orientation": "portrait",
   "scope": "/",
