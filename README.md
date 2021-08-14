@@ -78,7 +78,7 @@ NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY=
 
 프로젝트 루트 경로에 `.env.development`과 `.env.production` 파일을 생성하고 거기에 프로젝트에 필요한 환경 변수를 설정합니다.
 
-$ [Next.js 환경 변수 (nextjs.org)](https://nextjs.org/docs/basic-features/environment-variables)
+> [Next.js 환경 변수 (nextjs.org)](https://nextjs.org/docs/basic-features/environment-variables)
 
 ### 개발 모드
 
@@ -114,7 +114,7 @@ $ git config --global core.eol lf
 
 에디터에서 라인 시퀀스 관련 ESLint 오류가 발생하면 Git 관련 설정을 위와 같이 변경해줍니다. 그리고 프로젝트 폴더를 지우고 다시 클론합니다.
 
-$ https://velog.io/@gwak2837/줄-시퀀스-충돌
+> https://velog.io/@gwak2837/줄-시퀀스-충돌
 
 ### (Windows) PowerShell 보안 오류
 
@@ -124,7 +124,7 @@ $ Set-ExecutionPolicy Unrestricted
 
 PowerShell을 관리자 권한으로 열어서 보안 정책을 위와 같이 수정해줍니다.
 
-$ https://velog.io/@gwak2837/powershell-yarn-보안-오류
+> https://velog.io/@gwak2837/powershell-yarn-보안-오류
 
 ## 스크립트
 
