@@ -130,3 +130,12 @@ public/workbox-*.js*
 # Next Environment Variables
 .env.development
 .env.local
+
+# Yarn v2
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*

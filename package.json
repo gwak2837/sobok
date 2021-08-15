@@ -5,7 +5,6 @@
   "repository": "https://github.com/teamsindy20/sobok.git",
   "author": "sindy",
   "license": "GPL-3.0-only",
-  "private": false,
   "engines": {
     "node": ">=14.15.4"
   },
@@ -78,5 +77,6 @@
     "defaults",
     "not IE 11",
     "maintained node versions"
-  ]
+  ],
+  "packageManager": "yarn@3.0.1"
 }
