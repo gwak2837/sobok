@@ -7,14 +7,19 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "search.exclude": {
     "**/.git": true,
     "**/.next": true,
     "node_modules": true,
     "**/out": true,
-    "yarn.lock": true
+    "yarn.lock": true,
+    "**/.yarn": true,
+    "**/.pnp.*": true
   },
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.packageManager": "yarn"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
+  "eslint.packageManager": "yarn",
+  "eslint.nodePath": ".yarn/sdks",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
