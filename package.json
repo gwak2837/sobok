@@ -5,6 +5,7 @@
   "repository": "https://github.com/teamsindy20/sobok.git",
   "author": "sindy",
   "license": "GPL-3.0-only",
+  "private": true,
   "engines": {
     "node": ">=14.15.4"
   },
@@ -18,7 +19,7 @@
     "test": "jest",
     "pre-push": "yarn format && yarn lint && yarn type",
     "generate": "graphql-codegen dotenv_config_path=.env.development --require dotenv/config",
-    "prepare": "husky install"
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
