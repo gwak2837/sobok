@@ -5159,7 +5159,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^10.0.0":
+"dotenv@npm:*, dotenv@npm:^10.0.0":
   version: 10.0.0
   resolution: "dotenv@npm:10.0.0"
   checksum: f412c5fe8c24fbe313d302d2500e247ba8a1946492db405a4de4d30dd0eb186a88a43f13c958c5a7de303938949c4231c56994f97d05c4bc1f22478d631b4005
@@ -11344,6 +11344,7 @@ resolve@^2.0.0-next.3:
     antd: ^4.16.11
     babel-plugin-styled-components: ^1.13.2
     date-fns: ^2.23.0
+    dotenv: ^10.0.0
     eslint: ^7.32.0
     eslint-config-next: ^11.1.0
     eslint-config-prettier: ^8.3.0
