@@ -40,7 +40,7 @@ git 또는 이미지 첨부
 - macOS 11.2
 - [Git](https://git-scm.com/downloads) 2.32
 - [Node](https://nodejs.org/ko/download/) LTS
-- [Yarn](https://yarnpkg.com/getting-started/install#about-global-installs) 1.22
+- [Yarn](https://yarnpkg.com/getting-started/install#about-global-installs) 2
 - [Visual Studio Code](https://code.visualstudio.com/Download) 1.58
 - Chrome 89.0, Safari 14.0, Whale 2.9, Firefox 87.0
 
