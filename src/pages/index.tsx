@@ -13,11 +13,11 @@ const SquareFrame = styled.div`
   position: relative;
 
   img {
-    transition: transform 0.5s;
+    transition: transform 1s;
   }
 
   img:hover {
-    transform: scale(1.05);
+    transform: rotateY(180deg);
   }
 `
 
