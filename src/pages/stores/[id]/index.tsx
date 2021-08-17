@@ -1,4 +1,4 @@
-import PageHead from 'src/components/layouts/PageHead'
+import PageHead from 'src/components/PageHead'
 
 const description = ''
 

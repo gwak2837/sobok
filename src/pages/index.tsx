@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import PageHead from 'src/components/layouts/PageHead'
+import PageHead from 'src/components/PageHead'
 import styled from 'styled-components'
 
 const GridContainer = styled.div`

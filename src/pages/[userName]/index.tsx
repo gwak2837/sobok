@@ -1,7 +1,8 @@
-import PageHead from 'src/components/layouts/PageHead'
+import PageHead from 'src/components/PageHead'
 
 const description = ''
 
+// [userName] = @{userName}
 function UserPage() {
   return (
     <PageHead title="소복 - " description={description}>
