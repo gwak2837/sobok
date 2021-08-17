@@ -16,4 +16,6 @@ export const SECONDARY_ACHROMATIC_COLOR = '#2fccba'
 export const APPLICATION_SHORT_NAME = '소복'
 export const APPLICATION_NAME = '소복 (Sobok)'
 export const CANONICAL_URL =
-  process.env.NODE_ENV === 'production' ? 'https://sobok.vercel.app' : 'http://localhost:3000'
+  process.env.NODE_ENV === 'production'
+    ? process.env.NEXT_PUBLIC_VERCEL_URL
+    : 'http://localhost:3000'
