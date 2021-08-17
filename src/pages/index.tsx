@@ -53,6 +53,8 @@ const images = [
 ]
 
 function HomePage() {
+  console.log(process.env.NEXT_PUBLIC_VERCEL_URL)
+
   return (
     <PageHead>
       <div>
