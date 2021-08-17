@@ -19,6 +19,24 @@
     ],
     "description": "Page Component"
   },
+  "Layout Component": {
+    "prefix": "layout",
+    "body": [
+      "import { ReactNode } from 'react'",
+      "",
+      "type Props = {",
+      "  children: ReactNode",
+      "}",
+      "",
+      "function ${TM_FILENAME_BASE}({ children }: Props) {",
+      "  return <>{children}</>",
+      "}",
+      "",
+      "export default ${TM_FILENAME_BASE}",
+      ""
+    ],
+    "description": "Layout Component"
+  },
   "Function Component": {
     "prefix": "fc",
     "body": [
