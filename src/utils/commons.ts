@@ -1,4 +1,5 @@
 import Inko from 'inko'
+import { NextRouter } from 'next/router'
 import { KeyboardEvent, MouseEvent } from 'react'
 
 export function preventAndStopEnterPropagation(e: KeyboardEvent) {
@@ -41,3 +42,7 @@ export async function digestMessageWithSHA256(message: string) {
 }
 
 export const { ko2en } = new Inko()
+
+export function getUserId(router: NextRouter) {
+  return ((router.query.userId ?? '') as string).slice(1)
+}

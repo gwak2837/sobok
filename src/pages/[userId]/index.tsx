@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import PageHead from 'src/components/PageHead'
+import { getUserId } from 'src/utils/commons'
 
 const description = ''
 
 function UserPage() {
   const router = useRouter()
-  const userId = ((router.query.userId ?? '') as string).slice(1)
+  const userId = getUserId(router)
 
   return (
     <PageHead title="소복 - " description={description}>
