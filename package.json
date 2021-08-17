@@ -40,6 +40,7 @@
     "react-hook-form": "^7.12.2",
     "react-infinite-scroll-hook": "^4.0.1",
     "react-toastify": "^7.0.4",
+    "recoil": "^0.4.0",
     "styled-components": "^5.3.0"
   },
   "devDependencies": {
@@ -80,6 +81,5 @@
     "defaults",
     "not IE 11",
     "maintained node versions"
-  ],
-  "packageManager": "yarn@3.0.1"
+  ]
 }
