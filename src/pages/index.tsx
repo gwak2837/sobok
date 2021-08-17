@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import PageHead from 'src/components/PageHead'
 import styled from 'styled-components'
 
@@ -54,6 +55,12 @@ const images = [
 function HomePage() {
   return (
     <PageHead>
+      <div>
+        <ClientSideLink href="/@userId1">사용자 페이지</ClientSideLink>
+      </div>
+      <div>
+        <ClientSideLink href="/@userId2">사용자2 페이지</ClientSideLink>
+      </div>
       <GridContainer>
         {images.map((imageUrl, i) => (
           <SquareFrame key={i}>
