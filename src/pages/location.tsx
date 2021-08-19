@@ -4,7 +4,7 @@ const description = ''
 
 export default function LocationPage() {
   return (
-    <PageHead title="소복 - " description={description}>
+    <PageHead title=" - 소복" description={description}>
       주소설정 페이지
     </PageHead>
   )

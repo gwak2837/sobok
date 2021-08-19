@@ -10,7 +10,7 @@ export default function UserPage() {
   const userId = getUserId(router)
 
   return (
-    <PageHead title="소복 - " description={description}>
+    <PageHead title=" - 소복" description={description}>
       <div>
         <ClientSideLink href="/">홈으로</ClientSideLink>
       </div>

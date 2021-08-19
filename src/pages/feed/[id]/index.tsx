@@ -4,7 +4,7 @@ const description = ''
 
 export default function FeedDetailPage() {
   return (
-    <PageHead title="소복 - " description={description}>
+    <PageHead title=" - 소복" description={description}>
       피드디테일 페이지
     </PageHead>
   )

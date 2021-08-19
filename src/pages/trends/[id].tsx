@@ -4,7 +4,7 @@ const description = ''
 
 function TrendDetailPage() {
   return (
-    <PageHead title="소복 - " description={description}>
+    <PageHead title=" - 소복" description={description}>
       트렌드디테일 페이지
     </PageHead>
   )
