@@ -4,8 +4,6 @@ type Props = {
   children: ReactNode
 }
 
-function NavigationLayout({ children }: Props) {
+export default function NavigationLayout({ children }: Props) {
   return <>{children}</>
 }
-
-export default NavigationLayout

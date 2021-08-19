@@ -14,4 +14,4 @@ function useBoolean(initialValue?: boolean) {
   return [state, toggleState, setState] as const
 }
 
-export default useBoolean
+useBoolean

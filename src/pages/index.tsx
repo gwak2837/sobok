@@ -52,9 +52,7 @@ const images = [
   'https://storage.googleapis.com/sobok/%EA%B8%B0%ED%98%84%EC%9A%B0.webp',
 ]
 
-function HomePage() {
-  console.log(process.env.NEXT_PUBLIC_VERCEL_URL)
-
+export default function HomePage() {
   return (
     <PageHead>
       <div>
@@ -73,5 +71,3 @@ function HomePage() {
     </PageHead>
   )
 }
-
-export default HomePage

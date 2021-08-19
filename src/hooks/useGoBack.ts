@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useCallback, MouseEvent } from 'react'
 
-function useGoBack() {
+export default function useGoBack() {
   const router = useRouter()
 
   const goBack = useCallback(
@@ -14,5 +14,3 @@ function useGoBack() {
 
   return goBack
 }
-
-export default useGoBack

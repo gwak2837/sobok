@@ -8,7 +8,7 @@ type Props = {
   style?: CSSProperties
 }
 
-function ClientSideLink({ children, href, style }: Props) {
+export default function ClientSideLink({ children, href, style }: Props) {
   return (
     <Link href={href}>
       <a href={href} onClick={stopPropagation} style={style}>
@@ -17,5 +17,3 @@ function ClientSideLink({ children, href, style }: Props) {
     </Link>
   )
 }
-
-export default ClientSideLink

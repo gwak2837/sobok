@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { MouseEvent, useCallback } from 'react'
 
-function useGoToPage(url: string) {
+export default function useGoToPage(url: string) {
   const router = useRouter()
 
   const goToPage = useCallback(
@@ -14,5 +14,3 @@ function useGoToPage(url: string) {
 
   return goToPage
 }
-
-export default useGoToPage

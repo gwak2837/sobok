@@ -5,7 +5,7 @@ import { getUserId } from 'src/utils/commons'
 
 const description = ''
 
-function UserPage() {
+export default function UserPage() {
   const router = useRouter()
   const userId = getUserId(router)
 
@@ -19,5 +19,3 @@ function UserPage() {
     </PageHead>
   )
 }
-
-export default UserPage
