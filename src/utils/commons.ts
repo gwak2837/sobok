@@ -47,7 +47,7 @@ export function getUserId(router: NextRouter) {
   return ((router.query.userId ?? '') as string).slice(1)
 }
 
-const pattern = new RegExp(
+const urlPattern = new RegExp(
   '^(https?:\\/\\/)?' + // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
     '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
@@ -58,5 +58,5 @@ const pattern = new RegExp(
 )
 
 export function isValidUrl(url: string) {
-  return !!pattern.test(url)
+  return !!urlPattern.test(url)
 }
