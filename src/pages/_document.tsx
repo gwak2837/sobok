@@ -55,52 +55,52 @@ export default class SobokDocument extends Document {
           <link rel="manifest" href="manifest.json" />
           <link rel="apple-touch-icon" href="favicon.ico" />
           <link
-            href="/images/iphone5_splash.webp"
+            href="/images/iphone5_splash.png"
             media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
             rel="apple-touch-startup-image"
           />
           <link
-            href="/images/iphone6_splash.webp"
+            href="/images/iphone6_splash.png"
             media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
             rel="apple-touch-startup-image"
           />
           <link
-            href="/images/iphonex_splash.webp"
+            href="/images/iphonex_splash.png"
             media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
             rel="apple-touch-startup-image"
           />
           <link
-            href="/images/iphoneplus_splash.webp"
+            href="/images/iphoneplus_splash.png"
             media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)"
             rel="apple-touch-startup-image"
           />
           <link
-            href="/images/iphonexr_splash.webp"
+            href="/images/iphonexr_splash.png"
             media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
             rel="apple-touch-startup-image"
           />
           <link
-            href="/images/iphonexsmax_splash.webp"
+            href="/images/iphonexsmax_splash.png"
             media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
             rel="apple-touch-startup-image"
           />
           <link
-            href="/images/ipad_splash.webp"
+            href="/images/ipad_splash.png"
             media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
             rel="apple-touch-startup-image"
           />
           <link
-            href="/images/ipadpro1_splash.webp"
+            href="/images/ipadpro1_splash.png"
             media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
             rel="apple-touch-startup-image"
           />
           <link
-            href="/images/ipadpro3_splash.webp"
+            href="/images/ipadpro3_splash.png"
             media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)"
             rel="apple-touch-startup-image"
           />
           <link
-            href="/images/ipadpro2_splash.webp"
+            href="/images/ipadpro2_splash.png"
             media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
             rel="apple-touch-startup-image"
           />
