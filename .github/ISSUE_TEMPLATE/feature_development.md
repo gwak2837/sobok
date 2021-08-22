@@ -2,7 +2,7 @@
 name: Feature Development
 about: Describe this issue template's purpose here.
 title: ''
-labels: 'new feature'
+labels: 'new_feature'
 assignees: ''
 ---
 
