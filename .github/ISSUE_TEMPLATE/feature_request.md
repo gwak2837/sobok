@@ -1,10 +1,11 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
+name: Feature Request
+about: Describe this issue template's purpose here.
 title: ''
-labels: 'enhancement'
+labels: ''
 assignees: ''
 ---
+## What to make
 
 ### Is your feature request related to a problem? Please describe.
 

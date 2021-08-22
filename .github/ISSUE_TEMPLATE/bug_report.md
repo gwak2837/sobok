@@ -1,10 +1,11 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: Bug Report
+about: Describe this issue template's purpose here.
 title: ''
 labels: 'bug'
 assignees: ''
 ---
+## Issue description
 
 ### Describe the bug
 
