@@ -146,6 +146,8 @@ export type Query = {
   me: User
   /** 이메일 중복 여부 검사 */
   isEmailUnique: Scalars['Boolean']
+  /** 사용자 고유 이름 중복 여부 검사 */
+  isUniqueNameUnique: Scalars['Boolean']
 }
 
 export type QueryStoresByTownArgs = {
@@ -154,6 +156,10 @@ export type QueryStoresByTownArgs = {
 
 export type QueryIsEmailUniqueArgs = {
   email: Scalars['EmailAddress']
+}
+
+export type QueryIsUniqueNameUniqueArgs = {
+  uniqueName: Scalars['NonEmptyString']
 }
 
 export type RegisterInput = {
@@ -253,6 +259,12 @@ export type IsEmailUniqueQueryVariables = Exact<{
 
 export type IsEmailUniqueQuery = { __typename?: 'Query'; isEmailUnique: boolean }
 
+export type IsIdUniqueQueryVariables = Exact<{
+  id: Scalars['NonEmptyString']
+}>
+
+export type IsIdUniqueQuery = { __typename?: 'Query'; isUniqueNameUnique: boolean }
+
 export const IsEmailUniqueDocument = gql`
   query IsEmailUnique($email: EmailAddress!) {
     isEmailUnique(email: $email)
@@ -299,3 +311,40 @@ export type IsEmailUniqueQueryResult = Apollo.QueryResult<
   IsEmailUniqueQuery,
   IsEmailUniqueQueryVariables
 >
+export const IsIdUniqueDocument = gql`
+  query IsIdUnique($id: NonEmptyString!) {
+    isUniqueNameUnique(uniqueName: $id)
+  }
+`
+
+/**
+ * __useIsIdUniqueQuery__
+ *
+ * To run a query within a React component, call `useIsIdUniqueQuery` and pass it any options that fit your needs.
+ * When your component renders, `useIsIdUniqueQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useIsIdUniqueQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useIsIdUniqueQuery(
+  baseOptions: Apollo.QueryHookOptions<IsIdUniqueQuery, IsIdUniqueQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<IsIdUniqueQuery, IsIdUniqueQueryVariables>(IsIdUniqueDocument, options)
+}
+export function useIsIdUniqueLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<IsIdUniqueQuery, IsIdUniqueQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<IsIdUniqueQuery, IsIdUniqueQueryVariables>(IsIdUniqueDocument, options)
+}
+export type IsIdUniqueQueryHookResult = ReturnType<typeof useIsIdUniqueQuery>
+export type IsIdUniqueLazyQueryHookResult = ReturnType<typeof useIsIdUniqueLazyQuery>
+export type IsIdUniqueQueryResult = Apollo.QueryResult<IsIdUniqueQuery, IsIdUniqueQueryVariables>

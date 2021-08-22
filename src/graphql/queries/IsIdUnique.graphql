@@ -1,0 +1,3 @@
+query IsIdUnique($id: NonEmptyString!) {
+  isUniqueNameUnique(uniqueName: $id)
+}
