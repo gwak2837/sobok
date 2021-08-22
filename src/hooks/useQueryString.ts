@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-function useQueryString() {
+export default function useQueryString() {
   const [queryString, setQueryString] = useState('')
 
   useEffect(() => {
@@ -9,5 +9,3 @@ function useQueryString() {
 
   return queryString
 }
-
-export default useQueryString

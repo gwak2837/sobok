@@ -2,12 +2,10 @@ import PageHead from 'src/components/PageHead'
 
 const description = ''
 
-function NewsDetailPage() {
+export default function StoreNewsDetailPage() {
   return (
-    <PageHead title="소복 - " description={description}>
-      뉴스디테일 페이지
+    <PageHead title="매장 소식 상세 - 소복" description={description}>
+      페이지
     </PageHead>
   )
 }
-
-export default NewsDetailPage

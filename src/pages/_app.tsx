@@ -5,10 +5,12 @@ import 'animate.css/animate.min.css'
 import 'normalize.css'
 
 import { ApolloProvider } from '@apollo/client'
+import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { createContext, ReactNode, useEffect } from 'react'
+import type { ReactElement, ReactNode } from 'react'
+import { createContext, useEffect } from 'react'
 import { client } from 'src/apollo/client'
 import { PRIMARY_TEXT_COLOR, TABLET_MIN_WIDTH } from 'src/utils/constants'
 import { pageview } from 'src/utils/google-analytics'
@@ -66,6 +68,12 @@ const GlobalStyle = createGlobalStyle`
 
 type GlobalContextValues = any
 
+type AppPropsWithLayout = AppProps & {
+  Component: NextPage & {
+    getLayout?: (page: ReactElement) => ReactNode
+  }
+}
+
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 export const GlobalContext = createContext<GlobalContextValues>(undefined!)
 
@@ -75,10 +83,12 @@ function GlobalProvider({ children }: { children: ReactNode }) {
   return <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>
 }
 
-function SobokApp({ Component, pageProps }: AppProps) {
+export default function SobokApp({ Component, pageProps }: AppPropsWithLayout) {
   const router = useRouter()
 
-  // Google Analytics로 정보 보내기
+  const getLayout = Component.getLayout
+
+  // Google Analytics 초기 설정
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       const handleRouteChange = (url: string) => pageview(url)
@@ -89,6 +99,7 @@ function SobokApp({ Component, pageProps }: AppProps) {
     }
   }, [router.events])
 
+  // Kakao API 초기화
   useEffect(() => {
     window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY)
   }, [])
@@ -101,12 +112,10 @@ function SobokApp({ Component, pageProps }: AppProps) {
       <GlobalStyle />
       <ApolloProvider client={client}>
         <GlobalProvider>
-          <Component {...pageProps} />
+          {getLayout ? getLayout(<Component {...pageProps} />) : <Component {...pageProps} />}
         </GlobalProvider>
       </ApolloProvider>
       <ToastContainer autoClose={2500} hideProgressBar position="top-center" transition={fade} />
     </>
   )
 }
-
-export default SobokApp

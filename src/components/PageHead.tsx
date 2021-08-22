@@ -9,7 +9,7 @@ type Props = {
   description?: string // 최소 70자 ~ 최대 320자
 }
 
-function PageHead({
+export default function PageHead({
   children,
   title = APPLICATION_NAME,
   description = '소복은 내가 원하는 디저트를 쉽고 빠르게 고를 수 있는 온라인 디저트 검색 서비스입니다.',
@@ -36,5 +36,3 @@ function PageHead({
     </>
   )
 }
-
-export default PageHead

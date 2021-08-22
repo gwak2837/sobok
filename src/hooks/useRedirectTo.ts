@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 // import { showWarningMessage } from 'src/utils/ant-design'
 
-function useRedirectTo(url: string, when: boolean, showMessage?: string) {
+export default function useRedirectTo(url: string, when: boolean, showMessage?: string) {
   const router = useRouter()
 
   useEffect(() => {
@@ -19,5 +19,3 @@ function useRedirectTo(url: string, when: boolean, showMessage?: string) {
     }
   }, [router, url, when])
 }
-
-export default useRedirectTo

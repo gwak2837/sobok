@@ -2,12 +2,10 @@ import PageHead from 'src/components/PageHead'
 
 const description = ''
 
-function FeedPage() {
+export default function FeedPage() {
   return (
-    <PageHead title="소복 - " description={description}>
+    <PageHead title="피드 - 소복" description={description}>
       피드 페이지
     </PageHead>
   )
 }
-
-export default FeedPage

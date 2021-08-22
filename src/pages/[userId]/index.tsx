@@ -5,12 +5,12 @@ import { getUserId } from 'src/utils/commons'
 
 const description = ''
 
-function UserPage() {
+export default function UserPage() {
   const router = useRouter()
   const userId = getUserId(router)
 
   return (
-    <PageHead title="소복 - " description={description}>
+    <PageHead title=" - 소복" description={description}>
       <div>
         <ClientSideLink href="/">홈으로</ClientSideLink>
       </div>
@@ -19,5 +19,3 @@ function UserPage() {
     </PageHead>
   )
 }
-
-export default UserPage

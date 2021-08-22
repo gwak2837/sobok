@@ -4,7 +4,7 @@ type Options = {
   initialValue?: unknown
 }
 
-function useInput({ initialValue }: Options) {
+export default function useInput({ initialValue }: Options) {
   const [value, setValue] = useState(initialValue)
 
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -13,5 +13,3 @@ function useInput({ initialValue }: Options) {
 
   return [value, handleChange] as const
 }
-
-export default useInput
