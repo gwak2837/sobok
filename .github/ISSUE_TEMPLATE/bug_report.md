@@ -5,42 +5,27 @@ title: ''
 labels: 'bug'
 assignees: ''
 ---
+
 ## Issue description
 
-### Describe the bug
+<!-- 어떤 이슈 인지 자세히 써주세요. 스크린 샷을 첨부해주시면 이슈를 이해하는데 큰 도움이 될 것 같아요. -->
 
-A clear and concise description of what the bug is.
+## Steps to reproduce the issue
 
-### To Reproduce
+<!-- 이슈를 재현하기 위해 어떻게 해야하는지 설명해주세요 -->
 
-Steps to reproduce the behavior:
+1.
+2.
+3.
 
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+## What's the expected result?
 
-### Expected behavior
+## <!-- 기대하신 동작은 어떤 것이었나요? -->
 
-A clear and concise description of what you expected to happen.
+## What's the actual result?
 
-### Screenshots
+## <!-- 실제로 어떻게 동작하나요? -->
 
-If applicable, add screenshots to help explain your problem.
+## Additional details
 
-### Desktop (please complete the following information):
-
-- OS: [e.g. iOS]
-- Browser [e.g. chrome, safari]
-- Version [e.g. 22]
-
-### Smartphone (please complete the following information):
-
-- Device: [e.g. iPhone6]
-- OS: [e.g. iOS8.1]
-- Browser [e.g. stock browser, safari]
-- Version [e.g. 22]
-
-### Additional context
-
-Add any other context about the problem here.
+<!-- Optional 이슈를 파악하는데 있어서 필요한 다른 정보가 있다면 써주세요   -->
