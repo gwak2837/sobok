@@ -6,7 +6,6 @@
 
 <!-- 왜 이 기능이 필요한지 써주세요. -->
 
-
 ## Additional Considerations
 
 <!-- Optional 해당 기능을 만드는데 추가적으로 고려할 사항에 대해 써주세요 -->
