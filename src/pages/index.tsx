@@ -61,6 +61,9 @@ export default function HomePage() {
       <div>
         <ClientSideLink href="/@userId2">사용자2 페이지</ClientSideLink>
       </div>
+      <div>
+        <ClientSideLink href="/register">회원가입 페이지</ClientSideLink>
+      </div>
       <GridContainer>
         {images.map((imageUrl, i) => (
           <SquareFrame key={i}>

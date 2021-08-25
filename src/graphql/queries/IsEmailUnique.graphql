@@ -1,0 +1,3 @@
+query IsEmailUnique($email: EmailAddress!) {
+  isEmailUnique(email: $email)
+}

@@ -30,6 +30,15 @@ export const FlexContainerColumn = styled.div`
   flex-flow: column nowrap;
 `
 
+export const MarginH4 = styled.h4`
+  margin: 0.5rem;
+`
+
+export const RedText = styled.h5`
+  margin: 0.5rem 0.2rem;
+  color: #800000;
+`
+
 export const focusInExpandFwd = keyframes`
   0% {
     letter-spacing: -0.5em;
