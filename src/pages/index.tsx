@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import ClientSideLink from 'src/components/atoms/ClientSideLink'
+import Link from 'next/link'
 import PageHead from 'src/components/PageHead'
 import styled from 'styled-components'
 
@@ -56,13 +56,13 @@ export default function HomePage() {
   return (
     <PageHead>
       <div>
-        <ClientSideLink href="/@userId1">사용자 페이지</ClientSideLink>
+        <Link href="/@userId1">사용자 페이지</Link>
       </div>
       <div>
-        <ClientSideLink href="/@userId2">사용자2 페이지</ClientSideLink>
+        <Link href="/@userId2">사용자2 페이지</Link>
       </div>
       <div>
-        <ClientSideLink href="/register">회원가입 페이지</ClientSideLink>
+        <Link href="/register">회원가입 페이지</Link>
       </div>
       <GridContainer>
         {images.map((imageUrl, i) => (
