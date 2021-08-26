@@ -349,6 +349,18 @@ export type IsIdUniqueQueryVariables = Exact<{
 
 export type IsIdUniqueQuery = { __typename?: 'Query'; isUniqueNameUnique: boolean }
 
+export type StoreFeedQueryVariables = Exact<{
+  storeId: Scalars['ID']
+}>
+
+export type StoreFeedQuery = {
+  __typename?: 'Query'
+  store?: Maybe<{ __typename?: 'Store'; id: string; name: any }>
+  feed2?: Maybe<
+    Array<{ __typename?: 'Feed'; id: string; contents: Array<any>; imageUrls: Array<any> }>
+  >
+}
+
 export type StoreMenusQueryVariables = Exact<{
   storeId: Scalars['ID']
 }>
@@ -451,6 +463,51 @@ export function useIsIdUniqueLazyQuery(
 export type IsIdUniqueQueryHookResult = ReturnType<typeof useIsIdUniqueQuery>
 export type IsIdUniqueLazyQueryHookResult = ReturnType<typeof useIsIdUniqueLazyQuery>
 export type IsIdUniqueQueryResult = Apollo.QueryResult<IsIdUniqueQuery, IsIdUniqueQueryVariables>
+export const StoreFeedDocument = gql`
+  query StoreFeed($storeId: ID!) {
+    store(id: $storeId) {
+      id
+      name
+    }
+    feed2(storeId: $storeId) {
+      id
+      contents
+      imageUrls
+    }
+  }
+`
+
+/**
+ * __useStoreFeedQuery__
+ *
+ * To run a query within a React component, call `useStoreFeedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStoreFeedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStoreFeedQuery({
+ *   variables: {
+ *      storeId: // value for 'storeId'
+ *   },
+ * });
+ */
+export function useStoreFeedQuery(
+  baseOptions: Apollo.QueryHookOptions<StoreFeedQuery, StoreFeedQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<StoreFeedQuery, StoreFeedQueryVariables>(StoreFeedDocument, options)
+}
+export function useStoreFeedLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<StoreFeedQuery, StoreFeedQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<StoreFeedQuery, StoreFeedQueryVariables>(StoreFeedDocument, options)
+}
+export type StoreFeedQueryHookResult = ReturnType<typeof useStoreFeedQuery>
+export type StoreFeedLazyQueryHookResult = ReturnType<typeof useStoreFeedLazyQuery>
+export type StoreFeedQueryResult = Apollo.QueryResult<StoreFeedQuery, StoreFeedQueryVariables>
 export const StoreMenusDocument = gql`
   query StoreMenus($storeId: ID!) {
     store(id: $storeId) {

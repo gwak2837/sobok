@@ -1,0 +1,11 @@
+query StoreFeed($storeId: ID!) {
+  store(id: $storeId) {
+    id
+    name
+  }
+  feed2(storeId: $storeId) {
+    id
+    contents
+    imageUrls
+  }
+}
