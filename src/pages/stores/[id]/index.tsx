@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { ReactElement, ReactNode } from 'react'
 import PageHead from 'src/components/PageHead'
@@ -5,9 +6,19 @@ import StoreMenuCard from 'src/components/StoreMenuCard'
 import { useStoreMenusQuery } from 'src/graphql/generated/types-and-hooks'
 
 export function StoreLayout({ children }: { children: ReactNode }) {
+  const router = useRouter()
+
+  const storeId = (router.query.id ?? '') as string
+
   return (
     <div>
       <div>매장 레이아웃</div>
+      <div>
+        <Link href={`/stores/${storeId}/feed`}>피드</Link>{' '}
+        <Link href={`/stores/${storeId}`}>메뉴</Link>{' '}
+        <Link href={`/stores/${storeId}/news`}>소식</Link>{' '}
+        <Link href={`/stores/${storeId}/info`}>정보</Link>
+      </div>
       {children}
     </div>
   )
@@ -15,7 +26,7 @@ export function StoreLayout({ children }: { children: ReactNode }) {
 
 const description = ''
 
-export default function StorePage() {
+export default function StoreMenuPage() {
   const router = useRouter()
 
   const storeId = (router.query.id ?? '') as string
@@ -35,6 +46,6 @@ export default function StorePage() {
   )
 }
 
-StorePage.getLayout = function getLayout(page: ReactElement) {
+StoreMenuPage.getLayout = function getLayout(page: ReactElement) {
   return <StoreLayout>{page}</StoreLayout>
 }

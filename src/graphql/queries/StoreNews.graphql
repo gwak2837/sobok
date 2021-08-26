@@ -1,0 +1,13 @@
+query StoreNews($storeId: ID!) {
+  store(id: $storeId) {
+    id
+    name
+  }
+  news3(storeId: $storeId) {
+    id
+    creationTime
+    contents
+    category
+    imageUrls
+  }
+}

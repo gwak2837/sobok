@@ -380,6 +380,25 @@ export type StoreMenusQuery = {
   >
 }
 
+export type StoreNewsQueryVariables = Exact<{
+  storeId: Scalars['ID']
+}>
+
+export type StoreNewsQuery = {
+  __typename?: 'Query'
+  store?: Maybe<{ __typename?: 'Store'; id: string; name: any }>
+  news3?: Maybe<
+    Array<{
+      __typename?: 'News'
+      id: string
+      creationTime: any
+      contents: Array<any>
+      category: any
+      imageUrls?: Maybe<Array<any>>
+    }>
+  >
+}
+
 export const IsEmailUniqueDocument = gql`
   query IsEmailUnique($email: EmailAddress!) {
     isEmailUnique(email: $email)
@@ -555,3 +574,50 @@ export function useStoreMenusLazyQuery(
 export type StoreMenusQueryHookResult = ReturnType<typeof useStoreMenusQuery>
 export type StoreMenusLazyQueryHookResult = ReturnType<typeof useStoreMenusLazyQuery>
 export type StoreMenusQueryResult = Apollo.QueryResult<StoreMenusQuery, StoreMenusQueryVariables>
+export const StoreNewsDocument = gql`
+  query StoreNews($storeId: ID!) {
+    store(id: $storeId) {
+      id
+      name
+    }
+    news3(storeId: $storeId) {
+      id
+      creationTime
+      contents
+      category
+      imageUrls
+    }
+  }
+`
+
+/**
+ * __useStoreNewsQuery__
+ *
+ * To run a query within a React component, call `useStoreNewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStoreNewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStoreNewsQuery({
+ *   variables: {
+ *      storeId: // value for 'storeId'
+ *   },
+ * });
+ */
+export function useStoreNewsQuery(
+  baseOptions: Apollo.QueryHookOptions<StoreNewsQuery, StoreNewsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<StoreNewsQuery, StoreNewsQueryVariables>(StoreNewsDocument, options)
+}
+export function useStoreNewsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<StoreNewsQuery, StoreNewsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<StoreNewsQuery, StoreNewsQueryVariables>(StoreNewsDocument, options)
+}
+export type StoreNewsQueryHookResult = ReturnType<typeof useStoreNewsQuery>
+export type StoreNewsLazyQueryHookResult = ReturnType<typeof useStoreNewsLazyQuery>
+export type StoreNewsQueryResult = Apollo.QueryResult<StoreNewsQuery, StoreNewsQueryVariables>
