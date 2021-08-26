@@ -62,13 +62,16 @@ export type Feed = {
   imageUrls: Array<Scalars['URL']>
   likeCount: Scalars['Int']
   commentCount: Scalars['Int']
-  /** from other table */
+  /** 피드에 태그된 매장 */
+  store: Store
+  /** 피드 작성자 */
   user: User
-  /** from other table - nullable */
+  /** 피드에 달린 댓글 */
   comments?: Maybe<Array<Comment>>
+  /** 피드에 달린 해시태그 */
   hashtags?: Maybe<Array<Scalars['NonEmptyString']>>
+  /** 피드에 태그된 메뉴 목록 */
   menus?: Maybe<Array<Menu>>
-  store?: Maybe<Store>
 }
 
 /** 성별 */
@@ -87,33 +90,36 @@ export type Menu = {
   price: Scalars['Int']
   imageUrls: Array<Scalars['URL']>
   category: Scalars['NonEmptyString']
-  /** from other table */
+  storeId: Scalars['ID']
+  /** 로그인한 사용자가 이 메뉴를 버킷에 담은 여부 */
   isInBucket: Scalars['Boolean']
+  /** 로그인한 사용자가 이 메뉴를 좋아하는 여부 */
   isLiked: Scalars['Boolean']
+  /** 이 메뉴를 판매하는 매장 */
   store: Store
-  /** from other table - nullable */
+  /** 메뉴에 달린 해시태그 */
   hashtags?: Maybe<Array<Scalars['NonEmptyString']>>
 }
 
 export type Mutation = {
   __typename?: 'Mutation'
-  /** 회원가입에 필요한 정보를 주면 성공했을 때 인증 토큰을 반환한다. */
-  register: Scalars['JWT']
-  /** 회원탈퇴 시 사용자 정보가 모두 초기화된다. */
-  unregister: Scalars['Boolean']
-  /** 이메일과 1번 해싱한 비밀번호를 전송하면 인증 토큰을 반환한다. */
-  login: Scalars['JWT']
+  /** 고유 이름 또는 이메일과 1번 해싱한 비밀번호를 전송하면 인증 토큰을 반환한다. */
+  login?: Maybe<Scalars['JWT']>
   /** 인증 토큰과 같이 요청하면 로그아웃 성공 여부를 반환한다. */
   logout: Scalars['Boolean']
+  /** 회원가입에 필요한 정보를 주면 성공했을 때 인증 토큰을 반환한다. */
+  register?: Maybe<Scalars['JWT']>
+  /** 회원탈퇴 시 사용자 정보가 모두 초기화된다. */
+  unregister: Scalars['Boolean']
+}
+
+export type MutationLoginArgs = {
+  uniqueNameOrEmail: Scalars['NonEmptyString']
+  passwordHash: Scalars['NonEmptyString']
 }
 
 export type MutationRegisterArgs = {
   input: RegisterInput
-}
-
-export type MutationLoginArgs = {
-  email: Scalars['EmailAddress']
-  passwordHash: Scalars['NonEmptyString']
 }
 
 export type News = {
@@ -124,10 +130,10 @@ export type News = {
   title: Scalars['NonEmptyString']
   contents: Array<Scalars['NonEmptyString']>
   category: Scalars['NonEmptyString']
-  /** nullable */
   imageUrls?: Maybe<Array<Scalars['URL']>>
-  /** from other table */
+  /** 로그인한 사용자가 이 메뉴를 좋아하는 여부 */
   isLiked: Scalars['Boolean']
+  /** 이 소식을 올린 매장 */
   store: Store
 }
 
@@ -141,7 +147,29 @@ export enum Provider {
 
 export type Query = {
   __typename?: 'Query'
-  storesByTown: Array<Store>
+  /** 피드 상세 */
+  feed?: Maybe<Feed>
+  /** 특정 매장 피드 목록 */
+  feed2?: Maybe<Array<Feed>>
+  /** 특정 동네 피드 목록 */
+  feed3?: Maybe<Array<Feed>>
+  searchFeed?: Maybe<Array<Menu>>
+  searchMenus?: Maybe<Array<Menu>>
+  searchStores?: Maybe<Array<Menu>>
+  menu?: Maybe<Menu>
+  menu2?: Maybe<Menu>
+  menus?: Maybe<Array<Menu>>
+  menus2?: Maybe<Array<Menu>>
+  /** 소식 상세 */
+  news?: Maybe<News>
+  /** 전체 매장 소식 목록 */
+  news2?: Maybe<Array<News>>
+  /** 특정 매장 소식 목록 */
+  news3?: Maybe<Array<News>>
+  /** 특정 매장 정보 */
+  store?: Maybe<Store>
+  /** 동네 및 카테고리별 매장 목록 */
+  stores: Array<Store>
   /** 인증 토큰과 같이 요청하면 사용자 정보를 반환 */
   me: User
   /** 이메일 중복 여부 검사 */
@@ -150,8 +178,64 @@ export type Query = {
   isUniqueNameUnique: Scalars['Boolean']
 }
 
-export type QueryStoresByTownArgs = {
-  town: Scalars['NonEmptyString']
+export type QueryFeedArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryFeed2Args = {
+  storeId: Scalars['ID']
+}
+
+export type QueryFeed3Args = {
+  town: Scalars['ID']
+}
+
+export type QuerySearchFeedArgs = {
+  hashtags: Array<Scalars['NonEmptyString']>
+}
+
+export type QuerySearchMenusArgs = {
+  hashtags: Array<Scalars['NonEmptyString']>
+}
+
+export type QuerySearchStoresArgs = {
+  hashtags: Array<Scalars['NonEmptyString']>
+}
+
+export type QueryMenuArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryMenu2Args = {
+  storeId: Scalars['ID']
+  name: Scalars['NonEmptyString']
+}
+
+export type QueryMenusArgs = {
+  town?: Maybe<Scalars['NonEmptyString']>
+  category?: Maybe<Scalars['NonEmptyString']>
+}
+
+export type QueryMenus2Args = {
+  storeId?: Maybe<Scalars['ID']>
+}
+
+export type QueryNewsArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryNews3Args = {
+  storeId: Scalars['ID']
+  categories?: Maybe<Array<Scalars['NonEmptyString']>>
+}
+
+export type QueryStoreArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryStoresArgs = {
+  town?: Maybe<Scalars['NonEmptyString']>
+  categories?: Maybe<Array<Scalars['NonEmptyString']>>
 }
 
 export type QueryIsEmailUniqueArgs = {
@@ -231,10 +315,6 @@ export type User = {
   comments?: Maybe<Array<Comment>>
   /** 내가 쓴 피드 */
   feed?: Maybe<Array<Feed>>
-  /** 내 메뉴 버킷 리스트 */
-  menuBuckets?: Maybe<Array<Bucket>>
-  /** 내 매장 버킷 리스트 */
-  storeBuckets?: Maybe<Array<Bucket>>
   /** 사용자가 따르고 있는 다른 사용자 */
   followings?: Maybe<Array<User>>
   /** 사용자를 따르는 다른 사용자 */
@@ -251,6 +331,10 @@ export type User = {
   likedStores?: Maybe<Array<Store>>
   /** 좋아요 누른 트렌드 */
   likedTrends?: Maybe<Array<Trend>>
+  /** 내 메뉴 버킷 리스트 */
+  menuBuckets?: Maybe<Array<Bucket>>
+  /** 내 매장 버킷 리스트 */
+  storeBuckets?: Maybe<Array<Bucket>>
 }
 
 export type IsEmailUniqueQueryVariables = Exact<{
@@ -264,6 +348,25 @@ export type IsIdUniqueQueryVariables = Exact<{
 }>
 
 export type IsIdUniqueQuery = { __typename?: 'Query'; isUniqueNameUnique: boolean }
+
+export type StoreMenusQueryVariables = Exact<{
+  storeId: Scalars['ID']
+}>
+
+export type StoreMenusQuery = {
+  __typename?: 'Query'
+  store?: Maybe<{ __typename?: 'Store'; id: string; name: any }>
+  menus2?: Maybe<
+    Array<{
+      __typename?: 'Menu'
+      id: string
+      name: any
+      price: number
+      imageUrls: Array<any>
+      hashtags?: Maybe<Array<any>>
+    }>
+  >
+}
 
 export const IsEmailUniqueDocument = gql`
   query IsEmailUnique($email: EmailAddress!) {
@@ -348,3 +451,50 @@ export function useIsIdUniqueLazyQuery(
 export type IsIdUniqueQueryHookResult = ReturnType<typeof useIsIdUniqueQuery>
 export type IsIdUniqueLazyQueryHookResult = ReturnType<typeof useIsIdUniqueLazyQuery>
 export type IsIdUniqueQueryResult = Apollo.QueryResult<IsIdUniqueQuery, IsIdUniqueQueryVariables>
+export const StoreMenusDocument = gql`
+  query StoreMenus($storeId: ID!) {
+    store(id: $storeId) {
+      id
+      name
+    }
+    menus2(storeId: $storeId) {
+      id
+      name
+      price
+      imageUrls
+      hashtags
+    }
+  }
+`
+
+/**
+ * __useStoreMenusQuery__
+ *
+ * To run a query within a React component, call `useStoreMenusQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStoreMenusQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStoreMenusQuery({
+ *   variables: {
+ *      storeId: // value for 'storeId'
+ *   },
+ * });
+ */
+export function useStoreMenusQuery(
+  baseOptions: Apollo.QueryHookOptions<StoreMenusQuery, StoreMenusQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<StoreMenusQuery, StoreMenusQueryVariables>(StoreMenusDocument, options)
+}
+export function useStoreMenusLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<StoreMenusQuery, StoreMenusQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<StoreMenusQuery, StoreMenusQueryVariables>(StoreMenusDocument, options)
+}
+export type StoreMenusQueryHookResult = ReturnType<typeof useStoreMenusQuery>
+export type StoreMenusLazyQueryHookResult = ReturnType<typeof useStoreMenusLazyQuery>
+export type StoreMenusQueryResult = Apollo.QueryResult<StoreMenusQuery, StoreMenusQueryVariables>

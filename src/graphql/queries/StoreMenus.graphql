@@ -1,0 +1,13 @@
+query StoreMenus($storeId: ID!) {
+  store(id: $storeId) {
+    id
+    name
+  }
+  menus2(storeId: $storeId) {
+    id
+    name
+    price
+    imageUrls
+    hashtags
+  }
+}
