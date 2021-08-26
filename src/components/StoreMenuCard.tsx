@@ -9,7 +9,7 @@ type Props = {
 function StoreMenuCard({ storeMenu }: Props) {
   return (
     <li>
-      <Image src={storeMenu.imageUrls[0]} alt="store-menu" width="300" height="300" />
+      <Image src={storeMenu.imageUrls[0]} alt="store-menu" width="100" height="100" />
       <div>{storeMenu.name}</div>
       <div>{storeMenu.price}</div>
       <div>{storeMenu.hashtags}</div>
