@@ -1,4 +1,6 @@
+import type { ReactElement } from 'react'
 import PageHead from 'src/components/PageHead'
+import { SearchResultLayout } from './all'
 
 const description = ''
 
@@ -8,4 +10,8 @@ export default function StoresSearchPage() {
       {}
     </PageHead>
   )
+}
+
+StoresSearchPage.getLayout = function getLayout(page: ReactElement) {
+  return <SearchResultLayout>{page}</SearchResultLayout>
 }
