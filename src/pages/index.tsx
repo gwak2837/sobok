@@ -71,61 +71,68 @@ const SquareFrame = styled.div`
 
 export default function HomePage() {
   return (
-    <PageHead>
-      <NavigationLayout>
-        <LocalNav>
-          <LocationDiv>
-            <LocationText>흑석동</LocationText>
-            <Link href="/location">
-              <BottomArrowIcon>
-                <Image src={bottomArrowIcon} alt="location" />
-              </BottomArrowIcon>
-            </Link>
-          </LocationDiv>
-          <TopIconDiv>
-            <Link href="/map">
-              <TopIcon>
-                <Image src={mapIcon} alt="map" width={200} height={200} />
-              </TopIcon>
-            </Link>
-            <Link href="/search">
-              <TopIcon>
-                <Image src={searchIcon} alt="search" width={200} height={200} />
-              </TopIcon>
-            </Link>
-          </TopIconDiv>
-        </LocalNav>
-        <Tabs defaultActiveKey="1" tabBarGutter={30} onChange={callback}>
-          <TabPane tab="카페" key="1">
-            카페
-          </TabPane>
-          <TabPane tab="메뉴" key="2">
-            메뉴
-          </TabPane>
-          <TabPane tab="피드" key="3">
-            피드
-          </TabPane>
-        </Tabs>
-        <div>
-          <Link href="/@userId1">사용자 페이지</Link>
-        </div>
-        <div>
-          <Link href="/@userId2">사용자2 페이지</Link>
-        </div>
-        <div>
-          <Link href="/register">회원가입 페이지</Link>
-        </div>
-        <div>
-          <Link href="/login">로그인 페이지</Link>
-        </div>
-        <div>
-          <Link href="/stores/1">매장 페이지</Link>
-        </div>
-      </NavigationLayout>
-    </PageHead>
+    <>
+      <LocalNav>
+        <LocationDiv>
+          <LocationText>흑석동</LocationText>
+          <Link href="/location">
+            <BottomArrowIcon>
+              <Image src={bottomArrowIcon} alt="location" />
+            </BottomArrowIcon>
+          </Link>
+        </LocationDiv>
+        <TopIconDiv>
+          <Link href="/map">
+            <TopIcon>
+              <Image src={mapIcon} alt="map" width={200} height={200} />
+            </TopIcon>
+          </Link>
+          <Link href="/search">
+            <TopIcon>
+              <Image src={searchIcon} alt="search" width={200} height={200} />
+            </TopIcon>
+          </Link>
+        </TopIconDiv>
+      </LocalNav>
+      <Tabs
+        defaultActiveKey="1"
+        tabBarStyle={{ marginTop: '140px', width: '375px' }}
+        tabBarGutter={30}
+        onChange={callback}
+      >
+        <TabPane tab="카페" key="1">
+          카페
+        </TabPane>
+        <TabPane tab="메뉴" key="2">
+          메뉴
+        </TabPane>
+        <TabPane tab="피드" key="3">
+          피드
+        </TabPane>
+      </Tabs>
+      <div>
+        <Link href="/@userId1">사용자 페이지</Link>
+      </div>
+      <div>
+        <Link href="/@userId2">사용자2 페이지</Link>
+      </div>
+      <div>
+        <Link href="/register">회원가입 페이지</Link>
+      </div>
+      <div>
+        <Link href="/login">로그인 페이지</Link>
+      </div>
+      <div>
+        <Link href="/stores/1">매장 페이지</Link>
+      </div>
+    </>
   )
 }
 
 HomePage.getLayout = function getLayout(page: ReactElement) {
-  return <TopHeader>{page}</TopHeader>
+  return (
+    <PageHead>
+      <TopHeader>{page}</TopHeader>
+    </PageHead>
+  )
 }
