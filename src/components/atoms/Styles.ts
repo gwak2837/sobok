@@ -3,6 +3,11 @@ import styled, { keyframes } from 'styled-components'
 export const Padding = styled.div`
   padding: 1rem;
 `
+export const FlexContainerCenterCenter = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 export const FlexContainerAlignCenter = styled.div`
   display: flex;
@@ -28,6 +33,13 @@ export const FlexContainerAround = styled.div`
 export const FlexContainerColumn = styled.div`
   display: flex;
   flex-flow: column nowrap;
+`
+export const GridContainerGap = styled.div`
+  display: grid;
+  gap: 1rem;
+`
+export const GridContainer = styled.div`
+  display: grid;
 `
 
 export const MarginH4 = styled.h4`
