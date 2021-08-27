@@ -1,13 +1,7 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import PageHead from 'src/components/PageHead'
-import TopHeader from 'src/components/TopHeader'
 import NavigationLayout from 'src/layouts/NavigationLayout'
-import styled from 'styled-components'
-import { Tabs } from 'antd'
-import type { ReactElement, ReactNode } from 'react'
-import React from 'react'
+import type { ReactElement } from 'react'
 import HomeLayout from 'src/layouts/HomeLayout'
 
 export default function HomePage() {
