@@ -1,24 +1,22 @@
 import { useRouter } from 'next/router'
-import type { ReactElement } from 'react'
+import { ReactElement, useContext } from 'react'
 import PageHead from 'src/components/PageHead'
 import StoreNewsCard from 'src/components/StoreNewsCard'
 import { useStoreNewsQuery } from 'src/graphql/generated/types-and-hooks'
-import { StoreLayout } from '.'
+import { StoreContext, StoreLayout } from '.'
 
 const description = ''
 
 export default function StoreNewsPage() {
-  const router = useRouter()
-
-  const storeId = (router.query.id ?? '') as string
+  const storeContext = useContext(StoreContext)
+  const storeId = storeContext.id
+  const storeName = storeContext.name
 
   const { data, loading, error } = useStoreNewsQuery({ skip: !storeId, variables: { storeId } })
 
-  const storeName = data?.store?.name ?? '매장'
-
   return (
     <PageHead title={`${storeName} 소식 - 소복`} description={description}>
-      매장 페이지
+      매장 소식 페이지
       {loading && 'loading...'}
       {data?.news3?.map((news) => (
         <StoreNewsCard key={news.id} storeNews={news} />

@@ -1,20 +1,18 @@
 import { useRouter } from 'next/router'
-import type { ReactElement } from 'react'
+import { ReactElement, useContext } from 'react'
 import PageHead from 'src/components/PageHead'
 import StoreFeedCard from 'src/components/StoreFeedCard'
 import { useStoreFeedQuery } from 'src/graphql/generated/types-and-hooks'
-import { StoreLayout } from '.'
+import { StoreContext, StoreLayout } from '.'
 
 const description = ''
 
 export default function StoreFeedPage() {
-  const router = useRouter()
-
-  const storeId = (router.query.id ?? '') as string
+  const storeContext = useContext(StoreContext)
+  const storeId = storeContext.id
+  const storeName = storeContext.name
 
   const { data, loading, error } = useStoreFeedQuery({ variables: { storeId } })
-
-  const storeName = data?.store?.name ?? '매장'
 
   return (
     <PageHead title={`${storeName} 피드 - 소복`} description={description}>
