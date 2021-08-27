@@ -1,5 +1,5 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import PageHead from 'src/components/PageHead'
 import { getUserId } from 'src/utils/commons'
 
@@ -12,7 +12,7 @@ export default function UserPage() {
   return (
     <PageHead title=" - 소복" description={description}>
       <div>
-        <ClientSideLink href="/">홈으로</ClientSideLink>
+        <Link href="/">홈으로</Link>
       </div>
       <div>사용자 페이지</div>
       <div>사용자 아이디: {userId}</div>
