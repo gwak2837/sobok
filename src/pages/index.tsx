@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import PageHead from 'src/components/PageHead'
 import TopHeader from 'src/components/TopHeader'
 import NavigationLayout from 'src/layouts/NavigationLayout'
@@ -34,25 +35,19 @@ export default function HomePage() {
     <PageHead>
       <NavigationLayout>
         <LocalNav>
-          <Link href="/location">
-            <a>
-              <FlexContainer>
-                <LocationH3>흑석동</LocationH3>
-                <Image src="/images/arrow-down.svg" alt="location" width={11} height={6} />
-              </FlexContainer>
-            </a>
-          </Link>
+          <ClientSideLink href="/location">
+            <FlexContainer>
+              <LocationH3>흑석동</LocationH3>
+              <Image src="/images/arrow-down.svg" alt="location" width={11} height={6} />
+            </FlexContainer>
+          </ClientSideLink>
           <TopIconDiv>
-            <Link href="/map">
-              <a>
-                <Image src="/images/map.svg" alt="map" width={19} height={21} />
-              </a>
-            </Link>
-            <Link href="/search">
-              <a>
-                <Image src="/images/search.svg" alt="search" width={20} height={22} />
-              </a>
-            </Link>
+            <ClientSideLink href="/map">
+              <Image src="/images/map.svg" alt="map" width={19} height={21} />
+            </ClientSideLink>
+            <ClientSideLink href="/search">
+              <Image src="/images/search.svg" alt="search" width={20} height={22} />
+            </ClientSideLink>
           </TopIconDiv>
         </LocalNav>
         <div>
