@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { ReactElement, useContext } from 'react'
 import PageHead from 'src/components/PageHead'
 import StoreNewsCard from 'src/components/StoreNewsCard'
