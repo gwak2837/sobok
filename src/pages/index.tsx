@@ -35,6 +35,9 @@ export default function HomePage() {
         <Link href="/register">회원가입 페이지</Link>
       </div>
       <div>
+        <Link href="/login">로그인 페이지</Link>
+      </div>
+      <div>
         <Link href="/stores/1">매장 페이지</Link>
       </div>
     </PageHead>
