@@ -1,0 +1,9 @@
+query Store($storeId: ID!) {
+  store(id: $storeId) {
+    id
+    name
+    description
+    imageUrls
+    isLiked
+  }
+}
