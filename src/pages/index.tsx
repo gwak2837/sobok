@@ -11,10 +11,16 @@ const LocalNav = styled(TopHeader)`
   //padding: 0 1rem;
 `
 const LocationDiv = styled.div`
+  display: flex;
   background-color: antiquewhite;
   //margin-right: auto;
 `
 const TopIconDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 2.6rem;
+  height: 1.3rem;
+  margin: 0;
   background-color: #e2caab;
 `
 
@@ -53,10 +59,10 @@ export default function HomePage() {
           </LocationDiv>
           <TopIconDiv>
             <Link href="/map">
-              <IconImg src="/598@3x.png" alt="map" layout="fill" />
+              <Image src="/598@3x.png" alt="map" layout="fill" />
             </Link>
             <Link href="/search">
-              <IconImg src="/search@3x.png" alt="map" layout="fill" />
+              <Image src="/search@3x.png" alt="map" layout="fill" />
             </Link>
           </TopIconDiv>
         </LocalNav>
