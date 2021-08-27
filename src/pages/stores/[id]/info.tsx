@@ -15,7 +15,7 @@ export default function StoreInfoPage() {
 
   return (
     <PageHead title={`${storeName} 정보 - 소복`} description={description}>
-      매장 정보 페이지
+      <div>매장 정보 페이지</div>
       {loading || !storeDetail ? (
         'loading...'
       ) : (
