@@ -20,6 +20,10 @@ type RegisterFormValues = {
 
 export const validateId = {
   required: '필수 항목입니다.',
+  minLength: {
+    value: 5,
+    message: '최소 5글자 이상 입력해주세요.',
+  },
   maxLength: {
     value: 50,
     message: '최대 50글자 이하로 입력해주세요.',
