@@ -43,12 +43,6 @@ export const GridContainer = styled.div`
   display: grid;
 `
 
-export const IconImg = styled(Image)`
-  width: 1.3rem;
-  height: 1.3rem;
-  margin: 0;
-`
-
 export const MarginH4 = styled.h4`
   margin: 0.5rem;
 `

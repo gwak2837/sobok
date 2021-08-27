@@ -1,7 +1,4 @@
 import Image from 'next/image'
-import mapIcon from '../../public/images/598@3x.png'
-import searchIcon from '../../public/images/search@3x.png'
-import bottomArrowIcon from '../../public/images/bottom_arrow@3x.png'
 import Link from 'next/link'
 import PageHead from 'src/components/PageHead'
 import TopHeader from 'src/components/TopHeader'
@@ -13,16 +10,16 @@ const LocalNav = styled(TopHeader)`
   align-items: center;
   //padding: 0 1rem;
 `
-const LocationDiv = styled.div`
+const FlexContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 4.5rem;
+  align-items: center;
   background-color: antiquewhite;
 `
-const BottomArrowIcon = styled.div`
-  width: 0.8rem;
-  height: 0.4rem;
+const LocationH3 = styled.h3`
+  display: inline-block;
+  color: black;
 `
+
 const TopIconDiv = styled.div`
   display: flex;
   justify-content: space-between;
@@ -31,56 +28,30 @@ const TopIconDiv = styled.div`
   margin: 0;
   background-color: #e2caab;
 `
-const TopIcon = styled.div`
-  width: 1.3rem;
-  height: 1.3rem;
-`
-const LocationText = styled.div`
-  font-size: 1.22rem;
-  font-weight: 700;
-`
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  gap: 0.5rem;
-`
-
-const SquareFrame = styled.div`
-  padding-top: 100%;
-  position: relative;
-
-  img {
-    transition: transform 1s;
-  }
-
-  img:hover {
-    transform: rotateY(180deg);
-  }
-`
 
 export default function HomePage() {
   return (
     <PageHead>
       <NavigationLayout>
         <LocalNav>
-          <LocationDiv>
-            <LocationText>흑석동</LocationText>
-            <Link href="/location">
-              <BottomArrowIcon>
-                <Image src={bottomArrowIcon} alt="location" />
-              </BottomArrowIcon>
-            </Link>
-          </LocationDiv>
+          <Link href="/location">
+            <a>
+              <FlexContainer>
+                <LocationH3>흑석동</LocationH3>
+                <Image src="/images/arrow-down.svg" alt="location" width={11} height={6} />
+              </FlexContainer>
+            </a>
+          </Link>
           <TopIconDiv>
             <Link href="/map">
-              <TopIcon>
-                <Image src={mapIcon} alt="map" width={200} height={200} />
-              </TopIcon>
+              <a>
+                <Image src="/images/map.svg" alt="map" width={19} height={21} />
+              </a>
             </Link>
             <Link href="/search">
-              <TopIcon>
-                <Image src={searchIcon} alt="search" width={200} height={200} />
-              </TopIcon>
+              <a>
+                <Image src="/images/search.svg" alt="search" width={20} height={22} />
+              </a>
             </Link>
           </TopIconDiv>
         </LocalNav>
