@@ -5,6 +5,7 @@ import bottomArrowIcon from '../../public/images/bottom_arrow@3x.png'
 import Link from 'next/link'
 import PageHead from 'src/components/PageHead'
 import TopHeader from 'src/components/TopHeader'
+import BottomHeader from 'src/components/BottomHeader'
 import NavigationLayout from 'src/layouts/NavigationLayout'
 import styled from 'styled-components'
 import { Tabs } from 'antd'
@@ -132,7 +133,9 @@ export default function HomePage() {
 HomePage.getLayout = function getLayout(page: ReactElement) {
   return (
     <PageHead>
-      <TopHeader>{page}</TopHeader>
+      <TopHeader>
+        <BottomHeader>{page}</BottomHeader>
+      </TopHeader>
     </PageHead>
   )
 }

@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, ReactNode } from 'react'
 import {
   HEADER_HEIGHT,
   TABLET_MIN_WIDTH,
@@ -46,59 +46,66 @@ const TextDiv = styled.div`
 const SelectedStyle = { color: SOBOK_COLOR }
 const UnSelectedStyle = { color: LIGHT_GREY }
 
-function BottomHeader() {
+type Props = {
+  children: ReactNode
+}
+
+function BottomHeader({ children }: Props) {
   const { asPath } = useRouter()
 
   const userId = 'userId'
   const homePageUrl = '/'
   const newsPageUrl = '/feed'
   const trendPageUrl = '/trend'
-  const bucketPageUrl = '/{userId}/buckets' // TODO: bucket 페이지 만들고 경로 수정
-  const myPageUrl = '/{userId}' // TODO: mypage 페이지 만들고 경로 수정
+  const bucketPageUrl = '/' // TODO: bucket 페이지 만들고 경로 수정
+  const myPageUrl = '/' // TODO: mypage 페이지 만들고 경로 수정
 
   return (
-    <FixedHeader>
-      <NaigationContainer>
-        <Link href={homePageUrl}>
-          <IconDiv style={asPath === homePageUrl ? SelectedStyle : UnSelectedStyle}>
-            <Image src="/images/news.svg" alt="news" width={18} height={18} />
-          </IconDiv>
-          <TextDiv>소식</TextDiv>
-        </Link>
-      </NaigationContainer>
-      <NaigationContainer>
-        <Link href={trendPageUrl}>
-          <IconDiv style={asPath === trendPageUrl ? SelectedStyle : UnSelectedStyle}>
-            <Image src="/images/trend.svg" alt="trend" width={17} height={19} />
-          </IconDiv>
-          <TextDiv>트렌드</TextDiv>
-        </Link>
-      </NaigationContainer>
-      <NaigationContainer>
-        <Link href={homePageUrl}>
-          <IconDiv style={asPath === homePageUrl ? SelectedStyle : UnSelectedStyle}>
-            <Image src="/images/home.svg" alt="home" width={24} height={21} />
-          </IconDiv>
-          <TextDiv>홈</TextDiv>
-        </Link>
-      </NaigationContainer>
-      <NaigationContainer>
-        <Link href={bucketPageUrl}>
-          <IconDiv style={asPath === bucketPageUrl ? SelectedStyle : UnSelectedStyle}>
-            <Image src="/images/bucket.svg" alt="bucket" width={18} height={16} />
-          </IconDiv>
-          <TextDiv>버킷</TextDiv>
-        </Link>
-      </NaigationContainer>
-      <NaigationContainer>
-        <Link href={myPageUrl}>
-          <IconDiv style={asPath === myPageUrl ? SelectedStyle : UnSelectedStyle}>
-            <Image src="/images/my.svg" alt="my" width={16} height={19} />
-          </IconDiv>
-          <TextDiv>MY</TextDiv>
-        </Link>
-      </NaigationContainer>
-    </FixedHeader>
+    <>
+      <FixedHeader>
+        <NaigationContainer>
+          <Link href={newsPageUrl}>
+            <IconDiv style={asPath === newsPageUrl ? SelectedStyle : UnSelectedStyle}>
+              <Image src="/images/news.svg" alt="news" width={18} height={18} />
+            </IconDiv>
+            <TextDiv>소식</TextDiv>
+          </Link>
+        </NaigationContainer>
+        <NaigationContainer>
+          <Link href={trendPageUrl}>
+            <IconDiv style={asPath === trendPageUrl ? SelectedStyle : UnSelectedStyle}>
+              <Image src="/images/trend.svg" alt="trend" width={17} height={19} />
+            </IconDiv>
+            <TextDiv>트렌드</TextDiv>
+          </Link>
+        </NaigationContainer>
+        <NaigationContainer>
+          <Link href={homePageUrl}>
+            <IconDiv style={asPath === homePageUrl ? SelectedStyle : UnSelectedStyle}>
+              <Image src="/images/home.svg" alt="home" width={24} height={21} />
+            </IconDiv>
+            <TextDiv>홈</TextDiv>
+          </Link>
+        </NaigationContainer>
+        <NaigationContainer>
+          <Link href={bucketPageUrl}>
+            <IconDiv style={asPath === bucketPageUrl ? SelectedStyle : UnSelectedStyle}>
+              <Image src="/images/bucket.svg" alt="bucket" width={18} height={16} />
+            </IconDiv>
+            <TextDiv>버킷</TextDiv>
+          </Link>
+        </NaigationContainer>
+        <NaigationContainer>
+          <Link href={myPageUrl}>
+            <IconDiv style={asPath === myPageUrl ? SelectedStyle : UnSelectedStyle}>
+              <Image src="/images/my.svg" alt="my" width={16} height={19} />
+            </IconDiv>
+            <TextDiv>MY</TextDiv>
+          </Link>
+        </NaigationContainer>
+      </FixedHeader>
+      {children}
+    </>
   )
 }
 
