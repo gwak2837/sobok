@@ -88,6 +88,7 @@ export type Menu = {
   modificationTime: Scalars['DateTime']
   name: Scalars['NonEmptyString']
   price: Scalars['Int']
+  isSoldOut: Scalars['Boolean']
   imageUrls: Array<Scalars['URL']>
   category: Scalars['NonEmptyString']
   storeId: Scalars['ID']
@@ -410,6 +411,26 @@ export type StoreFeedQuery = {
   feed2?: Maybe<
     Array<{ __typename?: 'Feed'; id: string; contents: Array<any>; imageUrls: Array<any> }>
   >
+}
+
+export type StoreMenuQueryVariables = Exact<{
+  storeId: Scalars['ID']
+  menuName: Scalars['NonEmptyString']
+}>
+
+export type StoreMenuQuery = {
+  __typename?: 'Query'
+  menu2?: Maybe<{
+    __typename?: 'Menu'
+    id: string
+    name: any
+    price: number
+    isSoldOut: boolean
+    imageUrls: Array<any>
+    isLiked: boolean
+    hashtags?: Maybe<Array<any>>
+    store: { __typename?: 'Store'; id: string; name: any; imageUrls?: Maybe<Array<any>> }
+  }>
 }
 
 export type StoreMenusQueryVariables = Exact<{
@@ -772,6 +793,57 @@ export function useStoreFeedLazyQuery(
 export type StoreFeedQueryHookResult = ReturnType<typeof useStoreFeedQuery>
 export type StoreFeedLazyQueryHookResult = ReturnType<typeof useStoreFeedLazyQuery>
 export type StoreFeedQueryResult = Apollo.QueryResult<StoreFeedQuery, StoreFeedQueryVariables>
+export const StoreMenuDocument = gql`
+  query StoreMenu($storeId: ID!, $menuName: NonEmptyString!) {
+    menu2(storeId: $storeId, name: $menuName) {
+      id
+      name
+      price
+      isSoldOut
+      imageUrls
+      store {
+        id
+        name
+        imageUrls
+      }
+      isLiked
+      hashtags
+    }
+  }
+`
+
+/**
+ * __useStoreMenuQuery__
+ *
+ * To run a query within a React component, call `useStoreMenuQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStoreMenuQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStoreMenuQuery({
+ *   variables: {
+ *      storeId: // value for 'storeId'
+ *      menuName: // value for 'menuName'
+ *   },
+ * });
+ */
+export function useStoreMenuQuery(
+  baseOptions: Apollo.QueryHookOptions<StoreMenuQuery, StoreMenuQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<StoreMenuQuery, StoreMenuQueryVariables>(StoreMenuDocument, options)
+}
+export function useStoreMenuLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<StoreMenuQuery, StoreMenuQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<StoreMenuQuery, StoreMenuQueryVariables>(StoreMenuDocument, options)
+}
+export type StoreMenuQueryHookResult = ReturnType<typeof useStoreMenuQuery>
+export type StoreMenuLazyQueryHookResult = ReturnType<typeof useStoreMenuLazyQuery>
+export type StoreMenuQueryResult = Apollo.QueryResult<StoreMenuQuery, StoreMenuQueryVariables>
 export const StoreMenusDocument = gql`
   query StoreMenus($storeId: ID!) {
     menus2(storeId: $storeId) {
