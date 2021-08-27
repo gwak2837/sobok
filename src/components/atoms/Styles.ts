@@ -123,3 +123,16 @@ export const SkeletonText = styled(SkeletonGradient)<{ width?: string; height?: 
 export const NoMarginH2 = styled.h2`
   margin: 0;
 `
+
+export const SquareFrame = styled.div`
+  padding-top: 100%;
+  position: relative;
+
+  img {
+    transition: transform 1s;
+  }
+
+  img:hover {
+    transform: rotateY(180deg);
+  }
+`

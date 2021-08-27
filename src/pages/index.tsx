@@ -3,25 +3,6 @@ import Link from 'next/link'
 import PageHead from 'src/components/PageHead'
 import styled from 'styled-components'
 
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  gap: 0.5rem;
-`
-
-const SquareFrame = styled.div`
-  padding-top: 100%;
-  position: relative;
-
-  img {
-    transition: transform 1s;
-  }
-
-  img:hover {
-    transform: rotateY(180deg);
-  }
-`
-
 export default function HomePage() {
   return (
     <PageHead>

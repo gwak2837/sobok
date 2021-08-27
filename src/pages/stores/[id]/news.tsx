@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { ReactElement, useContext } from 'react'
 import PageHead from 'src/components/PageHead'
 import StoreNewsCard from 'src/components/StoreNewsCard'
@@ -16,7 +15,7 @@ export default function StoreNewsPage() {
 
   return (
     <PageHead title={`${storeName} 소식 - 소복`} description={description}>
-      매장 소식 페이지
+      <div>매장 소식 페이지</div>
       {loading && 'loading...'}
       {data?.news3?.map((news) => (
         <StoreNewsCard key={news.id} storeNews={news} />
