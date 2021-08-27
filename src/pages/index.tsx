@@ -7,6 +7,8 @@ import PageHead from 'src/components/PageHead'
 import TopHeader from 'src/components/TopHeader'
 import NavigationLayout from 'src/layouts/NavigationLayout'
 import styled from 'styled-components'
+import { Tabs } from 'antd'
+import type { ReactElement } from 'react'
 
 const LocalNav = styled(TopHeader)`
   justify-content: space-between;
@@ -17,7 +19,6 @@ const LocationDiv = styled.div`
   display: flex;
   justify-content: space-between;
   width: 4.5rem;
-  background-color: antiquewhite;
 `
 const BottomArrowIcon = styled.div`
   width: 0.8rem;
@@ -29,7 +30,6 @@ const TopIconDiv = styled.div`
   width: 3.5rem;
   height: 1.3rem;
   margin: 0;
-  background-color: #e2caab;
 `
 const TopIcon = styled.div`
   width: 1.3rem;
@@ -39,6 +39,17 @@ const LocationText = styled.div`
   font-size: 1.22rem;
   font-weight: 700;
 `
+
+const { TabPane } = Tabs
+
+const tabBarStyle = {
+  width: '256px',
+}
+
+function callback(key: string) {
+  console.log(key)
+}
+
 const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
@@ -84,6 +95,17 @@ export default function HomePage() {
             </Link>
           </TopIconDiv>
         </LocalNav>
+        <Tabs defaultActiveKey="1" tabBarGutter={30} onChange={callback}>
+          <TabPane tab="카페" key="1">
+            카페
+          </TabPane>
+          <TabPane tab="메뉴" key="2">
+            메뉴
+          </TabPane>
+          <TabPane tab="피드" key="3">
+            피드
+          </TabPane>
+        </Tabs>
         <div>
           <Link href="/@userId1">사용자 페이지</Link>
         </div>
@@ -102,4 +124,8 @@ export default function HomePage() {
       </NavigationLayout>
     </PageHead>
   )
+}
+
+HomePage.getLayout = function getLayout(page: ReactElement) {
+  return <TopHeader>{page}</TopHeader>
 }
