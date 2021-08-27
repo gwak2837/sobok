@@ -21,13 +21,17 @@ html {
   margin: 0;
 }
 
+.ant-tabs {
+  font-size: 1.1rem;
+}
+
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: black;
   font-weight: bold;
 }
 
 .ant-tabs-ink-bar {
-  background: #ff9a88;
+  background: #ff9f74;
 }
 
 .ant-tabs-tab:hover,
@@ -37,7 +41,7 @@ html {
 .ant-tabs-tab-remove:hover,
 .ant-tabs-tab-btn:active,
 .ant-tabs-tab-remove:active {
-  color: #ff5e3d;
+  color: #ff9f74;
 }
 
 .ant-tabs > .ant-tabs-nav {
@@ -48,12 +52,10 @@ html {
 
 .ant-tabs-large > .ant-tabs-nav .ant-tabs-tab {
   padding: 16px 0;
-  font-size: inherit;
 }
 
 .ant-tabs-tab + .ant-tabs-tab {
   margin: 0 0 0 25px;
-  font-size: inherit;
 }
 
 .ant-carousel .slick-dots {
@@ -65,9 +67,9 @@ html {
 }
 
 .ant-carousel .slick-dots li.slick-active button {
-  background: #ff9a88;
+  background: #ff9f74;
 }
 
 .ant-btn-link {
-  color: #ff5e3d;
+  color: #ff9f74;
 }
