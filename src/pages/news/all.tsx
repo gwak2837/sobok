@@ -1,4 +1,6 @@
+import { ReactElement } from 'react'
 import PageHead from 'src/components/PageHead'
+import { NewsLayout } from '.'
 
 const description = ''
 
@@ -8,4 +10,8 @@ export default function AllStoreNewsPage() {
       {}
     </PageHead>
   )
+}
+
+AllStoreNewsPage.getLayout = function getLayout(page: ReactElement) {
+  return <NewsLayout>{page}</NewsLayout>
 }
