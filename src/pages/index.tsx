@@ -1,26 +1,32 @@
 import Image from 'next/image'
 import mapIcon from '../../public/images/598@3x.png'
 import searchIcon from '../../public/images/search@3x.png'
+import bottomArrowIcon from '../../public/images/bottom_arrow@3x.png'
 import Link from 'next/link'
 import PageHead from 'src/components/PageHead'
 import TopHeader from 'src/components/TopHeader'
 import NavigationLayout from 'src/layouts/NavigationLayout'
 import styled from 'styled-components'
-import { IconImg } from 'src/components/atoms/Styles'
 
 const LocalNav = styled(TopHeader)`
   justify-content: space-between;
+  align-items: center;
   //padding: 0 1rem;
 `
 const LocationDiv = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 4.5rem;
   background-color: antiquewhite;
-  //margin-right: auto;
+`
+const BottomArrowIcon = styled.div`
+  width: 0.8rem;
+  height: 0.4rem;
 `
 const TopIconDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 2.6rem;
+  width: 3.5rem;
   height: 1.3rem;
   margin: 0;
   background-color: #e2caab;
@@ -29,7 +35,6 @@ const TopIcon = styled.div`
   width: 1.3rem;
   height: 1.3rem;
 `
-
 const LocationText = styled.div`
   font-size: 1.22rem;
   font-weight: 700;
@@ -61,7 +66,9 @@ export default function HomePage() {
           <LocationDiv>
             <LocationText>흑석동</LocationText>
             <Link href="/location">
-              <LocationText>{'>'}</LocationText>
+              <BottomArrowIcon>
+                <Image src={bottomArrowIcon} alt="location" />
+              </BottomArrowIcon>
             </Link>
           </LocationDiv>
           <TopIconDiv>
@@ -72,7 +79,7 @@ export default function HomePage() {
             </Link>
             <Link href="/search">
               <TopIcon>
-                <Image src={searchIcon} alt="map" width={200} height={200} />
+                <Image src={searchIcon} alt="search" width={200} height={200} />
               </TopIcon>
             </Link>
           </TopIconDiv>
