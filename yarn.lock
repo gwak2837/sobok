@@ -3276,9 +3276,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"antd@npm:^4.16.12":
-  version: 4.16.12
-  resolution: "antd@npm:4.16.12"
+"antd@npm:^4.16.13":
+  version: 4.16.13
+  resolution: "antd@npm:4.16.13"
   dependencies:
     "@ant-design/colors": ^6.0.0
     "@ant-design/icons": ^4.6.3
@@ -3324,7 +3324,7 @@ __metadata:
   peerDependencies:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
-  checksum: 11edd06fc40e55a23c581ec89aef2829bda4512d6ba8d93b4224013516522f496f08ff61778ac7326e7113d857c155f0dcac4d66722fba4e5838c459b1e2d242
+  checksum: 1cc7e03317e2832b8425a4593f2ddf9566d6ae921a4aacccb6d1de3965728f763be2302ce79c3858214b0ba659d0cb438e273c72d3703d51ec285388f72a3daa
   languageName: node
   linkType: hard
 
@@ -5435,7 +5435,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-node@npm:^0.3.4, eslint-import-resolver-node@npm:^0.3.5":
+"eslint-import-resolver-node@npm:*, eslint-import-resolver-node@npm:^0.3.4, eslint-import-resolver-node@npm:^0.3.5":
   version: 0.3.6
   resolution: "eslint-import-resolver-node@npm:0.3.6"
   dependencies:
@@ -11359,7 +11359,7 @@ resolve@^2.0.0-next.3:
     "@typescript-eslint/eslint-plugin": ^4.29.2
     "@typescript-eslint/parser": ^4.29.2
     animate.css: ^4.1.1
-    antd: ^4.16.12
+    antd: ^4.16.13
     babel-plugin-styled-components: ^1.13.2
     date-fns: ^2.23.0
     dotenv: ^10.0.0
