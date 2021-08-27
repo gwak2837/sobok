@@ -349,13 +349,47 @@ export type IsIdUniqueQueryVariables = Exact<{
 
 export type IsIdUniqueQuery = { __typename?: 'Query'; isUniqueNameUnique: boolean }
 
+export type StoreQueryVariables = Exact<{
+  storeId: Scalars['ID']
+}>
+
+export type StoreQuery = {
+  __typename?: 'Query'
+  store?: Maybe<{
+    __typename?: 'Store'
+    id: string
+    name: any
+    description?: Maybe<string>
+    imageUrls?: Maybe<Array<any>>
+    isLiked: boolean
+  }>
+}
+
+export type StoreDetailQueryVariables = Exact<{
+  storeId: Scalars['ID']
+}>
+
+export type StoreDetailQuery = {
+  __typename?: 'Query'
+  store?: Maybe<{
+    __typename?: 'Store'
+    id: string
+    tel?: Maybe<string>
+    address: any
+    registrationNumber?: Maybe<string>
+    businessHours?: Maybe<Array<any>>
+    holidays?: Maybe<Array<any>>
+    categories: Array<any>
+    hashtags?: Maybe<Array<any>>
+  }>
+}
+
 export type StoreFeedQueryVariables = Exact<{
   storeId: Scalars['ID']
 }>
 
 export type StoreFeedQuery = {
   __typename?: 'Query'
-  store?: Maybe<{ __typename?: 'Store'; id: string; name: any }>
   feed2?: Maybe<
     Array<{ __typename?: 'Feed'; id: string; contents: Array<any>; imageUrls: Array<any> }>
   >
@@ -367,7 +401,6 @@ export type StoreMenusQueryVariables = Exact<{
 
 export type StoreMenusQuery = {
   __typename?: 'Query'
-  store?: Maybe<{ __typename?: 'Store'; id: string; name: any }>
   menus2?: Maybe<
     Array<{
       __typename?: 'Menu'
@@ -386,7 +419,6 @@ export type StoreNewsQueryVariables = Exact<{
 
 export type StoreNewsQuery = {
   __typename?: 'Query'
-  store?: Maybe<{ __typename?: 'Store'; id: string; name: any }>
   news3?: Maybe<
     Array<{
       __typename?: 'News'
@@ -482,12 +514,100 @@ export function useIsIdUniqueLazyQuery(
 export type IsIdUniqueQueryHookResult = ReturnType<typeof useIsIdUniqueQuery>
 export type IsIdUniqueLazyQueryHookResult = ReturnType<typeof useIsIdUniqueLazyQuery>
 export type IsIdUniqueQueryResult = Apollo.QueryResult<IsIdUniqueQuery, IsIdUniqueQueryVariables>
-export const StoreFeedDocument = gql`
-  query StoreFeed($storeId: ID!) {
+export const StoreDocument = gql`
+  query Store($storeId: ID!) {
     store(id: $storeId) {
       id
       name
+      description
+      imageUrls
+      isLiked
     }
+  }
+`
+
+/**
+ * __useStoreQuery__
+ *
+ * To run a query within a React component, call `useStoreQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStoreQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStoreQuery({
+ *   variables: {
+ *      storeId: // value for 'storeId'
+ *   },
+ * });
+ */
+export function useStoreQuery(
+  baseOptions: Apollo.QueryHookOptions<StoreQuery, StoreQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<StoreQuery, StoreQueryVariables>(StoreDocument, options)
+}
+export function useStoreLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<StoreQuery, StoreQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<StoreQuery, StoreQueryVariables>(StoreDocument, options)
+}
+export type StoreQueryHookResult = ReturnType<typeof useStoreQuery>
+export type StoreLazyQueryHookResult = ReturnType<typeof useStoreLazyQuery>
+export type StoreQueryResult = Apollo.QueryResult<StoreQuery, StoreQueryVariables>
+export const StoreDetailDocument = gql`
+  query StoreDetail($storeId: ID!) {
+    store(id: $storeId) {
+      id
+      tel
+      address
+      registrationNumber
+      businessHours
+      holidays
+      categories
+      hashtags
+    }
+  }
+`
+
+/**
+ * __useStoreDetailQuery__
+ *
+ * To run a query within a React component, call `useStoreDetailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStoreDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStoreDetailQuery({
+ *   variables: {
+ *      storeId: // value for 'storeId'
+ *   },
+ * });
+ */
+export function useStoreDetailQuery(
+  baseOptions: Apollo.QueryHookOptions<StoreDetailQuery, StoreDetailQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<StoreDetailQuery, StoreDetailQueryVariables>(StoreDetailDocument, options)
+}
+export function useStoreDetailLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<StoreDetailQuery, StoreDetailQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<StoreDetailQuery, StoreDetailQueryVariables>(
+    StoreDetailDocument,
+    options
+  )
+}
+export type StoreDetailQueryHookResult = ReturnType<typeof useStoreDetailQuery>
+export type StoreDetailLazyQueryHookResult = ReturnType<typeof useStoreDetailLazyQuery>
+export type StoreDetailQueryResult = Apollo.QueryResult<StoreDetailQuery, StoreDetailQueryVariables>
+export const StoreFeedDocument = gql`
+  query StoreFeed($storeId: ID!) {
     feed2(storeId: $storeId) {
       id
       contents
@@ -529,10 +649,6 @@ export type StoreFeedLazyQueryHookResult = ReturnType<typeof useStoreFeedLazyQue
 export type StoreFeedQueryResult = Apollo.QueryResult<StoreFeedQuery, StoreFeedQueryVariables>
 export const StoreMenusDocument = gql`
   query StoreMenus($storeId: ID!) {
-    store(id: $storeId) {
-      id
-      name
-    }
     menus2(storeId: $storeId) {
       id
       name
@@ -576,10 +692,6 @@ export type StoreMenusLazyQueryHookResult = ReturnType<typeof useStoreMenusLazyQ
 export type StoreMenusQueryResult = Apollo.QueryResult<StoreMenusQuery, StoreMenusQueryVariables>
 export const StoreNewsDocument = gql`
   query StoreNews($storeId: ID!) {
-    store(id: $storeId) {
-      id
-      name
-    }
     news3(storeId: $storeId) {
       id
       creationTime
