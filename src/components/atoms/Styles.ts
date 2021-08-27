@@ -43,7 +43,7 @@ export const GridContainer = styled.div`
   display: grid;
 `
 
-export const IconImg = styled.Image`
+export const IconImg = styled(Image)`
   width: 1.3rem;
   height: 1.3rem;
   margin: 0;
