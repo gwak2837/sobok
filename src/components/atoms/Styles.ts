@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components'
+import Image from 'next/image'
 
 export const Padding = styled.div`
   padding: 1rem;
@@ -40,6 +41,12 @@ export const GridContainerGap = styled.div`
 `
 export const GridContainer = styled.div`
   display: grid;
+`
+
+export const IconImg = styled.Image`
+  width: 1.3rem;
+  height: 1.3rem;
+  margin: 0;
 `
 
 export const MarginH4 = styled.h4`
