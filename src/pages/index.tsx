@@ -29,7 +29,8 @@ const TopIcon = styled.div`
 `
 
 const LocationText = styled.div`
-  font-size: 1.3rem;
+  font-size: 1.22rem;
+  font-weight: 700;
 `
 const GridContainer = styled.div`
   display: grid;
