@@ -23,6 +23,10 @@ const TopIconDiv = styled.div`
   margin: 0;
   background-color: #e2caab;
 `
+const TopIcon = styled.div`
+  width: 1.3rem;
+  height: 1.3rem;
+`
 
 const LocationText = styled.div`
   font-size: 1.3rem;
@@ -59,10 +63,14 @@ export default function HomePage() {
           </LocationDiv>
           <TopIconDiv>
             <Link href="/map">
-              <Image src="/598@3x.png" alt="map" layout="fill" />
+              <TopIcon>
+                <Image src="/598@3x.png" alt="map" width={200} height={200} />
+              </TopIcon>
             </Link>
             <Link href="/search">
-              <Image src="/search@3x.png" alt="map" layout="fill" />
+              <TopIcon>
+                <Image src="/search@3x.png" alt="map" width={200} height={200} />
+              </TopIcon>
             </Link>
           </TopIconDiv>
         </LocalNav>
