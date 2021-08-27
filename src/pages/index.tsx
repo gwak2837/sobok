@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import mapIcon from '../../public/images/598@3x.png'
+import searchIcon from '../../public/images/search@3x.png'
 import Link from 'next/link'
 import PageHead from 'src/components/PageHead'
 import TopHeader from 'src/components/TopHeader'
@@ -65,12 +67,12 @@ export default function HomePage() {
           <TopIconDiv>
             <Link href="/map">
               <TopIcon>
-                <Image src="/598@3x.png" alt="map" width={200} height={200} />
+                <Image src={mapIcon} alt="map" width={200} height={200} />
               </TopIcon>
             </Link>
             <Link href="/search">
               <TopIcon>
-                <Image src="/search@3x.png" alt="map" width={200} height={200} />
+                <Image src={searchIcon} alt="map" width={200} height={200} />
               </TopIcon>
             </Link>
           </TopIconDiv>
