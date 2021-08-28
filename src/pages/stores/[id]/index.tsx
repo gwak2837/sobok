@@ -35,17 +35,22 @@ export function StoreLayout({ children }: { children: ReactNode }) {
 
   return (
     <div>
-      {loading && 'loading...'}
       <Image
-        src={store?.imageUrls ? store.imageUrls[0] : '/images/default-store-cover.png'}
+        src={store?.imageUrls?.[0] ?? '/images/default-store-cover.png'}
         alt="store-cover"
         width="200"
         height="200"
         objectFit="cover"
       />
-      <h2>{storeName}</h2>
-      <div>{store?.description}</div>
-      <div>{store?.isLiked ? <HeartTwoTone twoToneColor="#ff9f74" /> : <HeartOutlined />}</div>
+      {loading || !store ? (
+        'loading...'
+      ) : (
+        <>
+          <h2>{storeName}</h2>
+          <div>{store.description}</div>
+          <div>{store.isLiked ? <HeartTwoTone twoToneColor="#ff9f74" /> : <HeartOutlined />}</div>
+        </>
+      )}
       <div>
         <Link href={`/stores/${storeId}/feed`}>피드</Link>{' '}
         <Link href={`/stores/${storeId}`}>메뉴</Link>{' '}
@@ -68,7 +73,7 @@ export default function StoreMenuPage() {
 
   return (
     <PageHead title={`${storeName} 메뉴 - 소복`} description={description}>
-      매장 페이지
+      <div>매장 페이지</div>
       {loading && 'loading...'}
       {data?.menus2?.map((menu) => (
         <StoreMenuCard key={menu.id} storeMenu={menu} />

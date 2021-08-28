@@ -1,7 +1,13 @@
 import styled, { keyframes } from 'styled-components'
+import Image from 'next/image'
 
 export const Padding = styled.div`
   padding: 1rem;
+`
+export const FlexContainerCenterCenter = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 export const FlexContainerAlignCenter = styled.div`
@@ -28,6 +34,13 @@ export const FlexContainerAround = styled.div`
 export const FlexContainerColumn = styled.div`
   display: flex;
   flex-flow: column nowrap;
+`
+export const GridContainerGap = styled.div`
+  display: grid;
+  gap: 1rem;
+`
+export const GridContainer = styled.div`
+  display: grid;
 `
 
 export const MarginH4 = styled.h4`
@@ -122,4 +135,17 @@ export const SkeletonText = styled(SkeletonGradient)<{ width?: string; height?: 
 
 export const NoMarginH2 = styled.h2`
   margin: 0;
+`
+
+export const SquareFrame = styled.div`
+  padding-top: 100%;
+  position: relative;
+
+  img {
+    transition: transform 1s;
+  }
+
+  img:hover {
+    transform: rotateY(180deg);
+  }
 `
