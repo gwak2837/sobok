@@ -16,5 +16,9 @@ export default function FeedPage() {
 }
 
 FeedPage.getLayout = function getLayout(page: ReactElement) {
-  return <NavigationLayout>{page}</NavigationLayout>
+  return (
+    <NavigationLayout>
+      <HomeLayout>{page}</HomeLayout>
+    </NavigationLayout>
+  )
 }

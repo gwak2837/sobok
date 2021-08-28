@@ -51,8 +51,6 @@ export default function NavigationLayout({ children }: Props) {
 
   const userId = 'userId1'
 
-  console.log(asPath)
-
   return (
     <>
       {children}
