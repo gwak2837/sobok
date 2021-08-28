@@ -30,18 +30,14 @@ const NaigationContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 40px;
+  justify-items: center;
 `
 const IconDiv = styled.div`
-  width: 30px;
-  height: 20px;
+  text-align: center;
 `
 
 const TextDiv = styled.div`
-  width: 30px;
-  height: 20px;
+  text-align: center;
 `
 
 const SelectedStyle = { color: SOBOK_COLOR }
