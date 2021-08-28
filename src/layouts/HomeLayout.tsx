@@ -1,4 +1,4 @@
-import { Tabs } from 'antd'
+import { Tabs, Carousel } from 'antd'
 import Image from 'next/image'
 import router from 'next/router'
 import { createContext, ReactNode, useMemo } from 'react'
@@ -51,8 +51,8 @@ const TopIconDiv = styled.div`
 
 const townName = '흑석동'
 
-type THomeContext = {
-  townName: string
+function onChange(a: any, b: any, c: any) {
+  console.log(a, b, c)
 }
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -63,6 +63,18 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
 
   function goToTabPage(activeKey: string) {
     router.push(activeKey)
+  }
+
+  const contentStyle = {
+    height: '160px',
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79',
+  }
+
+  type THomeContext = {
+    townName: string
   }
 
   return (
@@ -89,7 +101,21 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
         <TabPane tab="메뉴" key="/menus" />
         <TabPane tab="피드" key="/feed" />
       </Tabs>
-      <HomeContext.Provider value={homeContext}>{children}</HomeContext.Provider>
+      <Carousel afterChange={onChange}>
+        <div>
+          <h3 style={contentStyle}>1</h3>
+        </div>
+        <div>
+          <h3 style={contentStyle}>2</h3>
+        </div>
+        <div>
+          <h3 style={contentStyle}>3</h3>
+        </div>
+        <div>
+          <h3 style={contentStyle}>4</h3>
+        </div>
+      </Carousel>
+      ,<HomeContext.Provider value={homeContext}>{children}</HomeContext.Provider>
     </>
   )
 }
