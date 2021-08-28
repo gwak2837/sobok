@@ -13,8 +13,9 @@ const FixedHeader = styled.div`
   left: 50%;
   z-index: 1;
 
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
   align-items: center;
 
   width: 100%;
