@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { ReactElement } from 'react'
 import PageHead from 'src/components/PageHead'
+import NavigationLayout from 'src/layouts/NavigationLayout'
 import { getUserId } from 'src/utils/commons'
 
 const description = ''
@@ -18,4 +20,8 @@ export default function UserPage() {
       <div>사용자 아이디: {userId}</div>
     </PageHead>
   )
+}
+
+UserPage.getLayout = function getLayout(page: ReactElement) {
+  return <NavigationLayout>{page}</NavigationLayout>
 }

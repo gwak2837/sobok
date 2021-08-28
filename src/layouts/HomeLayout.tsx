@@ -3,16 +3,35 @@ import Image from 'next/image'
 import router from 'next/router'
 import { createContext, ReactNode, useMemo } from 'react'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
-import TopHeader from 'src/components/TopHeader'
+import { TOP_HEADER_HEIGHT, TABLET_MIN_WIDTH } from 'src/utils/constants'
 import styled from 'styled-components'
 
 const { TabPane } = Tabs
 
-const LocalNav = styled(TopHeader)`
-  justify-content: space-between;
-  align-items: center;
-  //padding: 0 1rem;
+const PaddingTop = styled.div`
+  padding-top: ${TOP_HEADER_HEIGHT};
 `
+
+const FixedPosition = styled.div`
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 1rem;
+  width: 100%;
+  max-width: ${TABLET_MIN_WIDTH};
+  height: ${TOP_HEADER_HEIGHT};
+  background: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08); //구분을 위해 우선 넣음
+
+  transform: translateX(-50%);
+`
+
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
@@ -53,22 +72,23 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <LocalNav>
+      <FixedPosition>
         <ClientSideLink href="/location">
           <FlexContainer>
             <LocationH3>{townName}</LocationH3>
-            <Image src="/images/arrow-down.svg" alt="location" width={11} height={6} />
+            <Image src="/images/arrow-down.svg" alt="arrow-down.svg" width={11} height={6} />
           </FlexContainer>
         </ClientSideLink>
         <TopIconDiv>
           <ClientSideLink href="/map">
-            <Image src="/images/map.svg" alt="map" width={19} height={21} />
+            <Image src="/images/map.svg" alt="map.svg" width={19} height={21} />
           </ClientSideLink>
           <ClientSideLink href="/search">
-            <Image src="/images/search.svg" alt="search" width={20} height={22} />
+            <Image src="/images/search.svg" alt="search.svg" width={20} height={22} />
           </ClientSideLink>
         </TopIconDiv>
-      </LocalNav>
+      </FixedPosition>
+      <PaddingTop />
       <Tabs defaultActiveKey="/" onTabClick={goToTabPage}>
         <TabPane tab="공간" key="/" />
         <TabPane tab="메뉴" key="/menus" />
