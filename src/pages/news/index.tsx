@@ -1,6 +1,11 @@
-import { ReactElement } from 'react'
+import { ReactNode, ReactElement } from 'react'
 import PageHead from 'src/components/PageHead'
 import NavigationLayout from 'src/layouts/NavigationLayout'
+
+export function NewsLayout({ children }: { children: ReactNode }) {
+  // 탭 동일하게
+  return <div>{children}</div>
+}
 
 const description = ''
 
@@ -13,5 +18,9 @@ export default function LikedStoreNewsPage() {
 }
 
 LikedStoreNewsPage.getLayout = function getLayout(page: ReactElement) {
-  return <NavigationLayout>{page}</NavigationLayout>
+  return (
+    <NavigationLayout>
+      <NewsLayout>{page}</NewsLayout>
+    </NavigationLayout>
+  )
 }

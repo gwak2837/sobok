@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 import PageHead from 'src/components/PageHead'
 import NavigationLayout from 'src/layouts/NavigationLayout'
+import { NewsLayout } from '.'
 
 const description = ''
 
@@ -13,5 +14,9 @@ export default function AllStoreNewsPage() {
 }
 
 AllStoreNewsPage.getLayout = function getLayout(page: ReactElement) {
-  return <NavigationLayout>{page}</NavigationLayout>
+  return (
+    <NavigationLayout>
+      <NewsLayout>{page}</NewsLayout>
+    </NavigationLayout>
+  )
 }
