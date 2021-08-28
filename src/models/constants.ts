@@ -14,6 +14,9 @@ export const SECONDARY_TEXT_COLOR = '#2fccba'
 export const SECONDARY_ACHROMATIC_COLOR = '#2fccba'
 
 export const BASIC_BACKGROUND_COLOR = '#fcfcfc'
+
 export const SOBOK_COLOR = '#ff9f74'
+export const SOBOK_ACHROMATIC_COLOR = '#B7B7B7'
+
 export const LIGHT_GREY = '#cecece'
 export const DARK_GREY = '#5d5d5d'
