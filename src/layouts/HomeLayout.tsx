@@ -35,7 +35,6 @@ const FixedPosition = styled.div`
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
-  background-color: antiquewhite;
 `
 const LocationH3 = styled.h3`
   display: inline-block;
@@ -49,10 +48,6 @@ const TopIconDiv = styled.div`
   height: 1.3rem;
   margin: 0;
 `
-
-const tabBarStyle = {
-  width: '256px',
-}
 
 const townName = '흑석동'
 
