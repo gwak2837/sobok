@@ -49,6 +49,12 @@ const TopIconDiv = styled.div`
   margin: 0;
 `
 
+const CarouselDiv = styled.div`
+  height: 9.7rem;
+  line-height: 160px;
+  text-align: center;
+`
+
 const townName = '흑석동'
 
 function onChange(a: any, b: any, c: any) {
@@ -63,14 +69,6 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
 
   function goToTabPage(activeKey: string) {
     router.push(activeKey)
-  }
-
-  const contentStyle = {
-    height: '160px',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
   }
 
   type THomeContext = {
@@ -101,19 +99,19 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
         <TabPane tab="메뉴" key="/menus" />
         <TabPane tab="피드" key="/feed" />
       </Tabs>
-      <Carousel afterChange={onChange}>
-        <div>
-          <h3 style={contentStyle}>1</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>2</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>3</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>4</h3>
-        </div>
+      <Carousel autoplay afterChange={onChange}>
+        <CarouselDiv>
+          <h2>1</h2>
+        </CarouselDiv>
+        <CarouselDiv>
+          <h2>2</h2>
+        </CarouselDiv>
+        <CarouselDiv>
+          <h2>3</h2>
+        </CarouselDiv>
+        <CarouselDiv>
+          <h2>4</h2>
+        </CarouselDiv>
       </Carousel>
       ,<HomeContext.Provider value={homeContext}>{children}</HomeContext.Provider>
     </>
