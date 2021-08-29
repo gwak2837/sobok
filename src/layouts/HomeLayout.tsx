@@ -113,7 +113,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
           <h2>4</h2>
         </CarouselDiv>
       </Carousel>
-      ,<HomeContext.Provider value={homeContext}>{children}</HomeContext.Provider>
+      <HomeContext.Provider value={homeContext}>{children}</HomeContext.Provider>
     </>
   )
 }
