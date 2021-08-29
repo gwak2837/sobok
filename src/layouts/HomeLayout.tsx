@@ -95,24 +95,26 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
       </FixedPosition>
       <PaddingTop />
       <Tabs defaultActiveKey="/" onTabClick={goToTabPage}>
-        <TabPane tab="공간" key="/" />
+        <TabPane tab="공간" key="/">
+          <Carousel autoplay afterChange={onChange}>
+            <CarouselDiv>
+              <h2>1</h2>
+            </CarouselDiv>
+            <CarouselDiv>
+              <h2>2</h2>
+            </CarouselDiv>
+            <CarouselDiv>
+              <h2>3</h2>
+            </CarouselDiv>
+            <CarouselDiv>
+              <h2>4</h2>
+            </CarouselDiv>
+          </Carousel>
+        </TabPane>
         <TabPane tab="메뉴" key="/menus" />
         <TabPane tab="피드" key="/feed" />
       </Tabs>
-      <Carousel autoplay afterChange={onChange}>
-        <CarouselDiv>
-          <h2>1</h2>
-        </CarouselDiv>
-        <CarouselDiv>
-          <h2>2</h2>
-        </CarouselDiv>
-        <CarouselDiv>
-          <h2>3</h2>
-        </CarouselDiv>
-        <CarouselDiv>
-          <h2>4</h2>
-        </CarouselDiv>
-      </Carousel>
+
       <HomeContext.Provider value={homeContext}>{children}</HomeContext.Provider>
     </>
   )
