@@ -5,6 +5,7 @@ import { createContext, ReactNode, useMemo } from 'react'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import { TOP_HEADER_HEIGHT, TABLET_MIN_WIDTH } from 'src/utils/constants'
 import styled from 'styled-components'
+import Category from 'src/components/Category'
 
 const { TabPane } = Tabs
 
@@ -110,6 +111,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
               <h2>4</h2>
             </CarouselDiv>
           </Carousel>
+          <Category />
         </TabPane>
         <TabPane tab="메뉴" key="/menus" />
         <TabPane tab="피드" key="/feed" />
