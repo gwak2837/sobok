@@ -9,7 +9,8 @@ const CategrotyContainer = styled.div`
   height: 100px;
   overflow: scroll;
   flex-wrap: nowrap;
-  background-color: dodgerblue;
+  border-bottom: solid 1px #e5e5e5;
+  //background-color: dodgerblue;
 `
 const CategoryItem = styled.div`
   display: grid;
@@ -19,7 +20,6 @@ const CategoryItem = styled.div`
   gap: 3px;
   text-align: center;
   margin: 0 9px;
-  background-color: skyblue;
 `
 const CategoryImage = styled.div`
   position: relative;
@@ -30,7 +30,6 @@ const CategoryImage = styled.div`
 
 const CategoryText = styled.div`
   color: black;
-  background-color: lightyellow;
 `
 
 function Category() {
