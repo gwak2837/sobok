@@ -53,31 +53,31 @@ function Category() {
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/categories/category-table.svg" alt="category-table" layout="fill" />
+          <Image src="/images/categories/table.svg" alt="table" layout="fill" />
         </CategoryImage>
         <CategoryText>넓은테이블</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/categories/category-park.svg" alt="category-park" layout="fill" />
+          <Image src="/images/categories/park.svg" alt="park" layout="fill" />
         </CategoryImage>
         <CategoryText>주차장</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/categories/category-pet.svg" alt="category-pet" layout="fill" />
+          <Image src="/images/categories/pet.svg" alt="pet" layout="fill" />
         </CategoryImage>
         <CategoryText>애견동반</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/categories/category-all.svg" alt="category-all" layout="fill" />
+          <Image src="/images/categories/all.svg" alt="all" layout="fill" />
         </CategoryImage>
         <CategoryText>통유리</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/categories/category-all.svg" alt="category-all" layout="fill" />
+          <Image src="/images/categories/all.svg" alt="all" layout="fill" />
         </CategoryImage>
         <CategoryText>흡연실</CategoryText>
       </CategoryItem>
