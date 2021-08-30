@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Link from 'next/link'
+import Image from 'next/image'
 import PageHead from 'src/components/PageHead'
 import NavigationLayout from 'src/layouts/NavigationLayout'
 import type { ReactElement } from 'react'
@@ -8,9 +9,11 @@ import { Carousel } from 'antd'
 import Category from 'src/components/Category'
 
 const CarouselDiv = styled.div`
+  position: relative;
   height: 9.7rem;
   line-height: 160px;
   text-align: center;
+  background: #f6f6f6;
 `
 
 export default function HomePage() {
@@ -18,16 +21,16 @@ export default function HomePage() {
     <PageHead>
       <Carousel autoplay>
         <CarouselDiv>
-          <h2>1</h2>
+          <Image src="/images/carousel@3x.webp" alt="carousel" layout="fill" />
         </CarouselDiv>
         <CarouselDiv>
-          <h2>2</h2>
+          <Image src="/images/carousel@3x.webp" alt="carousel" layout="fill" />
         </CarouselDiv>
         <CarouselDiv>
-          <h2>3</h2>
+          <Image src="/images/carousel@3x.webp" alt="carousel" layout="fill" />
         </CarouselDiv>
         <CarouselDiv>
-          <h2>4</h2>
+          <Image src="/images/carousel@3x.webp" alt="carousel" layout="fill" />
         </CarouselDiv>
       </Carousel>
       <Category />
