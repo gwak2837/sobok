@@ -35,7 +35,6 @@ const FixedPosition = styled.div`
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
-  background-color: antiquewhite;
 `
 const LocationH3 = styled.h3`
   display: inline-block;
@@ -49,11 +48,6 @@ const TopIconDiv = styled.div`
   height: 1.3rem;
   margin: 0;
 `
-
-const tabBarStyle = {
-  width: '256px',
-}
-
 const townName = '흑석동'
 
 type THomeContext = {
@@ -90,10 +84,11 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
       </FixedPosition>
       <PaddingTop />
       <Tabs defaultActiveKey="/" onTabClick={goToTabPage}>
-        <TabPane tab="공간" key="/" />
+        <TabPane tab="공간" key="/"></TabPane>
         <TabPane tab="메뉴" key="/menus" />
         <TabPane tab="피드" key="/feed" />
       </Tabs>
+
       <HomeContext.Provider value={homeContext}>{children}</HomeContext.Provider>
     </>
   )

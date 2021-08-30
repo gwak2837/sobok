@@ -8,35 +8,36 @@ import { TABLET_MIN_WIDTH } from 'src/utils/constants'
 import styled from 'styled-components'
 
 const FixedHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   position: fixed;
   bottom: 0;
+  left: 50%;
   z-index: 1;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+  align-items: center;
+
   width: 100%;
   max-width: ${TABLET_MIN_WIDTH};
   height: 5rem;
   box-shadow: 0 -3px 3px 0 rgba(0, 0, 0, 0.06);
   background-color: #fff;
+  transform: translateX(-50%);
 `
 
 const NaigationContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 40px;
+  justify-items: center;
 `
 const IconDiv = styled.div`
-  width: 30px;
-  height: 20px;
+  text-align: center;
 `
 
 const TextDiv = styled.div`
-  width: 30px;
-  height: 20px;
+  text-align: center;
 `
 
 const SelectedStyle = { color: SOBOK_COLOR }
