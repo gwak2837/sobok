@@ -37,17 +37,13 @@ function Category() {
     <CategrotyContainer>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/categories/category-all.svg" alt="category-all" layout="fill" />
+          <Image src="/images/categories/all.min.svg" alt="all" layout="fill" />
         </CategoryImage>
         <CategoryText>전체</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image
-            src="/images/categories/category-outlet.svg"
-            alt="category-consent"
-            layout="fill"
-          />
+          <Image src="/images/categories/outlet.min.svg" alt="outlet" layout="fill" />
         </CategoryImage>
         <CategoryText>콘센트</CategoryText>
       </CategoryItem>
