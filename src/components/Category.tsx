@@ -37,43 +37,47 @@ function Category() {
     <CategrotyContainer>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/category-all.svg" alt="category-all" layout="fill" />
+          <Image src="/images/categories/category-all.svg" alt="category-all" layout="fill" />
         </CategoryImage>
         <CategoryText>전체</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/category-consent.svg" alt="category-consent" layout="fill" />
+          <Image
+            src="/images/categories/category-outlet.svg"
+            alt="category-consent"
+            layout="fill"
+          />
         </CategoryImage>
         <CategoryText>콘센트</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/category-table.svg" alt="category-table" layout="fill" />
+          <Image src="/images/categories/category-table.svg" alt="category-table" layout="fill" />
         </CategoryImage>
         <CategoryText>넓은테이블</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/category-park.svg" alt="category-park" layout="fill" />
+          <Image src="/images/categories/category-park.svg" alt="category-park" layout="fill" />
         </CategoryImage>
         <CategoryText>주차장</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/category-pet.svg" alt="category-pet" layout="fill" />
+          <Image src="/images/categories/category-pet.svg" alt="category-pet" layout="fill" />
         </CategoryImage>
         <CategoryText>애견동반</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/category-all.svg" alt="category-all" layout="fill" />
+          <Image src="/images/categories/category-all.svg" alt="category-all" layout="fill" />
         </CategoryImage>
         <CategoryText>통유리</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/category-all.svg" alt="category-all" layout="fill" />
+          <Image src="/images/categories/category-all.svg" alt="category-all" layout="fill" />
         </CategoryImage>
         <CategoryText>흡연실</CategoryText>
       </CategoryItem>
