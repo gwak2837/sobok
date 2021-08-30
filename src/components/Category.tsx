@@ -22,10 +22,10 @@ const CategoryItem = styled.div`
   background-color: skyblue;
 `
 const CategoryImage = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
   border-radius: 25%;
-  background-color: yellow;
 `
 
 const CategoryText = styled.div`
@@ -37,32 +37,46 @@ function Category() {
   return (
     <CategrotyContainer>
       <CategoryItem>
-        <CategoryImage>이미지</CategoryImage>
+        <CategoryImage>
+          <Image src="/images/category-all.svg" alt="category-all" layout="fill" />
+        </CategoryImage>
         <CategoryText>전체</CategoryText>
       </CategoryItem>
       <CategoryItem>
-        <CategoryImage>이미지</CategoryImage>
-        <CategoryText>전체</CategoryText>
+        <CategoryImage>
+          <Image src="/images/category-consent.svg" alt="category-consent" layout="fill" />
+        </CategoryImage>
+        <CategoryText>콘센트</CategoryText>
       </CategoryItem>
       <CategoryItem>
-        <CategoryImage>이미지</CategoryImage>
-        <CategoryText>전체</CategoryText>
+        <CategoryImage>
+          <Image src="/images/category-table.svg" alt="category-table" layout="fill" />
+        </CategoryImage>
+        <CategoryText>넓은테이블</CategoryText>
       </CategoryItem>
       <CategoryItem>
-        <CategoryImage>이미지</CategoryImage>
-        <CategoryText>전체</CategoryText>
+        <CategoryImage>
+          <Image src="/images/category-park.svg" alt="category-park" layout="fill" />
+        </CategoryImage>
+        <CategoryText>주차장</CategoryText>
       </CategoryItem>
       <CategoryItem>
-        <CategoryImage>이미지</CategoryImage>
-        <CategoryText>전체</CategoryText>
+        <CategoryImage>
+          <Image src="/images/category-pet.svg" alt="category-pet" layout="fill" />
+        </CategoryImage>
+        <CategoryText>애견동반</CategoryText>
       </CategoryItem>
       <CategoryItem>
-        <CategoryImage>이미지</CategoryImage>
-        <CategoryText>전체</CategoryText>
+        <CategoryImage>
+          <Image src="/images/category-all.svg" alt="category-all" layout="fill" />
+        </CategoryImage>
+        <CategoryText>통유리</CategoryText>
       </CategoryItem>
       <CategoryItem>
-        <CategoryImage>이미지</CategoryImage>
-        <CategoryText>전체</CategoryText>
+        <CategoryImage>
+          <Image src="/images/category-all.svg" alt="category-all" layout="fill" />
+        </CategoryImage>
+        <CategoryText>흡연실</CategoryText>
       </CategoryItem>
     </CategrotyContainer>
   )
