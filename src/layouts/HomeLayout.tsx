@@ -1,11 +1,10 @@
-import { Tabs, Carousel } from 'antd'
+import { Tabs } from 'antd'
 import Image from 'next/image'
 import router from 'next/router'
 import { createContext, ReactNode, useMemo } from 'react'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import { TOP_HEADER_HEIGHT, TABLET_MIN_WIDTH } from 'src/utils/constants'
 import styled from 'styled-components'
-import Category from 'src/components/Category'
 
 const { TabPane } = Tabs
 
@@ -49,17 +48,10 @@ const TopIconDiv = styled.div`
   height: 1.3rem;
   margin: 0;
 `
-
-const CarouselDiv = styled.div`
-  height: 9.7rem;
-  line-height: 160px;
-  text-align: center;
-`
-
 const townName = '흑석동'
 
-function onChange(a: any, b: any, c: any) {
-  console.log(a, b, c)
+type THomeContext = {
+  townName: string
 }
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -70,10 +62,6 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
 
   function goToTabPage(activeKey: string) {
     router.push(activeKey)
-  }
-
-  type THomeContext = {
-    townName: string
   }
 
   return (
@@ -96,23 +84,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
       </FixedPosition>
       <PaddingTop />
       <Tabs defaultActiveKey="/" onTabClick={goToTabPage}>
-        <TabPane tab="공간" key="/">
-          <Carousel autoplay afterChange={onChange}>
-            <CarouselDiv>
-              <h2>1</h2>
-            </CarouselDiv>
-            <CarouselDiv>
-              <h2>2</h2>
-            </CarouselDiv>
-            <CarouselDiv>
-              <h2>3</h2>
-            </CarouselDiv>
-            <CarouselDiv>
-              <h2>4</h2>
-            </CarouselDiv>
-          </Carousel>
-          <Category />
-        </TabPane>
+        <TabPane tab="공간" key="/"></TabPane>
         <TabPane tab="메뉴" key="/menus" />
         <TabPane tab="피드" key="/feed" />
       </Tabs>
