@@ -22,10 +22,39 @@ const CardImage = styled.div`
   position: relative;
   height: 7.5em;
   padding-bottom: 15.63%;
-  text-align: center;
+  border-radius: 0.4rem;
+  overflow: hidden;
   background-color: #cee7f5;
 `
 
+const CardInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0.2rem;
+  background-color: #eaf7e7;
+`
+const CardCategory = styled.div`
+  flex-wrap: wrap;
+  padding: 0.2rem;
+`
+const CategoryButton = styled.button`
+  padding: 0.2rem;
+  text-align: center;
+  color: white;
+  font-size: 0.9rem;
+  border-radius: 3rem;
+  background-color: #ff9f74;
+`
+
+const CardTags = styled.div`
+  padding: 0.2rem;
+  background-color: #eaf7e7;
+`
+const Tag = styled.span`
+  flex-wrap: nowrap;
+  color: grey;
+  font-size: 0.8rem;
+`
 function StorePlaceCard() {
   return (
     <StoreContainer>
@@ -33,27 +62,116 @@ function StorePlaceCard() {
         <CardImage>
           <Image src="/images/stores/store1@3x.webp" alt="흑석커피" layout="fill" />
         </CardImage>
-        <div>매장명</div>
-        <div>카테고리</div>
-        <div>태그</div>
+        <CardInfo>
+          <div>흑석커피</div>
+          <div>30m</div>
+        </CardInfo>
+        <CardCategory>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+        </CardCategory>
+        <CardTags>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+        </CardTags>
       </StoreCard>
       <StoreCard>
-        <div>이미지</div>
-        <div>매장명</div>
-        <div>카테고리</div>
-        <div>태그</div>
+        <CardImage>
+          <Image src="/images/stores/store1@3x.webp" alt="흑석커피" layout="fill" />
+        </CardImage>
+        <CardInfo>
+          <div>흑석커피</div>
+          <div>30m</div>
+        </CardInfo>
+        <CardCategory>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+        </CardCategory>
+        <CardTags>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+        </CardTags>
       </StoreCard>
       <StoreCard>
-        <div>이미지</div>
-        <div>매장명</div>
-        <div>카테고리</div>
-        <div>태그</div>
+        <CardImage>
+          <Image src="/images/stores/store1@3x.webp" alt="흑석커피" layout="fill" />
+        </CardImage>
+        <CardInfo>
+          <div>흑석커피</div>
+          <div>30m</div>
+        </CardInfo>
+        <CardCategory>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+        </CardCategory>
+        <CardTags>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+        </CardTags>
       </StoreCard>
       <StoreCard>
-        <div>이미지</div>
-        <div>매장명</div>
-        <div>카테고리</div>
-        <div>태그</div>
+        <CardImage>
+          <Image src="/images/stores/store1@3x.webp" alt="흑석커피" layout="fill" />
+        </CardImage>
+        <CardInfo>
+          <div>흑석커피</div>
+          <div>30m</div>
+        </CardInfo>
+        <CardCategory>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+        </CardCategory>
+        <CardTags>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+        </CardTags>
+      </StoreCard>
+      <StoreCard>
+        <CardImage>
+          <Image src="/images/stores/store1@3x.webp" alt="흑석커피" layout="fill" />
+        </CardImage>
+        <CardInfo>
+          <div>흑석커피</div>
+          <div>30m</div>
+        </CardInfo>
+        <CardCategory>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+          <CategoryButton>콘센트</CategoryButton>
+        </CardCategory>
+        <CardTags>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+          <Tag>#분위기좋은</Tag>
+        </CardTags>
       </StoreCard>
     </StoreContainer>
   )
