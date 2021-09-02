@@ -26,10 +26,12 @@ const CategoryImage = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 25%;
+  cursor: pointer;
 `
 
 const CategoryText = styled.div`
   color: black;
+  cursor: pointer;
 `
 
 function Category() {
