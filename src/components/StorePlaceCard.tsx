@@ -7,7 +7,6 @@ const StoreContainer = styled.div`
   grid-auto-rows: minmax(calc(200px + 10vw), auto);
   padding: 1rem;
   gap: 0.8rem;
-  background-color: #f7f7f7;
 `
 
 const StoreCard = styled.div`
@@ -15,14 +14,25 @@ const StoreCard = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+  border-radius: 0.4rem;
+  overflow: hidden;
   background-color: #c4c4c4;
+`
+const CardImage = styled.div`
+  position: relative;
+  height: 7.5em;
+  padding-bottom: 15.63%;
+  text-align: center;
+  background-color: #cee7f5;
 `
 
 function StorePlaceCard() {
   return (
     <StoreContainer>
       <StoreCard>
-        <div>이미지</div>
+        <CardImage>
+          <Image src="/images/stores/store1@3x.webp" alt="흑석커피" layout="fill" />
+        </CardImage>
         <div>매장명</div>
         <div>카테고리</div>
         <div>태그</div>
