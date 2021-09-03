@@ -8,8 +8,12 @@ import styled from 'styled-components'
 
 const { TabPane } = Tabs
 
-const PaddingTop = styled.div`
+const HomeContainer = styled.div`
+  position: relative;
+  max-width: ${TABLET_MIN_WIDTH};
+  left: 50%;
   padding-top: ${TOP_HEADER_HEIGHT};
+  transform: translateX(-50%);
 `
 
 const FixedPosition = styled.div`
@@ -65,7 +69,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <>
+    <HomeContainer>
       <FixedPosition>
         <ClientSideLink href="/location">
           <FlexContainer>
@@ -82,7 +86,6 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
           </ClientSideLink>
         </TopIconDiv>
       </FixedPosition>
-      <PaddingTop />
       <Tabs defaultActiveKey="/" onTabClick={goToTabPage}>
         <TabPane tab="공간" key="/"></TabPane>
         <TabPane tab="메뉴" key="/menus" />
@@ -90,6 +93,6 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
       </Tabs>
 
       <HomeContext.Provider value={homeContext}>{children}</HomeContext.Provider>
-    </>
+    </HomeContainer>
   )
 }
