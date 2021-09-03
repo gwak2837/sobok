@@ -45,45 +45,45 @@ function MenuCategory() {
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/categories/outlet.min.svg" alt="outlet" layout="fill" />
+          <Image src="/images/menu-categories/noncoffee.min.svg" alt="outlet" layout="fill" />
         </CategoryImage>
-        <CategoryText>콘센트</CategoryText>
+        <CategoryText>음료</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/categories/table.min.svg" alt="table" layout="fill" />
+          <Image src="/images/menu-categories/cake.min.svg" alt="table" layout="fill" />
         </CategoryImage>
-        <CategoryText>넓은테이블</CategoryText>
+        <CategoryText>케이크</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/categories/park.min.svg" alt="park" layout="fill" />
+          <Image src="/images/menu-categories/cookie.min.svg" alt="park" layout="fill" />
         </CategoryImage>
-        <CategoryText>주차장</CategoryText>
+        <CategoryText>구움과자</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/categories/pet.min.svg" alt="pet" layout="fill" />
+          <Image src="/images/menu-categories/coffee.min.svg" alt="pet" layout="fill" />
         </CategoryImage>
-        <CategoryText>애견동반</CategoryText>
+        <CategoryText>커피</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/categories/all.min.svg" alt="all" layout="fill" />
+          <Image src="/images/menu-categories/bakery.min.svg" alt="all" layout="fill" />
         </CategoryImage>
-        <CategoryText>통유리</CategoryText>
+        <CategoryText>베이커리</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/categories/all.min.svg" alt="all" layout="fill" />
+          <Image src="/images/menu-categories/macaron.min.svg" alt="all" layout="fill" />
         </CategoryImage>
-        <CategoryText>흡연실</CategoryText>
+        <CategoryText>마카롱</CategoryText>
       </CategoryItem>
       <CategoryItem>
         <CategoryImage>
-          <Image src="/images/categories/all.min.svg" alt="all" layout="fill" />
+          <Image src="/images/menu-categories/brunch.min.svg" alt="all" layout="fill" />
         </CategoryImage>
-        <CategoryText>흡연실</CategoryText>
+        <CategoryText>브런치</CategoryText>
       </CategoryItem>
     </CategrotyContainer>
   )
