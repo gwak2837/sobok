@@ -7,25 +7,25 @@ const CategrotyContainer = styled.div`
   align-items: center;
   //max-width: ${TABLET_MIN_WIDTH};
   padding: 1rem;
-  height: 100px;
+  height: 7rem;
   overflow: scroll;
   flex-wrap: nowrap;
   border-bottom: solid 1px #e5e5e5;
-  //background-color: dodgerblue;
 `
 const CategoryItem = styled.div`
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
   flex: 0 0 auto;
-  grid-template-rows: 4.43rem 1.43rem;
+  height: 100%;
   width: 4.43rem;
   margin-right: 0.7rem;
-  gap: 3px;
-  text-align: center;
 `
 const CategoryImage = styled.div`
   position: relative;
-  width: 100%;
-  height: 100%;
+  height: 0;
+  padding-top: 100%;
   border-radius: 25%;
   cursor: pointer;
 `
