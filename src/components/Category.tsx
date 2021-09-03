@@ -5,7 +5,7 @@ import { TABLET_MIN_WIDTH } from 'src/utils/constants'
 const CategrotyContainer = styled.div`
   display: flex;
   align-items: center;
-  max-width: ${TABLET_MIN_WIDTH};
+  //max-width: ${TABLET_MIN_WIDTH};
   height: 100px;
   overflow: scroll;
   flex-wrap: nowrap;
