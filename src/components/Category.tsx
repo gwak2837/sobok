@@ -6,6 +6,7 @@ const CategrotyContainer = styled.div`
   display: flex;
   align-items: center;
   //max-width: ${TABLET_MIN_WIDTH};
+  padding: 1rem;
   height: 100px;
   overflow: scroll;
   flex-wrap: nowrap;
@@ -17,9 +18,9 @@ const CategoryItem = styled.div`
   flex: 0 0 auto;
   grid-template-rows: 4.43rem 1.43rem;
   width: 4.43rem;
+  margin-right: 0.7rem;
   gap: 3px;
   text-align: center;
-  margin: 0 9px;
 `
 const CategoryImage = styled.div`
   position: relative;
