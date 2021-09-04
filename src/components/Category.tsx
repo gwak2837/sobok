@@ -5,31 +5,34 @@ import { TABLET_MIN_WIDTH } from 'src/utils/constants'
 const CategrotyContainer = styled.div`
   display: flex;
   align-items: center;
-  max-width: ${TABLET_MIN_WIDTH};
-  height: 100px;
+  //max-width: ${TABLET_MIN_WIDTH};
+  padding: 1rem;
+  height: 7rem;
   overflow: scroll;
   flex-wrap: nowrap;
   border-bottom: solid 1px #e5e5e5;
-  //background-color: dodgerblue;
 `
 const CategoryItem = styled.div`
-  display: grid;
-  flex: 0 0 auto;
-  grid-template-rows: 4.43rem 1.43rem;
-  width: 4.43rem;
-  gap: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
-  margin: 0 9px;
+  flex: 0 0 auto;
+  height: 100%;
+  width: 4.43rem;
+  margin-right: 0.7rem;
 `
 const CategoryImage = styled.div`
   position: relative;
-  width: 100%;
-  height: 100%;
+  height: 0;
+  padding-top: 100%;
   border-radius: 25%;
+  cursor: pointer;
 `
 
 const CategoryText = styled.div`
   color: black;
+  cursor: pointer;
 `
 
 function Category() {

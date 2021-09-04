@@ -7,6 +7,7 @@ import type { ReactElement } from 'react'
 import HomeLayout from 'src/layouts/HomeLayout'
 import { Carousel } from 'antd'
 import Category from 'src/components/Category'
+import StorePlaceCard from 'src/components/StorePlaceCard'
 
 const CarouselDiv = styled.div`
   position: relative;
@@ -34,6 +35,7 @@ export default function HomePage() {
         </CarouselDiv>
       </Carousel>
       <Category />
+      <StorePlaceCard />
       <div>
         <Link href="/@userId1">사용자 페이지</Link>
       </div>

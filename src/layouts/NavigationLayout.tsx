@@ -10,7 +10,7 @@ import styled from 'styled-components'
 const FixedHeader = styled.div`
   position: fixed;
   bottom: 0;
-  left: 50%;
+  //left: 50%;
   z-index: 1;
 
   display: grid;
@@ -23,7 +23,7 @@ const FixedHeader = styled.div`
   height: 5rem;
   box-shadow: 0 -3px 3px 0 rgba(0, 0, 0, 0.06);
   background-color: #fff;
-  transform: translateX(-50%);
+  //transform: translateX(-50%);
 `
 
 const NaigationContainer = styled.div`
