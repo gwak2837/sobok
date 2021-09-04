@@ -2,7 +2,7 @@ import { ReactElement, useContext } from 'react'
 import PageHead from 'src/components/PageHead'
 import StoreFeedCard from 'src/components/StoreFeedCard'
 import { useStoreFeedQuery } from 'src/graphql/generated/types-and-hooks'
-import { StoreContext, StoreLayout } from '.'
+import { StoreContext, StoreLayout } from './menus'
 
 const description = ''
 
