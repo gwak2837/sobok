@@ -1,5 +1,5 @@
 query StoreNews($storeId: ID!) {
-  news3(storeId: $storeId) {
+  newsListByStore(storeId: $storeId) {
     id
     creationTime
     contents

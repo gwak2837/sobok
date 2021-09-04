@@ -1,7 +1,11 @@
 query StoreFeed($storeId: ID!) {
-  feed2(storeId: $storeId) {
+  feedListByStore(storeId: $storeId) {
     id
     contents
     imageUrls
+    user {
+      nickname
+      imageUrl
+    }
   }
 }
