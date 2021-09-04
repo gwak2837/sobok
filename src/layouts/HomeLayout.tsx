@@ -1,6 +1,6 @@
 import { Tabs } from 'antd'
 import Image from 'next/image'
-import router from 'next/router'
+import { useRouter } from 'next/router'
 import { createContext, ReactNode, useMemo } from 'react'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import { TOP_HEADER_HEIGHT, TABLET_MIN_WIDTH } from 'src/utils/constants'
@@ -62,6 +62,8 @@ export const HomeContext = createContext<THomeContext>(undefined!)
 export default function HomeLayout({ children }: { children: ReactNode }) {
   const homeContext = useMemo(() => ({ townName }), [])
 
+  const router = useRouter()
+
   function goToTabPage(activeKey: string) {
     router.push(activeKey)
   }
@@ -84,7 +86,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
           </ClientSideLink>
         </TopIconDiv>
       </FixedPosition>
-      <Tabs defaultActiveKey="/" onTabClick={goToTabPage}>
+      <Tabs defaultActiveKey={router.asPath} onTabClick={goToTabPage}>
         <TabPane tab="공간" key="/"></TabPane>
         <TabPane tab="메뉴" key="/menus" />
         <TabPane tab="피드" key="/feed" />
