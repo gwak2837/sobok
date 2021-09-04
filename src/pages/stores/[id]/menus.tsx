@@ -71,13 +71,14 @@ export default function StoreMenuPage() {
 
   const { data, loading, error } = useStoreMenusQuery({ skip: !storeId, variables: { storeId } })
 
+  const storeMenus = data?.menusByStore
+
   return (
     <PageHead title={`${storeName} 메뉴 - 소복`} description={description}>
       <div>매장 페이지</div>
-      {loading && 'loading...'}
-      {data?.menus2?.map((menu) => (
-        <StoreMenuCard key={menu.id} storeMenu={menu} />
-      ))}
+      {loading || !storeMenus
+        ? 'loading...'
+        : storeMenus.map((menu) => <StoreMenuCard key={menu.id} storeMenu={menu} />)}
     </PageHead>
   )
 }
