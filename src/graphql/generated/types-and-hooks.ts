@@ -62,6 +62,10 @@ export type Feed = {
   imageUrls: Array<Scalars['URL']>
   likeCount: Scalars['Int']
   commentCount: Scalars['Int']
+  storeId: Scalars['ID']
+  userId: Scalars['ID']
+  /** 피드 좋아요 여부 (로그인 필요) */
+  isLiked: Scalars['Boolean']
   /** 피드에 태그된 매장 */
   store: Store
   /** 피드 작성자 */
@@ -72,6 +76,14 @@ export type Feed = {
   hashtags?: Maybe<Array<Scalars['NonEmptyString']>>
   /** 피드에 태그된 메뉴 목록 */
   menus?: Maybe<Array<Menu>>
+}
+
+/** 기본값: ALL_USER */
+export enum FeedOptions {
+  StarUser = 'STAR_USER',
+  /** 로그인 필요 */
+  FollowingUser = 'FOLLOWING_USER',
+  AllUser = 'ALL_USER',
 }
 
 /** 성별 */
@@ -104,13 +116,13 @@ export type Menu = {
 
 export type Mutation = {
   __typename?: 'Mutation'
-  /** 고유 이름 또는 이메일과 1번 해싱한 비밀번호를 전송하면 인증 토큰을 반환한다. */
+  /** 고유 이름 또는 이메일과 비밀번호를 전송하면 JWT 인증 토큰을 반환함 */
   login?: Maybe<Scalars['JWT']>
-  /** 인증 토큰과 같이 요청하면 로그아웃 성공 여부를 반환한다. */
+  /** JWT 인증 토큰과 같이 요청하면 로그아웃 성공 여부를 반환함 */
   logout: Scalars['Boolean']
-  /** 회원가입에 필요한 정보를 주면 성공했을 때 인증 토큰을 반환한다. */
+  /** 회원가입에 필요한 정보를 주면 성공했을 때 인증 토큰을 반환함 */
   register?: Maybe<Scalars['JWT']>
-  /** 회원탈퇴 시 사용자 정보가 모두 초기화된다. */
+  /** 회원탈퇴 시 사용자 정보가 모두 초기화됩 */
   unregister: Scalars['Boolean']
 }
 
@@ -131,11 +143,19 @@ export type News = {
   title: Scalars['NonEmptyString']
   contents: Array<Scalars['NonEmptyString']>
   category: Scalars['NonEmptyString']
+  storeId: Scalars['ID']
   imageUrls?: Maybe<Array<Scalars['URL']>>
-  /** 로그인한 사용자가 이 메뉴를 좋아하는 여부 */
+  /** 뉴스 좋아요 여부 (로그인 필요) */
   isLiked: Scalars['Boolean']
   /** 이 소식을 올린 매장 */
   store: Store
+}
+
+/** 기본값: ALL_STORE */
+export enum NewsOptions {
+  /** 로그인 필요 */
+  LikedStore = 'LIKED_STORE',
+  AllStore = 'ALL_STORE',
 }
 
 /** OAuth 공급자 */
@@ -151,44 +171,89 @@ export type Query = {
   /** 피드 상세 */
   feed?: Maybe<Feed>
   /** 특정 매장 피드 목록 */
-  feed2?: Maybe<Array<Feed>>
+  feedListByStore?: Maybe<Array<Feed>>
   /** 특정 동네 피드 목록 */
-  feed3?: Maybe<Array<Feed>>
-  searchFeed?: Maybe<Array<Menu>>
-  searchMenus?: Maybe<Array<Menu>>
-  searchStores?: Maybe<Array<Menu>>
-  menu?: Maybe<Menu>
-  menu2?: Maybe<Menu>
-  menus?: Maybe<Array<Menu>>
-  menus2?: Maybe<Array<Menu>>
-  /** 소식 상세 */
-  news?: Maybe<News>
-  /** 전체 매장 소식 목록 */
-  news2?: Maybe<Array<News>>
-  /** 특정 매장 소식 목록 */
-  news3?: Maybe<Array<News>>
-  /** 특정 매장 정보 */
-  store?: Maybe<Store>
-  /** 동네 및 카테고리별 매장 목록 */
-  stores: Array<Store>
-  /** 인증 토큰과 같이 요청하면 사용자 정보를 반환 */
-  me: User
+  feedListByTown?: Maybe<Array<Feed>>
   /** 이메일 중복 여부 검사 */
   isEmailUnique: Scalars['Boolean']
   /** 사용자 고유 이름 중복 여부 검사 */
   isUniqueNameUnique: Scalars['Boolean']
+  /** 인증 토큰과 같이 요청하면 사용자 정보를 반환 */
+  me: User
+  /** 메뉴 상세 */
+  menu?: Maybe<Menu>
+  /** 메뉴 상세 */
+  menuByName?: Maybe<Menu>
+  /** 특정 매장 메뉴 목록 */
+  menusByStore?: Maybe<Array<Menu>>
+  /** 특정 동네 및 특정 카테고리 피드 목록 */
+  menusByTownAndCategory?: Maybe<Array<Menu>>
+  /** 소식 상세 */
+  news?: Maybe<News>
+  /** 특정 매장 소식 목록 */
+  newsListByStore?: Maybe<Array<News>>
+  /** 옵션별 여러 매장 소식 목록 */
+  newsListByTown?: Maybe<Array<News>>
+  searchFeed?: Maybe<Array<Menu>>
+  searchMenus?: Maybe<Array<Menu>>
+  searchStores?: Maybe<Array<Menu>>
+  /** 특정 매장 정보 */
+  store?: Maybe<Store>
+  /** 동네 및 카테고리별 매장 목록 */
+  storesByTownAndCategory?: Maybe<Array<Store>>
 }
 
 export type QueryFeedArgs = {
   id: Scalars['ID']
 }
 
-export type QueryFeed2Args = {
+export type QueryFeedListByStoreArgs = {
   storeId: Scalars['ID']
 }
 
-export type QueryFeed3Args = {
-  town: Scalars['ID']
+export type QueryFeedListByTownArgs = {
+  town?: Maybe<Scalars['NonEmptyString']>
+  option?: Maybe<FeedOptions>
+}
+
+export type QueryIsEmailUniqueArgs = {
+  email: Scalars['EmailAddress']
+}
+
+export type QueryIsUniqueNameUniqueArgs = {
+  uniqueName: Scalars['NonEmptyString']
+}
+
+export type QueryMenuArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryMenuByNameArgs = {
+  storeId: Scalars['ID']
+  name: Scalars['NonEmptyString']
+}
+
+export type QueryMenusByStoreArgs = {
+  storeId: Scalars['ID']
+}
+
+export type QueryMenusByTownAndCategoryArgs = {
+  town?: Maybe<Scalars['NonEmptyString']>
+  category?: Maybe<Scalars['NonEmptyString']>
+}
+
+export type QueryNewsArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryNewsListByStoreArgs = {
+  storeId: Scalars['ID']
+  categories?: Maybe<Array<Scalars['NonEmptyString']>>
+}
+
+export type QueryNewsListByTownArgs = {
+  town?: Maybe<Scalars['NonEmptyString']>
+  option?: Maybe<NewsOptions>
 }
 
 export type QuerySearchFeedArgs = {
@@ -203,48 +268,13 @@ export type QuerySearchStoresArgs = {
   hashtags: Array<Scalars['NonEmptyString']>
 }
 
-export type QueryMenuArgs = {
-  id: Scalars['ID']
-}
-
-export type QueryMenu2Args = {
-  storeId: Scalars['ID']
-  name: Scalars['NonEmptyString']
-}
-
-export type QueryMenusArgs = {
-  town?: Maybe<Scalars['NonEmptyString']>
-  category?: Maybe<Scalars['NonEmptyString']>
-}
-
-export type QueryMenus2Args = {
-  storeId?: Maybe<Scalars['ID']>
-}
-
-export type QueryNewsArgs = {
-  id: Scalars['ID']
-}
-
-export type QueryNews3Args = {
-  storeId: Scalars['ID']
-  categories?: Maybe<Array<Scalars['NonEmptyString']>>
-}
-
 export type QueryStoreArgs = {
   id: Scalars['ID']
 }
 
-export type QueryStoresArgs = {
+export type QueryStoresByTownAndCategoryArgs = {
   town?: Maybe<Scalars['NonEmptyString']>
   categories?: Maybe<Array<Scalars['NonEmptyString']>>
-}
-
-export type QueryIsEmailUniqueArgs = {
-  email: Scalars['EmailAddress']
-}
-
-export type QueryIsUniqueNameUniqueArgs = {
-  uniqueName: Scalars['NonEmptyString']
 }
 
 export type RegisterInput = {
@@ -268,8 +298,6 @@ export type Store = {
   town: Scalars['NonEmptyString']
   address: Scalars['NonEmptyString']
   categories: Array<Scalars['NonEmptyString']>
-  takeout: Scalars['Boolean']
-  /** nullable */
   tel?: Maybe<Scalars['String']>
   registrationNumber?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
@@ -277,12 +305,17 @@ export type Store = {
   holidays?: Maybe<Array<Scalars['Date']>>
   imageUrls?: Maybe<Array<Scalars['URL']>>
   userId: Scalars['ID']
-  /** from other table */
+  /** 로그인한 사용자가 이 매장을 버킷에 담은 여부 */
   isInBucket: Scalars['Boolean']
+  /** 로그인한 사용자가 이 매장을 좋아하는 여부 */
   isLiked: Scalars['Boolean']
+  /** 매장에서 판매하는 메뉴 목록 */
   menus: Array<Menu>
-  /** from other table - nullable */
+  /** 매장에 달린 해시태그 */
   hashtags?: Maybe<Array<Scalars['NonEmptyString']>>
+  /** 매장에서 올린 소식 목록 */
+  news?: Maybe<Array<News>>
+  /** 매장을 소유한 사용자 정보 */
   user?: Maybe<User>
 }
 
@@ -312,6 +345,7 @@ export type User = {
   bio?: Maybe<Scalars['String']>
   birth?: Maybe<Scalars['Date']>
   imageUrl?: Maybe<Scalars['URL']>
+  nickname?: Maybe<Scalars['String']>
   /** 내가 쓴 댓글 */
   comments?: Maybe<Array<Comment>>
   /** 내가 쓴 피드 */
@@ -355,6 +389,28 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation'; register?: Maybe<any> }
 
+export type FeedListQueryVariables = Exact<{
+  town?: Maybe<Scalars['NonEmptyString']>
+  option?: Maybe<FeedOptions>
+}>
+
+export type FeedListQuery = {
+  __typename?: 'Query'
+  feedListByTown?: Maybe<
+    Array<{
+      __typename?: 'Feed'
+      id: string
+      creationTime: any
+      contents: Array<any>
+      imageUrls: Array<any>
+      likeCount: number
+      commentCount: number
+      isLiked: boolean
+      user: { __typename?: 'User'; id: string; imageUrl?: Maybe<any>; nickname?: Maybe<string> }
+    }>
+  >
+}
+
 export type IsEmailUniqueQueryVariables = Exact<{
   email: Scalars['EmailAddress']
 }>
@@ -366,6 +422,26 @@ export type IsIdUniqueQueryVariables = Exact<{
 }>
 
 export type IsIdUniqueQuery = { __typename?: 'Query'; isUniqueNameUnique: boolean }
+
+export type MenusQueryVariables = Exact<{
+  town?: Maybe<Scalars['NonEmptyString']>
+  category?: Maybe<Scalars['NonEmptyString']>
+}>
+
+export type MenusQuery = {
+  __typename?: 'Query'
+  menusByTownAndCategory?: Maybe<
+    Array<{
+      __typename?: 'Menu'
+      id: string
+      name: any
+      price: number
+      hashtags?: Maybe<Array<any>>
+      imageUrls: Array<any>
+      store: { __typename?: 'Store'; id: string; name: any; address: any }
+    }>
+  >
+}
 
 export type StoreQueryVariables = Exact<{
   storeId: Scalars['ID']
@@ -408,8 +484,14 @@ export type StoreFeedQueryVariables = Exact<{
 
 export type StoreFeedQuery = {
   __typename?: 'Query'
-  feed2?: Maybe<
-    Array<{ __typename?: 'Feed'; id: string; contents: Array<any>; imageUrls: Array<any> }>
+  feedListByStore?: Maybe<
+    Array<{
+      __typename?: 'Feed'
+      id: string
+      contents: Array<any>
+      imageUrls: Array<any>
+      user: { __typename?: 'User'; nickname?: Maybe<string>; imageUrl?: Maybe<any> }
+    }>
   >
 }
 
@@ -420,7 +502,7 @@ export type StoreMenuQueryVariables = Exact<{
 
 export type StoreMenuQuery = {
   __typename?: 'Query'
-  menu2?: Maybe<{
+  menuByName?: Maybe<{
     __typename?: 'Menu'
     id: string
     name: any
@@ -429,7 +511,7 @@ export type StoreMenuQuery = {
     imageUrls: Array<any>
     isLiked: boolean
     hashtags?: Maybe<Array<any>>
-    store: { __typename?: 'Store'; id: string; name: any; imageUrls?: Maybe<Array<any>> }
+    store: { __typename?: 'Store'; id: string; name: any }
   }>
 }
 
@@ -439,13 +521,15 @@ export type StoreMenusQueryVariables = Exact<{
 
 export type StoreMenusQuery = {
   __typename?: 'Query'
-  menus2?: Maybe<
+  menusByStore?: Maybe<
     Array<{
       __typename?: 'Menu'
       id: string
       name: any
       price: number
+      isSoldOut: boolean
       imageUrls: Array<any>
+      isLiked: boolean
       hashtags?: Maybe<Array<any>>
     }>
   >
@@ -457,7 +541,7 @@ export type StoreNewsQueryVariables = Exact<{
 
 export type StoreNewsQuery = {
   __typename?: 'Query'
-  news3?: Maybe<
+  newsListByStore?: Maybe<
     Array<{
       __typename?: 'News'
       id: string
@@ -465,6 +549,26 @@ export type StoreNewsQuery = {
       contents: Array<any>
       category: any
       imageUrls?: Maybe<Array<any>>
+    }>
+  >
+}
+
+export type StoresQueryVariables = Exact<{
+  town?: Maybe<Scalars['NonEmptyString']>
+  categories?: Maybe<Array<Scalars['NonEmptyString']> | Scalars['NonEmptyString']>
+}>
+
+export type StoresQuery = {
+  __typename?: 'Query'
+  storesByTownAndCategory?: Maybe<
+    Array<{
+      __typename?: 'Store'
+      id: string
+      name: any
+      categories: Array<any>
+      imageUrls?: Maybe<Array<any>>
+      hashtags?: Maybe<Array<any>>
+      address: any
     }>
   >
 }
@@ -577,6 +681,57 @@ export type RegisterMutationOptions = Apollo.BaseMutationOptions<
   RegisterMutation,
   RegisterMutationVariables
 >
+export const FeedListDocument = gql`
+  query FeedList($town: NonEmptyString, $option: FeedOptions) {
+    feedListByTown(town: $town, option: $option) {
+      id
+      creationTime
+      contents
+      imageUrls
+      likeCount
+      commentCount
+      isLiked
+      user {
+        id
+        imageUrl
+        nickname
+      }
+    }
+  }
+`
+
+/**
+ * __useFeedListQuery__
+ *
+ * To run a query within a React component, call `useFeedListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFeedListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFeedListQuery({
+ *   variables: {
+ *      town: // value for 'town'
+ *      option: // value for 'option'
+ *   },
+ * });
+ */
+export function useFeedListQuery(
+  baseOptions?: Apollo.QueryHookOptions<FeedListQuery, FeedListQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<FeedListQuery, FeedListQueryVariables>(FeedListDocument, options)
+}
+export function useFeedListLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<FeedListQuery, FeedListQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<FeedListQuery, FeedListQueryVariables>(FeedListDocument, options)
+}
+export type FeedListQueryHookResult = ReturnType<typeof useFeedListQuery>
+export type FeedListLazyQueryHookResult = ReturnType<typeof useFeedListLazyQuery>
+export type FeedListQueryResult = Apollo.QueryResult<FeedListQuery, FeedListQueryVariables>
 export const IsEmailUniqueDocument = gql`
   query IsEmailUnique($email: EmailAddress!) {
     isEmailUnique(email: $email)
@@ -660,6 +815,55 @@ export function useIsIdUniqueLazyQuery(
 export type IsIdUniqueQueryHookResult = ReturnType<typeof useIsIdUniqueQuery>
 export type IsIdUniqueLazyQueryHookResult = ReturnType<typeof useIsIdUniqueLazyQuery>
 export type IsIdUniqueQueryResult = Apollo.QueryResult<IsIdUniqueQuery, IsIdUniqueQueryVariables>
+export const MenusDocument = gql`
+  query Menus($town: NonEmptyString, $category: NonEmptyString) {
+    menusByTownAndCategory(town: $town, category: $category) {
+      id
+      name
+      price
+      hashtags
+      imageUrls
+      store {
+        id
+        name
+        address
+      }
+    }
+  }
+`
+
+/**
+ * __useMenusQuery__
+ *
+ * To run a query within a React component, call `useMenusQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMenusQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMenusQuery({
+ *   variables: {
+ *      town: // value for 'town'
+ *      category: // value for 'category'
+ *   },
+ * });
+ */
+export function useMenusQuery(
+  baseOptions?: Apollo.QueryHookOptions<MenusQuery, MenusQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<MenusQuery, MenusQueryVariables>(MenusDocument, options)
+}
+export function useMenusLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<MenusQuery, MenusQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<MenusQuery, MenusQueryVariables>(MenusDocument, options)
+}
+export type MenusQueryHookResult = ReturnType<typeof useMenusQuery>
+export type MenusLazyQueryHookResult = ReturnType<typeof useMenusLazyQuery>
+export type MenusQueryResult = Apollo.QueryResult<MenusQuery, MenusQueryVariables>
 export const StoreDocument = gql`
   query Store($storeId: ID!) {
     store(id: $storeId) {
@@ -754,10 +958,14 @@ export type StoreDetailLazyQueryHookResult = ReturnType<typeof useStoreDetailLaz
 export type StoreDetailQueryResult = Apollo.QueryResult<StoreDetailQuery, StoreDetailQueryVariables>
 export const StoreFeedDocument = gql`
   query StoreFeed($storeId: ID!) {
-    feed2(storeId: $storeId) {
+    feedListByStore(storeId: $storeId) {
       id
       contents
       imageUrls
+      user {
+        nickname
+        imageUrl
+      }
     }
   }
 `
@@ -795,19 +1003,18 @@ export type StoreFeedLazyQueryHookResult = ReturnType<typeof useStoreFeedLazyQue
 export type StoreFeedQueryResult = Apollo.QueryResult<StoreFeedQuery, StoreFeedQueryVariables>
 export const StoreMenuDocument = gql`
   query StoreMenu($storeId: ID!, $menuName: NonEmptyString!) {
-    menu2(storeId: $storeId, name: $menuName) {
+    menuByName(storeId: $storeId, name: $menuName) {
       id
       name
       price
       isSoldOut
       imageUrls
+      isLiked
+      hashtags
       store {
         id
         name
-        imageUrls
       }
-      isLiked
-      hashtags
     }
   }
 `
@@ -846,11 +1053,13 @@ export type StoreMenuLazyQueryHookResult = ReturnType<typeof useStoreMenuLazyQue
 export type StoreMenuQueryResult = Apollo.QueryResult<StoreMenuQuery, StoreMenuQueryVariables>
 export const StoreMenusDocument = gql`
   query StoreMenus($storeId: ID!) {
-    menus2(storeId: $storeId) {
+    menusByStore(storeId: $storeId) {
       id
       name
       price
+      isSoldOut
       imageUrls
+      isLiked
       hashtags
     }
   }
@@ -889,7 +1098,7 @@ export type StoreMenusLazyQueryHookResult = ReturnType<typeof useStoreMenusLazyQ
 export type StoreMenusQueryResult = Apollo.QueryResult<StoreMenusQuery, StoreMenusQueryVariables>
 export const StoreNewsDocument = gql`
   query StoreNews($storeId: ID!) {
-    news3(storeId: $storeId) {
+    newsListByStore(storeId: $storeId) {
       id
       creationTime
       contents
@@ -930,3 +1139,48 @@ export function useStoreNewsLazyQuery(
 export type StoreNewsQueryHookResult = ReturnType<typeof useStoreNewsQuery>
 export type StoreNewsLazyQueryHookResult = ReturnType<typeof useStoreNewsLazyQuery>
 export type StoreNewsQueryResult = Apollo.QueryResult<StoreNewsQuery, StoreNewsQueryVariables>
+export const StoresDocument = gql`
+  query Stores($town: NonEmptyString, $categories: [NonEmptyString!]) {
+    storesByTownAndCategory(town: $town, categories: $categories) {
+      id
+      name
+      categories
+      imageUrls
+      hashtags
+      address
+    }
+  }
+`
+
+/**
+ * __useStoresQuery__
+ *
+ * To run a query within a React component, call `useStoresQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStoresQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStoresQuery({
+ *   variables: {
+ *      town: // value for 'town'
+ *      categories: // value for 'categories'
+ *   },
+ * });
+ */
+export function useStoresQuery(
+  baseOptions?: Apollo.QueryHookOptions<StoresQuery, StoresQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<StoresQuery, StoresQueryVariables>(StoresDocument, options)
+}
+export function useStoresLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<StoresQuery, StoresQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<StoresQuery, StoresQueryVariables>(StoresDocument, options)
+}
+export type StoresQueryHookResult = ReturnType<typeof useStoresQuery>
+export type StoresLazyQueryHookResult = ReturnType<typeof useStoresLazyQuery>
+export type StoresQueryResult = Apollo.QueryResult<StoresQuery, StoresQueryVariables>

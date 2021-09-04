@@ -1,16 +1,15 @@
 query StoreMenu($storeId: ID!, $menuName: NonEmptyString!) {
-  menu2(storeId: $storeId, name: $menuName) {
+  menuByName(storeId: $storeId, name: $menuName) {
     id
     name
     price
     isSoldOut
     imageUrls
+    isLiked
+    hashtags
     store {
       id
       name
-      imageUrls
     }
-    isLiked
-    hashtags
   }
 }

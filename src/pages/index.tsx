@@ -3,11 +3,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import PageHead from 'src/components/PageHead'
 import NavigationLayout from 'src/layouts/NavigationLayout'
-import type { ReactElement } from 'react'
-import HomeLayout from 'src/layouts/HomeLayout'
+import { ReactElement, useContext } from 'react'
+import HomeLayout, { HomeContext } from 'src/layouts/HomeLayout'
 import { Carousel } from 'antd'
 import Category from 'src/components/Category'
-import StorePlaceCard from 'src/components/StorePlaceCard'
+import { useStoresQuery } from 'src/graphql/generated/types-and-hooks'
+import StoreCard from 'src/components/StoreCard'
 
 const CarouselDiv = styled.div`
   position: relative;
@@ -17,7 +18,22 @@ const CarouselDiv = styled.div`
   background: #f6f6f6;
 `
 
+const GridContainerUl = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(calc(180px + 10vw), auto);
+  padding: 1rem;
+  gap: 1rem;
+  background-color: #fcfcfc;
+`
+
 export default function HomePage() {
+  const { townName } = useContext(HomeContext)
+
+  const { data, loading } = useStoresQuery({ skip: !townName, variables: { town: townName } })
+
+  const stores = data?.storesByTownAndCategory
+
   return (
     <PageHead>
       <Carousel autoplay>
@@ -34,8 +50,19 @@ export default function HomePage() {
           <Image src="/images/carousel@3x.webp" alt="carousel" layout="fill" />
         </CarouselDiv>
       </Carousel>
+
       <Category />
-      <StorePlaceCard />
+
+      {loading || !stores ? (
+        'loading'
+      ) : (
+        <GridContainerUl>
+          {stores.map((store) => (
+            <StoreCard key={store.id} store={store} />
+          ))}
+        </GridContainerUl>
+      )}
+
       <div>
         <Link href="/@userId1">사용자 페이지</Link>
       </div>

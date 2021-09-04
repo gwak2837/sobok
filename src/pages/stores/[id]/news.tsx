@@ -13,13 +13,14 @@ export default function StoreNewsPage() {
 
   const { data, loading, error } = useStoreNewsQuery({ skip: !storeId, variables: { storeId } })
 
+  const storeNews = data?.newsListByStore
+
   return (
     <PageHead title={`${storeName} 소식 - 소복`} description={description}>
       <div>매장 소식 페이지</div>
-      {loading && 'loading...'}
-      {data?.news3?.map((news) => (
-        <StoreNewsCard key={news.id} storeNews={news} />
-      ))}
+      {loading || !storeNews
+        ? 'loading...'
+        : storeNews.map((news) => <StoreNewsCard key={news.id} storeNews={news} />)}
     </PageHead>
   )
 }

@@ -2,10 +2,9 @@ import { HeartOutlined, HeartTwoTone } from '@ant-design/icons'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useMemo, createContext, ReactElement, ReactNode, useContext } from 'react'
+import { createContext, ReactElement, ReactNode, useContext, useMemo } from 'react'
 import PageHead from 'src/components/PageHead'
-import StoreMenuCard from 'src/components/StoreMenuCard'
-import { useStoreMenusQuery, useStoreQuery } from 'src/graphql/generated/types-and-hooks'
+import { useStoreDetailQuery, useStoreQuery } from 'src/graphql/generated/types-and-hooks'
 
 type TStoreContext = {
   id: string
@@ -52,10 +51,10 @@ export function StoreLayout({ children }: { children: ReactNode }) {
         </>
       )}
       <div>
-        <Link href={`/stores/${storeId}/feed`}>피드</Link>{' '}
-        <Link href={`/stores/${storeId}`}>메뉴</Link>{' '}
+        <Link href={`/stores/${storeId}/info`}>정보</Link>{' '}
         <Link href={`/stores/${storeId}/news`}>소식</Link>{' '}
-        <Link href={`/stores/${storeId}/info`}>정보</Link>
+        <Link href={`/stores/${storeId}/feed`}>피드</Link>{' '}
+        <Link href={`/stores/${storeId}/menus`}>메뉴</Link>{' '}
       </div>
       <StoreContext.Provider value={storeContext}>{children}</StoreContext.Provider>
     </div>
@@ -64,24 +63,37 @@ export function StoreLayout({ children }: { children: ReactNode }) {
 
 const description = ''
 
-export default function StoreMenuPage() {
+export default function StoreInfoPage() {
   const storeContext = useContext(StoreContext)
   const storeId = storeContext.id
   const storeName = storeContext.name
 
-  const { data, loading, error } = useStoreMenusQuery({ skip: !storeId, variables: { storeId } })
+  const { data, loading, error } = useStoreDetailQuery({ skip: !storeId, variables: { storeId } })
+  const storeDetail = data?.store
 
   return (
-    <PageHead title={`${storeName} 메뉴 - 소복`} description={description}>
-      <div>매장 페이지</div>
-      {loading && 'loading...'}
-      {data?.menus2?.map((menu) => (
-        <StoreMenuCard key={menu.id} storeMenu={menu} />
-      ))}
+    <PageHead title={`${storeName} 정보 - 소복`} description={description}>
+      <div>매장 정보 페이지</div>
+      {loading || !storeDetail ? (
+        'loading...'
+      ) : (
+        <>
+          <div>{storeDetail.tel}</div>
+          <div>{storeDetail.address}</div>
+          <div>
+            {storeDetail.businessHours?.map((businessHour, i) => (
+              <p key={i}>{businessHour}</p>
+            ))}
+          </div>
+          <div>{storeDetail.holidays}</div>
+          <div>{storeDetail.categories}</div>
+          <div>{storeDetail.hashtags}</div>
+        </>
+      )}
     </PageHead>
   )
 }
 
-StoreMenuPage.getLayout = function getLayout(page: ReactElement) {
+StoreInfoPage.getLayout = function getLayout(page: ReactElement) {
   return <StoreLayout>{page}</StoreLayout>
 }

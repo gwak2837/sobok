@@ -17,7 +17,7 @@ export default function StoreMenuPage() {
     variables: { storeId, menuName },
   })
 
-  const menu = data?.menu2
+  const menu = data?.menuByName
   const store = menu?.store
   const storeName = store?.name ?? '매장'
 
