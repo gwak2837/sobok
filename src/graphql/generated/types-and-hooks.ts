@@ -489,6 +489,7 @@ export type StoreMenuQuery = {
     imageUrls: Array<any>
     isLiked: boolean
     hashtags?: Maybe<Array<any>>
+    store: { __typename?: 'Store'; id: string; name: any }
   }>
 }
 
@@ -937,6 +938,10 @@ export const StoreMenuDocument = gql`
       imageUrls
       isLiked
       hashtags
+      store {
+        id
+        name
+      }
     }
   }
 `

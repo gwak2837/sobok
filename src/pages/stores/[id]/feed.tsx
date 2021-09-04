@@ -13,12 +13,13 @@ export default function StoreFeedPage() {
 
   const { data, loading, error } = useStoreFeedQuery({ variables: { storeId } })
 
+  const storeFeed = data?.feedListByStore
+
   return (
     <PageHead title={`${storeName} 피드 - 소복`} description={description}>
-      {loading && 'loading...'}
-      {data?.feed2?.map((feed) => (
-        <StoreFeedCard key={feed.id} storeFeed={feed} />
-      ))}
+      {loading || !storeFeed
+        ? 'loading...'
+        : storeFeed.map((feed) => <StoreFeedCard key={feed.id} storeFeed={feed} />)}
     </PageHead>
   )
 }
