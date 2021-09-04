@@ -389,6 +389,28 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation'; register?: Maybe<any> }
 
+export type FeedListQueryVariables = Exact<{
+  town?: Maybe<Scalars['NonEmptyString']>
+  option?: Maybe<FeedOptions>
+}>
+
+export type FeedListQuery = {
+  __typename?: 'Query'
+  feedListByTown?: Maybe<
+    Array<{
+      __typename?: 'Feed'
+      id: string
+      creationTime: any
+      contents: Array<any>
+      imageUrls: Array<any>
+      likeCount: number
+      commentCount: number
+      isLiked: boolean
+      user: { __typename?: 'User'; id: string; imageUrl?: Maybe<any>; nickname?: Maybe<string> }
+    }>
+  >
+}
+
 export type IsEmailUniqueQueryVariables = Exact<{
   email: Scalars['EmailAddress']
 }>
@@ -659,6 +681,57 @@ export type RegisterMutationOptions = Apollo.BaseMutationOptions<
   RegisterMutation,
   RegisterMutationVariables
 >
+export const FeedListDocument = gql`
+  query FeedList($town: NonEmptyString, $option: FeedOptions) {
+    feedListByTown(town: $town, option: $option) {
+      id
+      creationTime
+      contents
+      imageUrls
+      likeCount
+      commentCount
+      isLiked
+      user {
+        id
+        imageUrl
+        nickname
+      }
+    }
+  }
+`
+
+/**
+ * __useFeedListQuery__
+ *
+ * To run a query within a React component, call `useFeedListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFeedListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFeedListQuery({
+ *   variables: {
+ *      town: // value for 'town'
+ *      option: // value for 'option'
+ *   },
+ * });
+ */
+export function useFeedListQuery(
+  baseOptions?: Apollo.QueryHookOptions<FeedListQuery, FeedListQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<FeedListQuery, FeedListQueryVariables>(FeedListDocument, options)
+}
+export function useFeedListLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<FeedListQuery, FeedListQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<FeedListQuery, FeedListQueryVariables>(FeedListDocument, options)
+}
+export type FeedListQueryHookResult = ReturnType<typeof useFeedListQuery>
+export type FeedListLazyQueryHookResult = ReturnType<typeof useFeedListLazyQuery>
+export type FeedListQueryResult = Apollo.QueryResult<FeedListQuery, FeedListQueryVariables>
 export const IsEmailUniqueDocument = gql`
   query IsEmailUnique($email: EmailAddress!) {
     isEmailUnique(email: $email)
