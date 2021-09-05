@@ -3,10 +3,10 @@ import styled from 'styled-components'
 
 const FlexContainerLi = styled.li`
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1.1fr 2fr;
   width: 100%;
   height: 8.5rem;
-  border-radius: 0.4rem;
+  border-radius: 10px;
   border: solid 1px #f0f0f0;
   background-color: white;
   margin-bottom: 1rem;
@@ -22,34 +22,33 @@ const MenuCardImageContainer = styled.div`
 
 const MenuCardTextContainer = styled.div`
   grid-column: 2;
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 2fr;
+  display: flex;
+  flex-direction: column;
+  //grid-template-rows: 1fr 1fr 1fr 2fr;
   align-content: center;
   width: 100%;
   padding: 0.8rem 1rem;
 `
 
 const MenuCardLocateAndHeart = styled.div`
-  grid-row: 1;
   font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
 `
+
 const MenuCardName = styled.div`
-  grid-row: 2;
   font-size: 1.1rem;
 `
 const MenuCardHashTags = styled.div`
-  grid-row: 3;
-`
-const Tag = styled.span`
-  flex-wrap: nowrap;
   color: #5d5d5d;
   font-size: 0.8rem;
 `
-
+const Tag = styled.span`
+  flex-wrap: nowrap;
+`
 const MenuCardPrice = styled.div`
-  grid-row: 4;
+  margin-top: 1rem;
   font-size: 1.2rem;
-  align-self: center;
 `
 
 type Props = {
@@ -69,7 +68,16 @@ export default function MenuCard({ menu }: Props) {
         />
       </MenuCardImageContainer>
       <MenuCardTextContainer>
-        <MenuCardLocateAndHeart>뚜스뚜스</MenuCardLocateAndHeart>
+        <MenuCardLocateAndHeart>
+          <div>뚜스뚜스</div>
+          <Image
+            src="/images/heart.min.svg"
+            alt="heart"
+            width="15"
+            height="13"
+            objectFit="contain"
+          />
+        </MenuCardLocateAndHeart>
         <MenuCardName>{menu.name}</MenuCardName>
         <MenuCardHashTags>
           {menu.hashtags?.map((hashtags: any, i: any) => (
