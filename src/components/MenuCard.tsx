@@ -4,6 +4,15 @@ import styled from 'styled-components'
 const Border = styled.li`
   border: solid;
 `
+const FlexContainerLi = styled.li`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.4rem;
+  overflow: hidden;
+  //background-color: #c4c4c4;
+`
 
 type Props = {
   menu: any
@@ -21,6 +30,7 @@ export default function MenuCard({ menu }: Props) {
       />
       <div>{menu.name}</div>
       <div>{menu.price}</div>
+      <div>#{menu.hashtags}</div>
     </Border>
   )
 }
