@@ -45,6 +45,11 @@ const FilterButtonUnActive = styled.button`
   color: #5d5d5d;
   padding: 0.25rem 0.8rem;
 `
+const AddButtonWrapper = styled.button`
+  height: 100%;
+  background: none;
+  border: none;
+`
 const GridContainerUl = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -68,6 +73,9 @@ export default function FeedPage() {
             <FilterButtonUnActive>Followers</FilterButtonUnActive>
             <FilterButtonUnActive>All</FilterButtonUnActive>
           </FilterButtons>
+          <AddButtonWrapper>
+            <Image src="/images/add-button.min.svg" alt="add-button" width="24" height="24px" />
+          </AddButtonWrapper>
         </FeedHeader>
         {loading || !feedList ? (
           'loading'
