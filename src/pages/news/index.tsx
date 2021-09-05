@@ -1,18 +1,37 @@
-import { ReactNode, ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
+import { useRecoilValue } from 'recoil'
+import NewsCard from 'src/components/NewsCard'
 import PageHead from 'src/components/PageHead'
+import { NewsOptions, useNewsListQuery } from 'src/graphql/generated/types-and-hooks'
 import NavigationLayout from 'src/layouts/NavigationLayout'
-
-export function NewsLayout({ children }: { children: ReactNode }) {
-  // 탭 동일하게
-  return <div>{children}</div>
-}
+import NewsLayout from 'src/layouts/NewsLayout'
+import { currentTown } from 'src/models/recoil'
 
 const description = ''
 
 export default function LikedStoreNewsPage() {
+  const townName = useRecoilValue(currentTown)
+
+  const [categories, setCategories] = useState('')
+
+  const { data, loading } = useNewsListQuery({
+    variables: {
+      ...(townName && { town: townName }),
+      option: NewsOptions.LikedStore,
+      ...(categories && { categories }),
+    },
+  })
+
+  const newsList = data?.newsListByTown
+
   return (
     <PageHead title="찜한 매장 소식 - 소복" description={description}>
       <div>소식 페이지</div>
+      {loading
+        ? 'loading...'
+        : newsList
+        ? newsList.map((news) => <NewsCard key={news.id} news={news} />)
+        : '결과 없음'}
     </PageHead>
   )
 }
