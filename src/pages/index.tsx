@@ -4,11 +4,13 @@ import Image from 'next/image'
 import PageHead from 'src/components/PageHead'
 import NavigationLayout from 'src/layouts/NavigationLayout'
 import { ReactElement, useContext } from 'react'
-import HomeLayout, { HomeContext } from 'src/layouts/HomeLayout'
+import HomeLayout from 'src/layouts/HomeLayout'
 import { Carousel } from 'antd'
 import Category from 'src/components/Category'
 import { useStoresQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreCard from 'src/components/StoreCard'
+import { useRecoilValue } from 'recoil'
+import { currentTown } from 'src/models/recoil'
 
 const CarouselDiv = styled.div`
   position: relative;
@@ -28,7 +30,7 @@ const GridContainerUl = styled.ul`
 `
 
 export default function HomePage() {
-  const { townName } = useContext(HomeContext)
+  const townName = useRecoilValue(currentTown)
 
   const { data, loading } = useStoresQuery({ skip: !townName, variables: { town: townName } })
 
