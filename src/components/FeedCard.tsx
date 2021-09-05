@@ -13,8 +13,9 @@ const FlexContainerLi = styled.li`
   margin-bottom: 30px;
 `
 const CardImage = styled.div`
-  position: relative;
-  height: 7.5rem;
+  //position: relative;
+  width: 100%;
+  flex-basis: 7.5rem;
   //padding-bottom: 15.63%;
   border-radius: 0.4rem;
   overflow: hidden;
@@ -52,6 +53,19 @@ const ContentBottomHeader = styled.div`
   height: 1.3rem;
   font-size: 0.8rem;
 `
+const ContentBottomSmallWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  margin-right: 3px;
+`
+const ContentBottomImage = styled.div`
+  height: 100%;
+`
+const ContentBottomText = styled.div`
+  margin-left: 2px;
+`
+
 type Props = {
   feed: ArrayElement<FeedListQuery['feedListByTown']>
 }
@@ -65,8 +79,8 @@ export default function FeedCard({ feed }: Props) {
         <Image
           src={feed.imageUrls?.[0] ?? '/images/default-store-cover.png'}
           alt={'feed-cover'}
-          width="200"
-          height="200"
+          width="167"
+          height="105"
           objectFit="cover"
         />
       </CardImage>
@@ -92,8 +106,18 @@ export default function FeedCard({ feed }: Props) {
         ))}
       </Content>
       <ContentBottomHeader>
-        <div>{feed.likeCount}</div>
-        <div>{feed.commentCount}</div>
+        <ContentBottomSmallWrapper>
+          <ContentBottomImage>
+            <Image src="/images/comment.min.svg" alt="comment" width="15" height="13" />
+          </ContentBottomImage>
+          <ContentBottomText>{feed.likeCount}</ContentBottomText>
+        </ContentBottomSmallWrapper>
+        <ContentBottomSmallWrapper>
+          <ContentBottomImage>
+            <Image src="/images/like.min.svg" alt="like" width="15" height="13" />
+          </ContentBottomImage>
+          <ContentBottomText>{feed.commentCount}</ContentBottomText>
+        </ContentBottomSmallWrapper>
       </ContentBottomHeader>
     </FlexContainerLi>
   )
