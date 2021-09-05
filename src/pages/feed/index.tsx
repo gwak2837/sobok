@@ -45,6 +45,13 @@ const FilterButtonUnActive = styled.button`
   color: #5d5d5d;
   padding: 0.25rem 0.8rem;
 `
+const GridContainerUl = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 200px;
+  gap: 1rem;
+`
+
 export default function FeedPage() {
   const { townName } = useContext(HomeContext)
 
@@ -65,11 +72,11 @@ export default function FeedPage() {
         {loading || !feedList ? (
           'loading'
         ) : (
-          <ul>
+          <GridContainerUl>
             {feedList.map((feed) => (
               <FeedCard key={feed.id} feed={feed} />
             ))}
-          </ul>
+          </GridContainerUl>
         )}
       </FeedContainer>
     </PageHead>
