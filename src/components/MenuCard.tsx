@@ -69,7 +69,7 @@ export default function MenuCard({ menu }: Props) {
       </MenuCardImageContainer>
       <MenuCardTextContainer>
         <MenuCardLocateAndHeart>
-          <div>뚜스뚜스</div>
+          <div>{menu.store.name}</div>
           <Image
             src="/images/heart.min.svg"
             alt="heart"
