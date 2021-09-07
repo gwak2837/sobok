@@ -1,4 +1,5 @@
 import { HeartOutlined, HeartTwoTone } from '@ant-design/icons'
+import { SignalWifi1BarLock } from '@material-ui/icons'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -15,7 +16,7 @@ type Props = {
 const StoreContainer = styled.div`
   background-color: #fcfcfc;
 `
-const TabsContainer = styled.div`
+const TabsContainer = styled.ul`
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -24,21 +25,31 @@ const TabsContainer = styled.div`
   border: solid 1px #f0f0f0;
 `
 
-const Tab = styled.a`
+const Tab = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: black !important;
   font-size: 1.1rem;
   width: 49px;
   height: 100%;
   padding: auto;
-  border-bottom: solid 5px #5d5d5d;
+  cursor: pointer;
+  transition: ease 0.5s;
+  &:hover {
+    color: black;
+    border-bottom: 'solid 5px #5d5d5d';
+  }
 `
+
+const SelectedTabStyle = { color: '#000000', borderBottom: 'solid 5px #5d5d5d' }
+const UnSelectedTabStyle = { color: '#8e8e8e', borderBottom: 'solid 5px white' }
+
 export default function StoreLayout({ children }: Props) {
   const setStore = useSetRecoilState(storeRecoil)
 
   const router = useRouter()
+
+  const { asPath } = useRouter()
 
   const storeId = (router.query.id ?? '') as string
 
@@ -75,16 +86,26 @@ export default function StoreLayout({ children }: Props) {
       )}
       <TabsContainer>
         <Link href={`/stores/${storeId}`} passHref>
-          <Tab>정보</Tab>
+          <Tab style={asPath === `/stores/${storeId}` ? SelectedTabStyle : UnSelectedTabStyle}>
+            정보
+          </Tab>
         </Link>{' '}
         <Link href={`/stores/${storeId}/news`} passHref>
-          <Tab>소식</Tab>
+          <Tab style={asPath === `/stores/${storeId}/news` ? SelectedTabStyle : UnSelectedTabStyle}>
+            소식
+          </Tab>
         </Link>{' '}
         <Link href={`/stores/${storeId}/menus`} passHref>
-          <Tab>메뉴</Tab>
+          <Tab
+            style={asPath === `/stores/${storeId}/menus` ? SelectedTabStyle : UnSelectedTabStyle}
+          >
+            메뉴
+          </Tab>
         </Link>{' '}
         <Link href={`/stores/${storeId}/feed`} passHref>
-          <Tab>피드</Tab>
+          <Tab style={asPath === `/stores/${storeId}/feed` ? SelectedTabStyle : UnSelectedTabStyle}>
+            피드
+          </Tab>
         </Link>{' '}
       </TabsContainer>
       {children}
