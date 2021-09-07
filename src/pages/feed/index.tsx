@@ -1,11 +1,13 @@
-import { ReactElement, useContext } from 'react'
+import { ReactElement } from 'react'
+import { useRecoilValue } from 'recoil'
 import FeedCard from 'src/components/FeedCard'
 import PageHead from 'src/components/PageHead'
 import { useFeedListQuery } from 'src/graphql/generated/types-and-hooks'
-import HomeLayout, { HomeContext } from 'src/layouts/HomeLayout'
+import HomeLayout from 'src/layouts/HomeLayout'
 import NavigationLayout from 'src/layouts/NavigationLayout'
 import styled from 'styled-components'
 import Image from 'next/image'
+import { currentTown } from 'src/models/recoil'
 
 const description = ''
 
@@ -58,7 +60,7 @@ const GridContainerUl = styled.ul`
 `
 
 export default function FeedPage() {
-  const { townName } = useContext(HomeContext)
+  const townName = useRecoilValue(currentTown)
 
   const { data, loading } = useFeedListQuery({ skip: !townName, variables: { town: townName } })
 
@@ -77,14 +79,17 @@ export default function FeedPage() {
             <Image src="/images/add-button.min.svg" alt="add-button" width="24" height="24px" />
           </AddButtonWrapper>
         </FeedHeader>
-        {loading || !feedList ? (
-          'loading'
-        ) : (
+
+        {loading ? (
+          <div>loading...</div>
+        ) : feedList ? (
           <GridContainerUl>
             {feedList.map((feed) => (
               <FeedCard key={feed.id} feed={feed} />
             ))}
           </GridContainerUl>
+        ) : (
+          <div>결과 없음</div>
         )}
       </FeedContainer>
     </PageHead>

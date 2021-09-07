@@ -1,15 +1,15 @@
-import { ReactElement, useContext } from 'react'
+import { ReactElement } from 'react'
+import { useRecoilValue } from 'recoil'
 import PageHead from 'src/components/PageHead'
 import StoreFeedCard from 'src/components/StoreFeedCard'
 import { useStoreFeedQuery } from 'src/graphql/generated/types-and-hooks'
-import { StoreContext, StoreLayout } from '.'
+import StoreLayout from 'src/layouts/StoreLayout'
+import { store } from 'src/models/recoil'
 
 const description = ''
 
 export default function StoreFeedPage() {
-  const storeContext = useContext(StoreContext)
-  const storeId = storeContext.id
-  const storeName = storeContext.name
+  const { id: storeId, name: storeName } = useRecoilValue(store)
 
   const { data, loading, error } = useStoreFeedQuery({ variables: { storeId } })
 
@@ -17,9 +17,11 @@ export default function StoreFeedPage() {
 
   return (
     <PageHead title={`${storeName} 피드 - 소복`} description={description}>
-      {loading || !storeFeed
+      {loading
         ? 'loading...'
-        : storeFeed.map((feed) => <StoreFeedCard key={feed.id} storeFeed={feed} />)}
+        : storeFeed
+        ? storeFeed.map((feed) => <StoreFeedCard key={feed.id} storeFeed={feed} />)
+        : '결과 없음'}
     </PageHead>
   )
 }

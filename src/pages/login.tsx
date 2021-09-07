@@ -29,8 +29,8 @@ export default function LoginPage() {
     handleSubmit,
   } = useForm<LoginFormValues>({
     defaultValues: {
-      uniqueNameOrEmail: '',
-      password: '',
+      uniqueNameOrEmail: 'bok@sindy.in',
+      password: '1234',
       remember: false,
     },
   })
@@ -47,8 +47,8 @@ export default function LoginPage() {
 
       // refetchUser()
 
-      router.replace(sessionStorage.getItem('urlToRedirectAfterLogin') ?? '/')
-      sessionStorage.removeItem('urlToRedirectAfterLogin')
+      router.replace(sessionStorage.getItem('redirectToAfterLogin') ?? '/')
+      sessionStorage.removeItem('redirectToAfterLogin')
     },
     onError: handleApolloError,
   })

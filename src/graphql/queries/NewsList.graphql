@@ -1,0 +1,13 @@
+query NewsList($town: NonEmptyString, $option: NewsOptions, $categories: [NonEmptyString!]) {
+  newsListByTown(town: $town, option: $option, categories: $categories) {
+    id
+    creationTime
+    contents
+    category
+    store {
+      id
+      name
+      imageUrls
+    }
+  }
+}
