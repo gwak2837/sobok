@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import { MenusQuery, StoreMenusQuery } from 'src/graphql/generated/types-and-hooks'
+import { ArrayElement } from 'src/utils/types'
 import styled from 'styled-components'
 
 const FlexContainerLi = styled.li`
@@ -52,10 +54,14 @@ const MenuCardPrice = styled.div`
 `
 
 type Props = {
-  menu: any
+  menu:
+    | ArrayElement<MenusQuery['menusByTownAndCategory']>
+    | ArrayElement<StoreMenusQuery['menusByStore']>
 }
 
 export default function MenuCard({ menu }: Props) {
+  const store = (menu as ArrayElement<MenusQuery['menusByTownAndCategory']>).store
+
   return (
     <FlexContainerLi>
       <MenuCardImageContainer>
@@ -69,7 +75,7 @@ export default function MenuCard({ menu }: Props) {
       </MenuCardImageContainer>
       <MenuCardTextContainer>
         <MenuCardLocateAndHeart>
-          <div>{menu.store.name}</div>
+          <div>{store.name}</div>
           <Image
             src="/images/heart.min.svg"
             alt="heart"
@@ -80,7 +86,7 @@ export default function MenuCard({ menu }: Props) {
         </MenuCardLocateAndHeart>
         <MenuCardName>{menu.name}</MenuCardName>
         <MenuCardHashTags>
-          {menu.hashtags?.map((hashtags: any, i: any) => (
+          {menu.hashtags?.map((hashtags, i) => (
             <Tag key={i}>#{hashtags} </Tag>
           ))}
         </MenuCardHashTags>
