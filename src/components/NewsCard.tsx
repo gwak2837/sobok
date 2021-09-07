@@ -11,6 +11,7 @@ function NewsCard({ news }: Props) {
 
   return (
     <li>
+      ddf
       <Image
         src={store.imageUrls?.[0] ?? '/images/default-store-cover.png'}
         alt={store.name ?? 'store-cover'}

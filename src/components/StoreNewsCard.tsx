@@ -12,11 +12,12 @@ function StoreNewsCard({ storeNews }: Props) {
       {storeNews.imageUrls && (
         <Image src={storeNews.imageUrls[0]} alt="store-menu" width="100" height="100" />
       )}
+      <div>디저트정</div>
+      <div>{storeNews.category}</div>
+      <div>{storeNews.creationTime}</div>
       {storeNews.contents.map((content, i) => (
         <p key={i}>{content}</p>
       ))}
-      <div>{storeNews.creationTime}</div>
-      <div>{storeNews.category}</div>
     </li>
   )
 }
