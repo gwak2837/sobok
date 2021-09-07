@@ -6,11 +6,35 @@ import { ReactNode, useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { useStoreQuery } from 'src/graphql/generated/types-and-hooks'
 import { store as storeRecoil } from 'src/models/recoil'
+import styled from 'styled-components'
 
 type Props = {
   children: ReactNode
 }
 
+const StoreContainer = styled.div`
+  background-color: #fcfcfc;
+`
+const TabsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 50px;
+  background-color: white;
+  border: solid 1px #f0f0f0;
+`
+
+const Tab = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black !important;
+  font-size: 1.1rem;
+  width: 49px;
+  height: 100%;
+  padding: auto;
+  border-bottom: solid 5px #5d5d5d;
+`
 export default function StoreLayout({ children }: Props) {
   const setStore = useSetRecoilState(storeRecoil)
 
@@ -30,7 +54,7 @@ export default function StoreLayout({ children }: Props) {
   }, [setStore, storeId, storeName])
 
   return (
-    <div>
+    <StoreContainer>
       <Image
         src={store?.imageUrls?.[0] ?? '/images/default-store-cover.png'}
         alt="store-cover"
@@ -49,14 +73,16 @@ export default function StoreLayout({ children }: Props) {
       ) : (
         '결과 없음'
       )}
-      <div>
-        <Link href={`/stores/${storeId}`}>정보</Link>{' '}
+      <TabsContainer>
+        <Tab>
+          <Link href={`/stores/${storeId}`}>정보</Link>{' '}
+        </Tab>
         <Link href={`/stores/${storeId}/news`}>소식</Link>{' '}
         <Link href={`/stores/${storeId}/feed`}>피드</Link>{' '}
         <Link href={`/stores/${storeId}/menus`}>메뉴</Link>{' '}
-      </div>
+      </TabsContainer>
 
       {children}
-    </div>
+    </StoreContainer>
   )
 }

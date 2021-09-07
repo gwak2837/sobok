@@ -4,6 +4,7 @@ import PageHead from 'src/components/PageHead'
 import { useStoreDetailQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
 import { store } from 'src/models/recoil'
+import styled from 'styled-components'
 
 const description = ''
 
