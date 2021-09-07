@@ -5,15 +5,15 @@ import NavigationLayout from 'src/layouts/NavigationLayout'
 
 const description = ''
 
-export default function UserStoreBucketsPage() {
+export default function UserMenuBucketsPage() {
   return (
     <PageHead title=" - 소복" description={description}>
-      사용자 매장 버킷 목록 페이지. Query string으로 버킷 종류 구별
+      사용자 메뉴 버킷 목록 페이지. Query string으로 버킷 종류 구별
     </PageHead>
   )
 }
 
-UserStoreBucketsPage.getLayout = function getLayout(page: ReactElement) {
+UserMenuBucketsPage.getLayout = function getLayout(page: ReactElement) {
   return (
     <NavigationLayout>
       <BucketLayout>{page}</BucketLayout>
