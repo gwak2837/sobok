@@ -55,7 +55,8 @@ const AddButtonWrapper = styled.button`
 const GridContainerUl = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-auto-rows: 200px;
+  /* grid-auto-rows: 210px; */
+  grid-auto-rows: minmax(200px, auto);
   gap: 1rem;
 `
 

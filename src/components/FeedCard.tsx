@@ -10,13 +10,12 @@ const FlexContainerLi = styled.li`
   overflow: hidden;
   width: 100%;
   height: 100%;
-  margin-bottom: 30px;
 `
 const CardImage = styled.div`
-  //position: relative;
   width: 100%;
-  flex-basis: 7.5rem;
-  //padding-bottom: 15.63%;
+  height: 0;
+  padding-bottom: 105px;
+  //flex-basis: 7.5rem;
   border-radius: 0.4rem;
   overflow: hidden;
   margin-bottom: 5px;
@@ -79,8 +78,8 @@ export default function FeedCard({ feed }: Props) {
         <Image
           src={feed.imageUrls?.[0] ?? '/images/default-store-cover.png'}
           alt={'feed-cover'}
-          width="167"
-          height="105"
+          width="400"
+          height="264"
           objectFit="cover"
         />
       </CardImage>
