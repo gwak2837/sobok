@@ -9,3 +9,8 @@ export const store = atom({
   key: 'store',
   default: { id: '', name: '' },
 })
+
+export const user = atom({
+  key: 'user',
+  default: { jwt: '' },
+})
