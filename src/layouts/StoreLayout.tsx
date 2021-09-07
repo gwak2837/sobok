@@ -63,6 +63,7 @@ const LikedButton = styled.div`
 const StoreName = styled.div`
   font-size: 1.3rem;
   font-weight: 500;
+  margin-right: 3px;
 `
 const StoreDescription = styled.div`
   font-size: 1.1rem;
@@ -101,7 +102,10 @@ export default function StoreLayout({ children }: Props) {
         'loading...'
       ) : store ? (
         <StoreHeaderContainer>
-          <StoreName>{storeName}</StoreName>
+          <StoreName>
+            {storeName}
+            <Image src="/images/edit.min.svg" alt="수정요청" width="14" height="14" />
+          </StoreName>
           <StoreDescription>{store.description}</StoreDescription>
           <LikedButton>
             {store.isLiked ? <HeartTwoTone twoToneColor="#ff9f74" /> : <HeartOutlined />}

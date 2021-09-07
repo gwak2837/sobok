@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { StoresQuery, useStoreQuery } from 'src/graphql/generated/types-and-hooks'
-
 import { ArrayElement } from 'src/utils/types'
 import styled from 'styled-components'
 import Link from 'next/link'
