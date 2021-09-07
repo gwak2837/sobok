@@ -1,8 +1,10 @@
 import { Tabs } from 'antd'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { createContext, ReactNode, useMemo } from 'react'
+import { ReactNode } from 'react'
+import { useRecoilValue } from 'recoil'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
+import { currentTown } from 'src/models/recoil'
 import { TOP_HEADER_HEIGHT, TABLET_MIN_WIDTH } from 'src/utils/constants'
 import styled from 'styled-components'
 
@@ -50,17 +52,13 @@ const TopIconDiv = styled.div`
   height: 1.3rem;
   margin: 0;
 `
-const townName = '흑석동'
 
-type THomeContext = {
-  townName: string
+type Props = {
+  children: ReactNode
 }
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-export const HomeContext = createContext<THomeContext>(undefined!)
-
-export default function HomeLayout({ children }: { children: ReactNode }) {
-  const homeContext = useMemo(() => ({ townName }), [])
+export default function HomeLayout({ children }: Props) {
+  const townName = useRecoilValue(currentTown)
 
   const router = useRouter()
 
@@ -92,7 +90,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
         <TabPane tab="피드" key="/feed" />
       </Tabs>
 
-      <HomeContext.Provider value={homeContext}>{children}</HomeContext.Provider>
+      {children}
     </HomeContainer>
   )
 }

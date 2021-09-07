@@ -254,6 +254,7 @@ export type QueryNewsListByStoreArgs = {
 export type QueryNewsListByTownArgs = {
   town?: Maybe<Scalars['NonEmptyString']>
   option?: Maybe<NewsOptions>
+  categories?: Maybe<Array<Scalars['NonEmptyString']>>
 }
 
 export type QuerySearchFeedArgs = {
@@ -350,6 +351,8 @@ export type User = {
   comments?: Maybe<Array<Comment>>
   /** 내가 쓴 피드 */
   feed?: Maybe<Array<Feed>>
+  /** 내가 소유한 매장 */
+  stores?: Maybe<Array<Store>>
   /** 사용자가 따르고 있는 다른 사용자 */
   followings?: Maybe<Array<User>>
   /** 사용자를 따르는 다른 사용자 */
@@ -439,6 +442,26 @@ export type MenusQuery = {
       hashtags?: Maybe<Array<any>>
       imageUrls: Array<any>
       store: { __typename?: 'Store'; id: string; name: any; address: any }
+    }>
+  >
+}
+
+export type NewsListQueryVariables = Exact<{
+  town?: Maybe<Scalars['NonEmptyString']>
+  option?: Maybe<NewsOptions>
+  categories?: Maybe<Array<Scalars['NonEmptyString']> | Scalars['NonEmptyString']>
+}>
+
+export type NewsListQuery = {
+  __typename?: 'Query'
+  newsListByTown?: Maybe<
+    Array<{
+      __typename?: 'News'
+      id: string
+      creationTime: any
+      contents: Array<any>
+      category: any
+      store: { __typename?: 'Store'; id: string; name: any; imageUrls?: Maybe<Array<any>> }
     }>
   >
 }
@@ -864,6 +887,55 @@ export function useMenusLazyQuery(
 export type MenusQueryHookResult = ReturnType<typeof useMenusQuery>
 export type MenusLazyQueryHookResult = ReturnType<typeof useMenusLazyQuery>
 export type MenusQueryResult = Apollo.QueryResult<MenusQuery, MenusQueryVariables>
+export const NewsListDocument = gql`
+  query NewsList($town: NonEmptyString, $option: NewsOptions, $categories: [NonEmptyString!]) {
+    newsListByTown(town: $town, option: $option, categories: $categories) {
+      id
+      creationTime
+      contents
+      category
+      store {
+        id
+        name
+        imageUrls
+      }
+    }
+  }
+`
+
+/**
+ * __useNewsListQuery__
+ *
+ * To run a query within a React component, call `useNewsListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNewsListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNewsListQuery({
+ *   variables: {
+ *      town: // value for 'town'
+ *      option: // value for 'option'
+ *      categories: // value for 'categories'
+ *   },
+ * });
+ */
+export function useNewsListQuery(
+  baseOptions?: Apollo.QueryHookOptions<NewsListQuery, NewsListQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<NewsListQuery, NewsListQueryVariables>(NewsListDocument, options)
+}
+export function useNewsListLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<NewsListQuery, NewsListQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<NewsListQuery, NewsListQueryVariables>(NewsListDocument, options)
+}
+export type NewsListQueryHookResult = ReturnType<typeof useNewsListQuery>
+export type NewsListLazyQueryHookResult = ReturnType<typeof useNewsListLazyQuery>
+export type NewsListQueryResult = Apollo.QueryResult<NewsListQuery, NewsListQueryVariables>
 export const StoreDocument = gql`
   query Store($storeId: ID!) {
     store(id: $storeId) {

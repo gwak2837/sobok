@@ -10,7 +10,8 @@ import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import type { ReactElement, ReactNode } from 'react'
-import { createContext, useEffect } from 'react'
+import { useEffect } from 'react'
+import { RecoilRoot } from 'recoil'
 import { client } from 'src/apollo/client'
 import { PRIMARY_TEXT_COLOR, TABLET_MIN_WIDTH } from 'src/utils/constants'
 import { pageview } from 'src/utils/google-analytics'
@@ -66,21 +67,10 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-type GlobalContextValues = any
-
 type AppPropsWithLayout = AppProps & {
   Component: NextPage & {
     getLayout?: (page: ReactElement) => ReactNode
   }
-}
-
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-export const GlobalContext = createContext<GlobalContextValues>(undefined!)
-
-function GlobalProvider({ children }: { children: ReactNode }) {
-  const value = {}
-
-  return <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>
 }
 
 export default function SobokApp({ Component, pageProps }: AppPropsWithLayout) {
@@ -111,9 +101,9 @@ export default function SobokApp({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
       <GlobalStyle />
       <ApolloProvider client={client}>
-        <GlobalProvider>
+        <RecoilRoot>
           {getLayout ? getLayout(<Component {...pageProps} />) : <Component {...pageProps} />}
-        </GlobalProvider>
+        </RecoilRoot>
       </ApolloProvider>
       <ToastContainer autoClose={2500} hideProgressBar position="top-center" transition={fade} />
     </>

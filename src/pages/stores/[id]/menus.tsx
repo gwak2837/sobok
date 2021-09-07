@@ -1,15 +1,15 @@
 import { ReactElement, useContext } from 'react'
+import { useRecoilValue } from 'recoil'
 import PageHead from 'src/components/PageHead'
 import StoreMenuCard from 'src/components/StoreMenuCard'
 import { useStoreMenusQuery } from 'src/graphql/generated/types-and-hooks'
-import { StoreContext, StoreLayout } from '.'
+import StoreLayout from 'src/layouts/StoreLayout'
+import { store } from 'src/models/recoil'
 
 const description = ''
 
 export default function StoreMenuPage() {
-  const storeContext = useContext(StoreContext)
-  const storeId = storeContext.id
-  const storeName = storeContext.name
+  const { id: storeId, name: storeName } = useRecoilValue(store)
 
   const { data, loading, error } = useStoreMenusQuery({ skip: !storeId, variables: { storeId } })
 
@@ -18,9 +18,11 @@ export default function StoreMenuPage() {
   return (
     <PageHead title={`${storeName} 메뉴 - 소복`} description={description}>
       <div>매장 페이지</div>
-      {loading || !storeMenus
+      {loading
         ? 'loading...'
-        : storeMenus.map((menu) => <StoreMenuCard key={menu.id} storeMenu={menu} />)}
+        : storeMenus
+        ? storeMenus.map((menu) => <StoreMenuCard key={menu.id} storeMenu={menu} />)
+        : '결과 없음'}
     </PageHead>
   )
 }
