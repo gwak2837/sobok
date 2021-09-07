@@ -7,7 +7,11 @@ import { useSetRecoilState } from 'recoil'
 import { useStoreQuery } from 'src/graphql/generated/types-and-hooks'
 import { store as storeRecoil } from 'src/models/recoil'
 
-export default function StoreLayout({ children }: { children: ReactNode }) {
+type Props = {
+  children: ReactNode
+}
+
+export default function StoreLayout({ children }: Props) {
   const setStore = useSetRecoilState(storeRecoil)
 
   const router = useRouter()

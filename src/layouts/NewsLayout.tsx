@@ -4,7 +4,11 @@ import { ReactNode } from 'react'
 
 const { TabPane } = Tabs
 
-export default function NewsLayout({ children }: { children: ReactNode }) {
+type Props = {
+  children: ReactNode
+}
+
+export default function NewsLayout({ children }: Props) {
   const router = useRouter()
 
   function goToTabPage(activeKey: string) {
@@ -17,7 +21,7 @@ export default function NewsLayout({ children }: { children: ReactNode }) {
         <TabPane tab="찜한 매장" key="/news"></TabPane>
         <TabPane tab="전체 매장" key="/news/all" />
       </Tabs>
-      <div>{children}</div>
+      {children}
     </>
   )
 }

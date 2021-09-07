@@ -53,7 +53,11 @@ const TopIconDiv = styled.div`
   margin: 0;
 `
 
-export default function HomeLayout({ children }: { children: ReactNode }) {
+type Props = {
+  children: ReactNode
+}
+
+export default function HomeLayout({ children }: Props) {
   const townName = useRecoilValue(currentTown)
 
   const router = useRouter()
