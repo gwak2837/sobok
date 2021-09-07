@@ -24,7 +24,7 @@ const TabsContainer = styled.div`
   border: solid 1px #f0f0f0;
 `
 
-const Tab = styled.div`
+const Tab = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,14 +74,19 @@ export default function StoreLayout({ children }: Props) {
         '결과 없음'
       )}
       <TabsContainer>
-        <Tab>
-          <Link href={`/stores/${storeId}`}>정보</Link>{' '}
-        </Tab>
-        <Link href={`/stores/${storeId}/news`}>소식</Link>{' '}
-        <Link href={`/stores/${storeId}/feed`}>피드</Link>{' '}
-        <Link href={`/stores/${storeId}/menus`}>메뉴</Link>{' '}
+        <Link href={`/stores/${storeId}`} passHref>
+          <Tab>정보</Tab>
+        </Link>{' '}
+        <Link href={`/stores/${storeId}/news`} passHref>
+          <Tab>소식</Tab>
+        </Link>{' '}
+        <Link href={`/stores/${storeId}/menus`} passHref>
+          <Tab>메뉴</Tab>
+        </Link>{' '}
+        <Link href={`/stores/${storeId}/feed`} passHref>
+          <Tab>피드</Tab>
+        </Link>{' '}
       </TabsContainer>
-
       {children}
     </StoreContainer>
   )
