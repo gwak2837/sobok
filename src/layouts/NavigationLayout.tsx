@@ -1,11 +1,19 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
+import { useRecoilValue } from 'recoil'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import { News, Trend } from 'src/components/atoms/SVGs'
 import { SOBOK_COLOR, SOBOK_ACHROMATIC_COLOR } from 'src/models/constants'
+import { user } from 'src/models/recoil'
 import { TABLET_MIN_WIDTH } from 'src/utils/constants'
 import styled from 'styled-components'
+
+const NAVIGATION_HEIGHT = '5rem'
+
+const Padding = styled.div`
+  padding: ${NAVIGATION_HEIGHT};
+`
 
 const FixedHeader = styled.div`
   position: fixed;
@@ -20,7 +28,7 @@ const FixedHeader = styled.div`
 
   width: 100%;
   max-width: ${TABLET_MIN_WIDTH};
-  height: 5rem;
+  height: ${NAVIGATION_HEIGHT};
   box-shadow: 0 -3px 3px 0 rgba(0, 0, 0, 0.06);
   background-color: #fff;
   //transform: translateX(-50%);
@@ -48,13 +56,14 @@ type Props = {
 }
 
 export default function NavigationLayout({ children }: Props) {
-  const { asPath } = useRouter()
+  const userUniqueName = useRecoilValue(user) || 'user-unique-name1'
 
-  const userId = 'userId1'
+  const { asPath } = useRouter()
 
   return (
     <>
       {children}
+      <Padding />
       <FixedHeader>
         <NaigationContainer>
           <ClientSideLink href="/news">
@@ -75,13 +84,13 @@ export default function NavigationLayout({ children }: Props) {
           </ClientSideLink>
         </NaigationContainer>
         <NaigationContainer>
-          <ClientSideLink href={`/@${userId}/buckets`}>
+          <ClientSideLink href={`/@${userUniqueName}/buckets`}>
             <Image src="/images/bucket.svg" alt="bucket" width={18} height={16} />
             <TextDiv>버킷</TextDiv>
           </ClientSideLink>
         </NaigationContainer>
         <NaigationContainer>
-          <ClientSideLink href={`/@${userId}`}>
+          <ClientSideLink href={`/@${userUniqueName}`}>
             <Image src="/images/my.svg" alt="my" width={16} height={19} />
             <TextDiv>MY</TextDiv>
           </ClientSideLink>
