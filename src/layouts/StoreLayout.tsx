@@ -44,6 +44,30 @@ const Tab = styled.li`
 const SelectedTabStyle = { color: '#000000', borderBottom: 'solid 5px #5d5d5d' }
 const UnSelectedTabStyle = { color: '#8e8e8e', borderBottom: 'solid 5px white' }
 
+const StoreHeaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 5rem;
+  padding: 1rem 0;
+`
+
+const LikedButton = styled.div`
+  position: absolute;
+  top: 0.5%;
+  left: 94%;
+  //margin: 5px;
+`
+
+const StoreName = styled.div`
+  font-size: 1.3rem;
+  font-weight: 500;
+`
+const StoreDescription = styled.div`
+  font-size: 1.1rem;
+  color: #5d5d5d;
+`
 export default function StoreLayout({ children }: Props) {
   const setStore = useSetRecoilState(storeRecoil)
 
@@ -69,18 +93,20 @@ export default function StoreLayout({ children }: Props) {
       <Image
         src={store?.imageUrls?.[0] ?? '/images/default-store-cover.png'}
         alt="store-cover"
-        width="200"
-        height="200"
+        width="1080"
+        height="606"
         objectFit="cover"
       />
       {loading ? (
         'loading...'
       ) : store ? (
-        <>
-          <h2>{storeName}</h2>
-          <div>{store.description}</div>
-          <div>{store.isLiked ? <HeartTwoTone twoToneColor="#ff9f74" /> : <HeartOutlined />}</div>
-        </>
+        <StoreHeaderContainer>
+          <StoreName>{storeName}</StoreName>
+          <StoreDescription>{store.description}</StoreDescription>
+          <LikedButton>
+            {store.isLiked ? <HeartTwoTone twoToneColor="#ff9f74" /> : <HeartOutlined />}
+          </LikedButton>
+        </StoreHeaderContainer>
       ) : (
         '결과 없음'
       )}
