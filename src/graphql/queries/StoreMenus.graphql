@@ -1,9 +1,12 @@
 query StoreMenus($storeId: ID!) {
-  menus2(storeId: $storeId) {
+  menusByStore(storeId: $storeId) {
     id
     name
     price
+    isSoldOut
     imageUrls
+    isLiked
     hashtags
+    # 특정 매장에서 정한 카테고리(시그니처, 신메뉴 등)도 필요
   }
 }

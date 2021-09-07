@@ -4,7 +4,7 @@ import type { StoreMenusQuery } from 'src/graphql/generated/types-and-hooks'
 import type { ArrayElement } from 'src/utils/types'
 
 type Props = {
-  storeMenu: ArrayElement<StoreMenusQuery['menus2']>
+  storeMenu: ArrayElement<StoreMenusQuery['menusByStore']>
 }
 
 function StoreMenuCard({ storeMenu }: Props) {

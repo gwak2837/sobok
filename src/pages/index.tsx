@@ -1,12 +1,70 @@
+import styled from 'styled-components'
 import Link from 'next/link'
+import Image from 'next/image'
 import PageHead from 'src/components/PageHead'
 import NavigationLayout from 'src/layouts/NavigationLayout'
-import type { ReactElement } from 'react'
+import { ReactElement, useContext } from 'react'
 import HomeLayout from 'src/layouts/HomeLayout'
+import { Carousel } from 'antd'
+import Category from 'src/components/Category'
+import { useStoresQuery } from 'src/graphql/generated/types-and-hooks'
+import StoreCard from 'src/components/StoreCard'
+import { useRecoilValue } from 'recoil'
+import { currentTown } from 'src/models/recoil'
+
+const CarouselDiv = styled.div`
+  position: relative;
+  height: 9.7rem;
+  line-height: 160px;
+  text-align: center;
+  background: #f6f6f6;
+`
+
+const GridContainerUl = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(calc(180px + 10vw), auto);
+  padding: 1rem;
+  gap: 1rem;
+  background-color: #fcfcfc;
+`
 
 export default function HomePage() {
+  const townName = useRecoilValue(currentTown)
+
+  const { data, loading } = useStoresQuery({ skip: !townName, variables: { town: townName } })
+
+  const stores = data?.storesByTownAndCategory
+
   return (
     <PageHead>
+      <Carousel autoplay>
+        <CarouselDiv>
+          <Image src="/images/carousel@3x.webp" alt="carousel" layout="fill" />
+        </CarouselDiv>
+        <CarouselDiv>
+          <Image src="/images/carousel@3x.webp" alt="carousel" layout="fill" />
+        </CarouselDiv>
+        <CarouselDiv>
+          <Image src="/images/carousel@3x.webp" alt="carousel" layout="fill" />
+        </CarouselDiv>
+        <CarouselDiv>
+          <Image src="/images/carousel@3x.webp" alt="carousel" layout="fill" />
+        </CarouselDiv>
+      </Carousel>
+
+      <Category />
+
+      {loading || !stores ? (
+        'loading'
+      ) : (
+        <GridContainerUl>
+          {stores.map((store) => (
+            <StoreCard key={store.id} store={store} />
+          ))}
+        </GridContainerUl>
+      )}
+
       <div>
         <Link href="/@userId1">사용자 페이지</Link>
       </div>

@@ -1,25 +1,28 @@
 import { ReactElement, useContext } from 'react'
+import { useRecoilValue } from 'recoil'
 import PageHead from 'src/components/PageHead'
 import StoreNewsCard from 'src/components/StoreNewsCard'
 import { useStoreNewsQuery } from 'src/graphql/generated/types-and-hooks'
-import { StoreContext, StoreLayout } from '.'
+import StoreLayout from 'src/layouts/StoreLayout'
+import { store } from 'src/models/recoil'
 
 const description = ''
 
 export default function StoreNewsPage() {
-  const storeContext = useContext(StoreContext)
-  const storeId = storeContext.id
-  const storeName = storeContext.name
+  const { id: storeId, name: storeName } = useRecoilValue(store)
 
   const { data, loading, error } = useStoreNewsQuery({ skip: !storeId, variables: { storeId } })
+
+  const storeNews = data?.newsListByStore
 
   return (
     <PageHead title={`${storeName} 소식 - 소복`} description={description}>
       <div>매장 소식 페이지</div>
-      {loading && 'loading...'}
-      {data?.news3?.map((news) => (
-        <StoreNewsCard key={news.id} storeNews={news} />
-      ))}
+      {loading
+        ? 'loading...'
+        : storeNews
+        ? storeNews.map((news) => <StoreNewsCard key={news.id} storeNews={news} />)
+        : '결과 없음'}
     </PageHead>
   )
 }

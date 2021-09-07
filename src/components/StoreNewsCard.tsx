@@ -3,7 +3,7 @@ import { StoreNewsQuery } from 'src/graphql/generated/types-and-hooks'
 import { ArrayElement } from 'src/utils/types'
 
 type Props = {
-  storeNews: ArrayElement<StoreNewsQuery['news3']>
+  storeNews: ArrayElement<StoreNewsQuery['newsListByStore']>
 }
 
 function StoreNewsCard({ storeNews }: Props) {

@@ -3,7 +3,7 @@ import type { StoreFeedQuery } from 'src/graphql/generated/types-and-hooks'
 import type { ArrayElement } from 'src/utils/types'
 
 type Props = {
-  storeFeed: ArrayElement<StoreFeedQuery['feed2']>
+  storeFeed: ArrayElement<StoreFeedQuery['feedListByStore']>
 }
 
 function StoreFeedCard({ storeFeed }: Props) {
