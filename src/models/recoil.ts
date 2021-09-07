@@ -12,5 +12,5 @@ export const store = atom({
 
 export const user = atom({
   key: 'user',
-  default: { jwt: '' },
+  default: { uniqueName: '', jwt: '' },
 })
