@@ -18,9 +18,11 @@ export default function StoreNewsPage() {
   return (
     <PageHead title={`${storeName} 소식 - 소복`} description={description}>
       <div>매장 소식 페이지</div>
-      {loading || !storeNews
+      {loading
         ? 'loading...'
-        : storeNews.map((news) => <StoreNewsCard key={news.id} storeNews={news} />)}
+        : storeNews
+        ? storeNews.map((news) => <StoreNewsCard key={news.id} storeNews={news} />)
+        : '결과 없음'}
     </PageHead>
   )
 }

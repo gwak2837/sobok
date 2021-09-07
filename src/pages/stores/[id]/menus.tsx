@@ -18,9 +18,11 @@ export default function StoreMenuPage() {
   return (
     <PageHead title={`${storeName} 메뉴 - 소복`} description={description}>
       <div>매장 페이지</div>
-      {loading || !storeMenus
+      {loading
         ? 'loading...'
-        : storeMenus.map((menu) => <StoreMenuCard key={menu.id} storeMenu={menu} />)}
+        : storeMenus
+        ? storeMenus.map((menu) => <StoreMenuCard key={menu.id} storeMenu={menu} />)
+        : '결과 없음'}
     </PageHead>
   )
 }

@@ -17,9 +17,11 @@ export default function StoreFeedPage() {
 
   return (
     <PageHead title={`${storeName} 피드 - 소복`} description={description}>
-      {loading || !storeFeed
+      {loading
         ? 'loading...'
-        : storeFeed.map((feed) => <StoreFeedCard key={feed.id} storeFeed={feed} />)}
+        : storeFeed
+        ? storeFeed.map((feed) => <StoreFeedCard key={feed.id} storeFeed={feed} />)
+        : '결과 없음'}
     </PageHead>
   )
 }
