@@ -18,9 +18,7 @@ const StoreNewsCardImage = styled.div`
   margin-right: 5px;
 `
 
-const StoreInfoContainer = styled.div`
-
-`
+const StoreInfoContainer = styled.div``
 const StoreName = styled.div`
   font-size: 1.1rem;
   font-weight: 500;
