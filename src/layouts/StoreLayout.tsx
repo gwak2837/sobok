@@ -18,8 +18,9 @@ const StoreContainer = styled.div`
 `
 const TabsContainer = styled.ul`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 1rem;
   height: 50px;
   background-color: white;
   border: solid 1px #f0f0f0;
