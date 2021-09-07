@@ -50,7 +50,7 @@ export default function StoreLayout({ children }: Props) {
         '결과 없음'
       )}
       <div>
-        <Link href={`/stores/${storeId}/info`}>정보</Link>{' '}
+        <Link href={`/stores/${storeId}`}>정보</Link>{' '}
         <Link href={`/stores/${storeId}/news`}>소식</Link>{' '}
         <Link href={`/stores/${storeId}/feed`}>피드</Link>{' '}
         <Link href={`/stores/${storeId}/menus`}>메뉴</Link>{' '}
