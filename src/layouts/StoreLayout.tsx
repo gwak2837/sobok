@@ -115,24 +115,24 @@ export default function StoreLayout({ children }: Props) {
           <Tab style={asPath === `/stores/${storeId}` ? SelectedTabStyle : UnSelectedTabStyle}>
             정보
           </Tab>
-        </Link>{' '}
+        </Link>
         <Link href={`/stores/${storeId}/news`} passHref>
           <Tab style={asPath === `/stores/${storeId}/news` ? SelectedTabStyle : UnSelectedTabStyle}>
             소식
           </Tab>
-        </Link>{' '}
+        </Link>
         <Link href={`/stores/${storeId}/menus`} passHref>
           <Tab
             style={asPath === `/stores/${storeId}/menus` ? SelectedTabStyle : UnSelectedTabStyle}
           >
             메뉴
           </Tab>
-        </Link>{' '}
+        </Link>
         <Link href={`/stores/${storeId}/feed`} passHref>
           <Tab style={asPath === `/stores/${storeId}/feed` ? SelectedTabStyle : UnSelectedTabStyle}>
             피드
           </Tab>
-        </Link>{' '}
+        </Link>
       </TabsContainer>
       {children}
     </StoreContainer>
