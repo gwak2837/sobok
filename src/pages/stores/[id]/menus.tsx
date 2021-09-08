@@ -1,7 +1,7 @@
 import { ReactElement, useContext } from 'react'
 import { useRecoilValue } from 'recoil'
 import PageHead from 'src/components/PageHead'
-import StoreMenuCard from 'src/components/StoreMenuCard'
+import MenuCard from 'src/components/MenuCard'
 import { useStoreMenusQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
 import { store } from 'src/models/recoil'
@@ -21,7 +21,7 @@ export default function StoreMenuPage() {
       {loading
         ? 'loading...'
         : storeMenus
-        ? storeMenus.map((menu) => <StoreMenuCard key={menu.id} storeMenu={menu} />)
+        ? storeMenus.map((menu) => <MenuCard key={menu.id} menu={menu} />)
         : '결과 없음'}
     </PageHead>
   )

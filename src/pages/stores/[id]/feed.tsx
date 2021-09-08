@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { useRecoilValue } from 'recoil'
+import FeedCard from 'src/components/FeedCard'
 import PageHead from 'src/components/PageHead'
-import StoreFeedCard from 'src/components/StoreFeedCard'
 import { useStoreFeedQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
 import { store } from 'src/models/recoil'
@@ -20,7 +20,7 @@ export default function StoreFeedPage() {
       {loading
         ? 'loading...'
         : storeFeed
-        ? storeFeed.map((feed) => <StoreFeedCard key={feed.id} storeFeed={feed} />)
+        ? storeFeed.map((feed) => <FeedCard key={feed.id} feed={feed} />)
         : '결과 없음'}
     </PageHead>
   )

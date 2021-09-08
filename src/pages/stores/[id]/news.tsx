@@ -1,7 +1,6 @@
 import { ReactElement, useContext } from 'react'
 import { useRecoilValue } from 'recoil'
 import PageHead from 'src/components/PageHead'
-import StoreNewsCard from 'src/components/StoreNewsCard'
 import NewsCard from 'src/components/NewsCard'
 import { useStoreNewsQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
@@ -53,7 +52,7 @@ export default function StoreNewsPage() {
       {loading
         ? 'loading...'
         : storeNews
-        ? storeNews.map((news) => <StoreNewsCard key={news.id} storeNews={news} />)
+        ? storeNews.map((news) => <NewsCard key={news.id} news={news} />)
         : '결과 없음'}
     </PageHead>
   )
