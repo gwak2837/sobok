@@ -4,6 +4,7 @@ query NewsList($town: NonEmptyString, $option: NewsOptions, $categories: [NonEmp
     creationTime
     contents
     category
+    imageUrls
     store {
       id
       name

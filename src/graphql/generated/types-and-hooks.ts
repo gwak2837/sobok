@@ -33,8 +33,15 @@ export type Bucket = {
   creationTime: Scalars['DateTime']
   modificationTime: Scalars['DateTime']
   name: Scalars['NonEmptyString']
-  /** from other table */
+  type: BucketType
+  userId: Scalars['ID']
+  /** 버킷 소유자 */
   user: User
+}
+
+export enum BucketType {
+  Store = 'STORE',
+  Menu = 'MENU',
 }
 
 export type Comment = {
@@ -168,6 +175,8 @@ export enum Provider {
 
 export type Query = {
   __typename?: 'Query'
+  /** 버켓 상세 정보 */
+  bucket?: Maybe<Bucket>
   /** 피드 상세 */
   feed?: Maybe<Feed>
   /** 특정 매장 피드 목록 */
@@ -182,12 +191,16 @@ export type Query = {
   me: User
   /** 메뉴 상세 */
   menu?: Maybe<Menu>
+  /** 메뉴 버킷 리스트를 반환 */
+  menuBuckets?: Maybe<Array<Bucket>>
   /** 메뉴 상세 */
   menuByName?: Maybe<Menu>
   /** 특정 매장 메뉴 목록 */
   menusByStore?: Maybe<Array<Menu>>
   /** 특정 동네 및 특정 카테고리 피드 목록 */
   menusByTownAndCategory?: Maybe<Array<Menu>>
+  /** 메뉴 버킷에만 해당 */
+  menusInBucket?: Maybe<Array<Menu>>
   /** 소식 상세 */
   news?: Maybe<News>
   /** 특정 매장 소식 목록 */
@@ -199,8 +212,16 @@ export type Query = {
   searchStores?: Maybe<Array<Menu>>
   /** 특정 매장 정보 */
   store?: Maybe<Store>
+  /** 매장 버킷 리스트를 반환 */
+  storeBuckets?: Maybe<Array<Bucket>>
   /** 동네 및 카테고리별 매장 목록 */
   storesByTownAndCategory?: Maybe<Array<Store>>
+  /** 매장 버킷에만 해당 */
+  storesInBucket?: Maybe<Array<Store>>
+}
+
+export type QueryBucketArgs = {
+  id: Scalars['ID']
 }
 
 export type QueryFeedArgs = {
@@ -228,6 +249,10 @@ export type QueryMenuArgs = {
   id: Scalars['ID']
 }
 
+export type QueryMenuBucketsArgs = {
+  userId: Scalars['ID']
+}
+
 export type QueryMenuByNameArgs = {
   storeId: Scalars['ID']
   name: Scalars['NonEmptyString']
@@ -240,6 +265,10 @@ export type QueryMenusByStoreArgs = {
 export type QueryMenusByTownAndCategoryArgs = {
   town?: Maybe<Scalars['NonEmptyString']>
   category?: Maybe<Scalars['NonEmptyString']>
+}
+
+export type QueryMenusInBucketArgs = {
+  bucketId: Scalars['ID']
 }
 
 export type QueryNewsArgs = {
@@ -273,9 +302,17 @@ export type QueryStoreArgs = {
   id: Scalars['ID']
 }
 
+export type QueryStoreBucketsArgs = {
+  userId: Scalars['ID']
+}
+
 export type QueryStoresByTownAndCategoryArgs = {
   town?: Maybe<Scalars['NonEmptyString']>
   categories?: Maybe<Array<Scalars['NonEmptyString']>>
+}
+
+export type QueryStoresInBucketArgs = {
+  bucketId: Scalars['ID']
 }
 
 export type RegisterInput = {
@@ -326,7 +363,7 @@ export type Trend = {
   creationTime: Scalars['DateTime']
   modificationTime: Scalars['DateTime']
   contents: Array<Scalars['NonEmptyString']>
-  /** from other table */
+  /** 트렌드 작성자 */
   user: User
 }
 
@@ -461,6 +498,7 @@ export type NewsListQuery = {
       creationTime: any
       contents: Array<any>
       category: any
+      imageUrls?: Maybe<Array<any>>
       store: { __typename?: 'Store'; id: string; name: any; imageUrls?: Maybe<Array<any>> }
     }>
   >
@@ -511,9 +549,13 @@ export type StoreFeedQuery = {
     Array<{
       __typename?: 'Feed'
       id: string
+      creationTime: any
       contents: Array<any>
       imageUrls: Array<any>
-      user: { __typename?: 'User'; nickname?: Maybe<string>; imageUrl?: Maybe<any> }
+      likeCount: number
+      commentCount: number
+      isLiked: boolean
+      user: { __typename?: 'User'; id: string; imageUrl?: Maybe<any>; nickname?: Maybe<string> }
     }>
   >
 }
@@ -894,6 +936,7 @@ export const NewsListDocument = gql`
       creationTime
       contents
       category
+      imageUrls
       store {
         id
         name
@@ -1032,11 +1075,16 @@ export const StoreFeedDocument = gql`
   query StoreFeed($storeId: ID!) {
     feedListByStore(storeId: $storeId) {
       id
+      creationTime
       contents
       imageUrls
+      likeCount
+      commentCount
+      isLiked
       user {
-        nickname
+        id
         imageUrl
+        nickname
       }
     }
   }

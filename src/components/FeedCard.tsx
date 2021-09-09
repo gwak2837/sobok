@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { FeedListQuery } from 'src/graphql/generated/types-and-hooks'
+import { FeedListQuery, StoreFeedQuery } from 'src/graphql/generated/types-and-hooks'
 import { ArrayElement } from 'src/utils/types'
 import styled from 'styled-components'
 
@@ -66,7 +66,9 @@ const ContentBottomText = styled.div`
 `
 
 type Props = {
-  feed: ArrayElement<FeedListQuery['feedListByTown']>
+  feed:
+    | ArrayElement<FeedListQuery['feedListByTown']>
+    | ArrayElement<StoreFeedQuery['feedListByStore']>
 }
 
 export default function FeedCard({ feed }: Props) {
