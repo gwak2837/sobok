@@ -5,9 +5,18 @@ import PageHead from 'src/components/PageHead'
 import { useStoreFeedQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
 import { store } from 'src/models/recoil'
-import GridContainerUl from 'src/pages/feed/index'
+import styled from 'styled-components'
 
 const description = ''
+
+const GridContainerUl = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* grid-auto-rows: 210px; */
+  grid-auto-rows: minmax(200px, auto);
+  gap: 1rem;
+  padding: 1rem;
+`
 
 export default function StoreFeedPage() {
   const { id: storeId, name: storeName } = useRecoilValue(store)
@@ -18,15 +27,17 @@ export default function StoreFeedPage() {
 
   return (
     <PageHead title={`${storeName} 피드 - 소복`} description={description}>
-      {loading
-        ? 'loading...'
-        : storeFeed
-        ? storeFeed.map((feed) => (
-            <GridContainerUl>
-              <FeedCard key={feed.id} feed={feed} />
-            </GridContainerUl>
-          ))
-        : '결과 없음'}
+      {loading ? (
+        'loading...'
+      ) : storeFeed ? (
+        <GridContainerUl>
+          {storeFeed.map((feed) => (
+            <FeedCard key={feed.id} feed={feed} />
+          ))}
+        </GridContainerUl>
+      ) : (
+        '결과 없음'
+      )}
     </PageHead>
   )
 }
