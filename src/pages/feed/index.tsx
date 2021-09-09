@@ -52,7 +52,7 @@ const AddButtonWrapper = styled.button`
   background: none;
   border: none;
 `
-const GridContainerUl = styled.ul`
+export const GridContainerUl = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr;
   /* grid-auto-rows: 210px; */

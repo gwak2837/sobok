@@ -5,6 +5,7 @@ import PageHead from 'src/components/PageHead'
 import { useStoreFeedQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
 import { store } from 'src/models/recoil'
+import GridContainerUl from 'src/pages/feed/index'
 
 const description = ''
 
@@ -20,7 +21,11 @@ export default function StoreFeedPage() {
       {loading
         ? 'loading...'
         : storeFeed
-        ? storeFeed.map((feed) => <FeedCard key={feed.id} feed={feed} />)
+        ? storeFeed.map((feed) => (
+            <GridContainerUl>
+              <FeedCard key={feed.id} feed={feed} />
+            </GridContainerUl>
+          ))
         : '결과 없음'}
     </PageHead>
   )
