@@ -5,9 +5,13 @@ import MenuCard from 'src/components/MenuCard'
 import { useStoreMenusQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
 import { store } from 'src/models/recoil'
+import styled from 'styled-components'
 
-const description = ''
+const description = '매장 메뉴 페이지'
 
+const StoreMenuCardContainer = styled.div`
+  padding: 1rem;
+`
 export default function StoreMenuPage() {
   const { id: storeId, name: storeName } = useRecoilValue(store)
 
@@ -17,12 +21,13 @@ export default function StoreMenuPage() {
 
   return (
     <PageHead title={`${storeName} 메뉴 - 소복`} description={description}>
-      <div>매장 페이지</div>
-      {loading
-        ? 'loading...'
-        : storeMenus
-        ? storeMenus.map((menu) => <MenuCard key={menu.id} menu={menu} />)
-        : '결과 없음'}
+      <StoreMenuCardContainer>
+        {loading
+          ? 'loading...'
+          : storeMenus
+          ? storeMenus.map((menu) => <MenuCard key={menu.id} menu={menu} />)
+          : '결과 없음'}
+      </StoreMenuCardContainer>
     </PageHead>
   )
 }
