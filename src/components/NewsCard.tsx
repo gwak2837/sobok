@@ -8,17 +8,6 @@ const StoreNewsCardContainer = styled.li`
   flex-direction: column;
   padding: 1rem;
 `
-const StoreNewsCardImage = styled.div`
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 5px;
-`
-
-const StoreInfoContainer = styled.div``
-const StoreName = styled.div`
-  font-size: 1.1rem;
-  font-weight: 500;
-`
 const StoreInfo = styled.div`
   display: flex;
   justify-content: space-between;
@@ -26,12 +15,7 @@ const StoreInfo = styled.div`
   font-size: 0.9rem;
   font-weight: 500;
   color: #5d5d5d;
-  width: 100%;
-`
-
-const StoreHeader = styled.div`
-  display: flex;
-  flex-direction: row;
+  padding: 0.5rem 1rem;
 `
 const StoreNewsContent = styled.div`
   border-radius: 10px;
@@ -51,27 +35,10 @@ function NewsCard({ news }: Props) {
 
   return (
     <StoreNewsCardContainer>
-      <StoreHeader>
-        {store && (
-          <>
-            <Image
-              src={store?.imageUrls?.[0] ?? '/images/default-store-cover.png'}
-              alt={store?.name ?? 'store-cover'}
-              width="200"
-              height="200"
-              objectFit="cover"
-            />
-            <StoreName>디저트정</StoreName>
-          </>
-        )}
-
-        <StoreInfoContainer>
-          <StoreInfo>
-            <div>{news.category}</div>
-            <div>{news.creationTime.slice(0, 10)}</div>
-          </StoreInfo>
-        </StoreInfoContainer>
-      </StoreHeader>
+      <StoreInfo>
+        <div>{news.category}</div>
+        <div>{news.creationTime.slice(0, 10)}</div>
+      </StoreInfo>
       {news.contents.map((content, i) => (
         <StoreNewsContent key={i}>{content}</StoreNewsContent>
       ))}
