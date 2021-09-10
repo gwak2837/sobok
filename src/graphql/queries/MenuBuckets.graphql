@@ -1,0 +1,6 @@
+query MenuBuckets($userUniqueName: NonEmptyString) {
+  buckets(type: MENU, userUniqueName: $userUniqueName) {
+    id
+    name
+  }
+}

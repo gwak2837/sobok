@@ -1,0 +1,6 @@
+query StoreBuckets($userUniqueName: NonEmptyString) {
+  buckets(type: STORE, userUniqueName: $userUniqueName) {
+    id
+    name
+  }
+}
