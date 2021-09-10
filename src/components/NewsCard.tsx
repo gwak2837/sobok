@@ -30,7 +30,7 @@ type Props = {
     | ArrayElement<NewsListQuery['newsListByTown']>
 }
 
-function NewsCard({ news }: Props) {
+export default function NewsCard({ news }: Props) {
   const store = (news as ArrayElement<NewsListQuery['newsListByTown']>).store
 
   return (
@@ -39,11 +39,10 @@ function NewsCard({ news }: Props) {
         <div>{news.category}</div>
         <div>{news.creationTime.slice(0, 10)}</div>
       </StoreInfo>
+      <h3>{news.title}</h3>
       {news.contents.map((content, i) => (
         <StoreNewsContent key={i}>{content}</StoreNewsContent>
       ))}
     </StoreNewsCardContainer>
   )
 }
-
-export default NewsCard
