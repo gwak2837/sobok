@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil'
 import PageHead from 'src/components/PageHead'
 import { useStoreDetailQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
-import { store } from 'src/models/recoil'
+import { currentStore } from 'src/models/recoil'
 import styled from 'styled-components'
 import Image from 'next/image'
 
@@ -40,7 +40,7 @@ const InfoContentContainer = styled.div`
   font-size: 1.1rem;
 `
 export default function StoreInfoPage() {
-  const { id: storeId, name: storeName } = useRecoilValue(store)
+  const { id: storeId, name: storeName } = useRecoilValue(currentStore)
 
   const { data, loading, error } = useStoreDetailQuery({ skip: !storeId, variables: { storeId } })
 

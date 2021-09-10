@@ -4,7 +4,7 @@ import PageHead from 'src/components/PageHead'
 import NewsCard from 'src/components/NewsCard'
 import { useStoreNewsQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
-import { store } from 'src/models/recoil'
+import { currentStore } from 'src/models/recoil'
 import styled from 'styled-components'
 
 const description = '매장 소식 페이지'
@@ -34,7 +34,7 @@ const UnActiveStoreCategoryButton = styled(ActiveStoreCategoryButton)`
   border: solid 1px #f0f0f0;
 `
 export default function StoreNewsPage() {
-  const { id: storeId, name: storeName } = useRecoilValue(store)
+  const { id: storeId, name: storeName } = useRecoilValue(currentStore)
 
   const { data, loading, error } = useStoreNewsQuery({ skip: !storeId, variables: { storeId } })
 

@@ -5,12 +5,12 @@ export const currentTown = atom({
   default: '흑석동',
 })
 
-export const store = atom({
-  key: 'store',
+export const currentStore = atom({
+  key: 'currentStore',
   default: { id: '', name: '' },
 })
 
-export const user = atom({
-  key: 'user',
+export const currentUser = atom({
+  key: 'currentUser',
   default: { uniqueName: '', jwt: '' },
 })
