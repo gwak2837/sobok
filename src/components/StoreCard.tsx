@@ -71,14 +71,11 @@ type Props = {
 }
 
 function StoreCard({ store }: Props) {
-  const router = useRouter()
-
-  const storeId = (router.query.id ?? '') as string
-
   return (
     <FlexContainerLi>
       <CardImage>
-        <Link href={`/stores/${storeId}`} passHref>
+        {/*  eslint-disable-next-line @next/next/link-passhref */}
+        <Link href={`/stores/${store.id}`}>
           <Image
             src={store.imageUrls?.[0] ?? '/images/default-store-cover.png'}
             alt={store.name ?? 'store-cover'}

@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import type { MouseEvent } from 'react'
 import { MenuCardFragment, MenusQuery } from 'src/graphql/generated/types-and-hooks'
 import { ArrayElement } from 'src/utils/types'
 import styled from 'styled-components'
@@ -62,10 +63,11 @@ export default function MenuCard({ menu }: Props) {
   const store = (menu as ArrayElement<MenusQuery['menusByTownAndCategory']>).store
 
   const router = useRouter()
-
   const storeId = (router.query.id ?? '') as string
 
-  function goToStoreMenusPage() {
+  function goToStoreMenusPage(e: MouseEvent) {
+    e.stopPropagation()
+
     if (store) {
       router.push(`/stores/${store.id}/menus`)
     }
