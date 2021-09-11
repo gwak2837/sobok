@@ -13,8 +13,6 @@ export default function UserBucketPage() {
   const bucketId = (router.query.id ?? '') as string
   const userUniqueName = getUserUniqueName(router)
 
-  console.log(bucketId, userUniqueName)
-
   const { data, loading, error } = useBucketMenusQuery({
     skip: !bucketId || !userUniqueName,
     variables: { bucketId, userUniqueName },

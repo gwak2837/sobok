@@ -84,7 +84,7 @@ export default function NavigationLayout({ children }: Props) {
           </ClientSideLink>
         </NaigationContainer>
         <NaigationContainer>
-          <ClientSideLink href={`/@${userUniqueName}/buckets`}>
+          <ClientSideLink href={`/@${userUniqueName}/store-buckets`}>
             <Image src="/images/bucket.svg" alt="bucket" width={18} height={16} />
             <TextDiv>버킷</TextDiv>
           </ClientSideLink>
