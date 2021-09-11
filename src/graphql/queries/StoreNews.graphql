@@ -2,6 +2,7 @@ query StoreNews($storeId: ID!) {
   newsListByStore(storeId: $storeId) {
     id
     creationTime
+    title
     contents
     category
     imageUrls

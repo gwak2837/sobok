@@ -4,7 +4,7 @@ import FeedCard from 'src/components/FeedCard'
 import PageHead from 'src/components/PageHead'
 import { useStoreFeedQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
-import { store } from 'src/models/recoil'
+import { currentStore } from 'src/models/recoil'
 import styled from 'styled-components'
 
 const description = ''
@@ -19,7 +19,7 @@ const GridContainerUl = styled.ul`
 `
 
 export default function StoreFeedPage() {
-  const { id: storeId, name: storeName } = useRecoilValue(store)
+  const { id: storeId, name: storeName } = useRecoilValue(currentStore)
 
   const { data, loading, error } = useStoreFeedQuery({ variables: { storeId } })
 

@@ -1,0 +1,9 @@
+fragment menuCard on Menu {
+  id
+  name
+  price
+  isSoldOut
+  imageUrls
+  isLiked
+  hashtags
+}

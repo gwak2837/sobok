@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { ReactNode, useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { useStoreQuery } from 'src/graphql/generated/types-and-hooks'
-import { store as storeRecoil } from 'src/models/recoil'
+import { currentStore as storeRecoil } from 'src/models/recoil'
 import styled from 'styled-components'
 
 type Props = {

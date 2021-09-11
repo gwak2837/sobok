@@ -17,9 +17,10 @@
     "**/.pnp.*": true
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
   "eslint.packageManager": "yarn",
+
   "eslint.nodePath": ".yarn/sdks",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true
 }

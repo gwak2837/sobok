@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import { News, Trend } from 'src/components/atoms/SVGs'
 import { SOBOK_COLOR, SOBOK_ACHROMATIC_COLOR } from 'src/models/constants'
-import { user } from 'src/models/recoil'
+import { currentUser } from 'src/models/recoil'
 import { TABLET_MIN_WIDTH } from 'src/utils/constants'
 import styled from 'styled-components'
 
@@ -56,7 +56,7 @@ type Props = {
 }
 
 export default function NavigationLayout({ children }: Props) {
-  const userUniqueName = useRecoilValue(user) || 'user-unique-name1'
+  const { uniqueName: userUniqueName } = useRecoilValue(currentUser)
 
   const { asPath } = useRouter()
 
@@ -84,7 +84,7 @@ export default function NavigationLayout({ children }: Props) {
           </ClientSideLink>
         </NaigationContainer>
         <NaigationContainer>
-          <ClientSideLink href={`/@${userUniqueName}/buckets`}>
+          <ClientSideLink href={`/@${userUniqueName}/store-buckets`}>
             <Image src="/images/bucket.svg" alt="bucket" width={18} height={16} />
             <TextDiv>버킷</TextDiv>
           </ClientSideLink>
