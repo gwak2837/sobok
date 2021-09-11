@@ -1,0 +1,5 @@
+query BucketStores($bucketId: ID!, $userUniqueName: NonEmptyString!) {
+  storesInBucket(bucketId: $bucketId, userUniqueName: $userUniqueName) {
+    ...storeCard
+  }
+}

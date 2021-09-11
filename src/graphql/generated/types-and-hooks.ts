@@ -268,6 +268,7 @@ export type QueryMenusByTownAndCategoryArgs = {
 
 export type QueryMenusInBucketArgs = {
   bucketId: Scalars['ID']
+  userUniqueName: Scalars['NonEmptyString']
 }
 
 export type QueryNewsArgs = {
@@ -308,6 +309,7 @@ export type QueryStoresByTownAndCategoryArgs = {
 
 export type QueryStoresInBucketArgs = {
   bucketId: Scalars['ID']
+  userUniqueName: Scalars['NonEmptyString']
 }
 
 export type RegisterInput = {
@@ -407,6 +409,27 @@ export type User = {
   storeBuckets?: Maybe<Array<Bucket>>
 }
 
+export type MenuCardFragment = {
+  __typename?: 'Menu'
+  id: string
+  name: any
+  price: number
+  isSoldOut: boolean
+  imageUrls: Array<any>
+  isLiked: boolean
+  hashtags?: Maybe<Array<any>>
+}
+
+export type StoreCardFragment = {
+  __typename?: 'Store'
+  id: string
+  name: any
+  categories: Array<any>
+  imageUrls?: Maybe<Array<any>>
+  hashtags?: Maybe<Array<any>>
+  address: any
+}
+
 export type LoginMutationVariables = Exact<{
   uniqueNameOrEmail: Scalars['NonEmptyString']
   passwordHash: Scalars['NonEmptyString']
@@ -423,6 +446,48 @@ export type RegisterMutationVariables = Exact<{
 }>
 
 export type RegisterMutation = { __typename?: 'Mutation'; register?: Maybe<any> }
+
+export type BucketMenusQueryVariables = Exact<{
+  bucketId: Scalars['ID']
+  userUniqueName: Scalars['NonEmptyString']
+}>
+
+export type BucketMenusQuery = {
+  __typename?: 'Query'
+  menusInBucket?: Maybe<
+    Array<{
+      __typename?: 'Menu'
+      id: string
+      name: any
+      price: number
+      isSoldOut: boolean
+      imageUrls: Array<any>
+      isLiked: boolean
+      hashtags?: Maybe<Array<any>>
+      store: { __typename?: 'Store'; id: string; name: any; address: any }
+    }>
+  >
+}
+
+export type BucketStoresQueryVariables = Exact<{
+  bucketId: Scalars['ID']
+  userUniqueName: Scalars['NonEmptyString']
+}>
+
+export type BucketStoresQuery = {
+  __typename?: 'Query'
+  storesInBucket?: Maybe<
+    Array<{
+      __typename?: 'Store'
+      id: string
+      name: any
+      categories: Array<any>
+      imageUrls?: Maybe<Array<any>>
+      hashtags?: Maybe<Array<any>>
+      address: any
+    }>
+  >
+}
 
 export type FeedListQueryVariables = Exact<{
   town?: Maybe<Scalars['NonEmptyString']>
@@ -480,8 +545,10 @@ export type MenusQuery = {
       id: string
       name: any
       price: number
-      hashtags?: Maybe<Array<any>>
+      isSoldOut: boolean
       imageUrls: Array<any>
+      isLiked: boolean
+      hashtags?: Maybe<Array<any>>
       store: { __typename?: 'Store'; id: string; name: any; address: any }
     }>
   >
@@ -653,6 +720,27 @@ export type StoresQuery = {
   >
 }
 
+export const MenuCardFragmentDoc = gql`
+  fragment menuCard on Menu {
+    id
+    name
+    price
+    isSoldOut
+    imageUrls
+    isLiked
+    hashtags
+  }
+`
+export const StoreCardFragmentDoc = gql`
+  fragment storeCard on Store {
+    id
+    name
+    categories
+    imageUrls
+    hashtags
+    address
+  }
+`
 export const LoginDocument = gql`
   mutation Login($uniqueNameOrEmail: NonEmptyString!, $passwordHash: NonEmptyString!) {
     login(uniqueNameOrEmail: $uniqueNameOrEmail, passwordHash: $passwordHash)
@@ -760,6 +848,105 @@ export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<
   RegisterMutation,
   RegisterMutationVariables
+>
+export const BucketMenusDocument = gql`
+  query BucketMenus($bucketId: ID!, $userUniqueName: NonEmptyString!) {
+    menusInBucket(bucketId: $bucketId, userUniqueName: $userUniqueName) {
+      ...menuCard
+      store {
+        id
+        name
+        address
+      }
+    }
+  }
+  ${MenuCardFragmentDoc}
+`
+
+/**
+ * __useBucketMenusQuery__
+ *
+ * To run a query within a React component, call `useBucketMenusQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBucketMenusQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBucketMenusQuery({
+ *   variables: {
+ *      bucketId: // value for 'bucketId'
+ *      userUniqueName: // value for 'userUniqueName'
+ *   },
+ * });
+ */
+export function useBucketMenusQuery(
+  baseOptions: Apollo.QueryHookOptions<BucketMenusQuery, BucketMenusQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<BucketMenusQuery, BucketMenusQueryVariables>(BucketMenusDocument, options)
+}
+export function useBucketMenusLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<BucketMenusQuery, BucketMenusQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<BucketMenusQuery, BucketMenusQueryVariables>(
+    BucketMenusDocument,
+    options
+  )
+}
+export type BucketMenusQueryHookResult = ReturnType<typeof useBucketMenusQuery>
+export type BucketMenusLazyQueryHookResult = ReturnType<typeof useBucketMenusLazyQuery>
+export type BucketMenusQueryResult = Apollo.QueryResult<BucketMenusQuery, BucketMenusQueryVariables>
+export const BucketStoresDocument = gql`
+  query BucketStores($bucketId: ID!, $userUniqueName: NonEmptyString!) {
+    storesInBucket(bucketId: $bucketId, userUniqueName: $userUniqueName) {
+      ...storeCard
+    }
+  }
+  ${StoreCardFragmentDoc}
+`
+
+/**
+ * __useBucketStoresQuery__
+ *
+ * To run a query within a React component, call `useBucketStoresQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBucketStoresQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBucketStoresQuery({
+ *   variables: {
+ *      bucketId: // value for 'bucketId'
+ *      userUniqueName: // value for 'userUniqueName'
+ *   },
+ * });
+ */
+export function useBucketStoresQuery(
+  baseOptions: Apollo.QueryHookOptions<BucketStoresQuery, BucketStoresQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<BucketStoresQuery, BucketStoresQueryVariables>(
+    BucketStoresDocument,
+    options
+  )
+}
+export function useBucketStoresLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<BucketStoresQuery, BucketStoresQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<BucketStoresQuery, BucketStoresQueryVariables>(
+    BucketStoresDocument,
+    options
+  )
+}
+export type BucketStoresQueryHookResult = ReturnType<typeof useBucketStoresQuery>
+export type BucketStoresLazyQueryHookResult = ReturnType<typeof useBucketStoresLazyQuery>
+export type BucketStoresQueryResult = Apollo.QueryResult<
+  BucketStoresQuery,
+  BucketStoresQueryVariables
 >
 export const FeedListDocument = gql`
   query FeedList($town: NonEmptyString, $option: FeedOptions) {
@@ -941,11 +1128,7 @@ export type MenuBucketsQueryResult = Apollo.QueryResult<MenuBucketsQuery, MenuBu
 export const MenusDocument = gql`
   query Menus($town: NonEmptyString, $category: NonEmptyString) {
     menusByTownAndCategory(town: $town, category: $category) {
-      id
-      name
-      price
-      hashtags
-      imageUrls
+      ...menuCard
       store {
         id
         name
@@ -953,6 +1136,7 @@ export const MenusDocument = gql`
       }
     }
   }
+  ${MenuCardFragmentDoc}
 `
 
 /**
@@ -1282,15 +1466,10 @@ export type StoreMenuQueryResult = Apollo.QueryResult<StoreMenuQuery, StoreMenuQ
 export const StoreMenusDocument = gql`
   query StoreMenus($storeId: ID!) {
     menusByStore(storeId: $storeId) {
-      id
-      name
-      price
-      isSoldOut
-      imageUrls
-      isLiked
-      hashtags
+      ...menuCard
     }
   }
+  ${MenuCardFragmentDoc}
 `
 
 /**
@@ -1371,14 +1550,10 @@ export type StoreNewsQueryResult = Apollo.QueryResult<StoreNewsQuery, StoreNewsQ
 export const StoresDocument = gql`
   query Stores($town: NonEmptyString, $categories: [NonEmptyString!]) {
     storesByTownAndCategory(town: $town, categories: $categories) {
-      id
-      name
-      categories
-      imageUrls
-      hashtags
-      address
+      ...storeCard
     }
   }
+  ${StoreCardFragmentDoc}
 `
 
 /**
