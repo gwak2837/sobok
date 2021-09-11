@@ -1,6 +1,5 @@
 import Image from 'next/image'
-import { StoresQuery, useStoreQuery } from 'src/graphql/generated/types-and-hooks'
-import { ArrayElement } from 'src/utils/types'
+import { StoreCardFragment } from 'src/graphql/generated/types-and-hooks'
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -68,7 +67,7 @@ const LikeButton = styled.button`
 `
 
 type Props = {
-  store: ArrayElement<StoresQuery['storesByTownAndCategory']>
+  store: StoreCardFragment
 }
 
 function StoreCard({ store }: Props) {

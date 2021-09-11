@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { MenusQuery, StoreMenusQuery } from 'src/graphql/generated/types-and-hooks'
+import { MenuCardFragment, MenusQuery } from 'src/graphql/generated/types-and-hooks'
 import { ArrayElement } from 'src/utils/types'
 import styled from 'styled-components'
 
@@ -55,9 +55,7 @@ const MenuCardPrice = styled.div`
 `
 
 type Props = {
-  menu:
-    | ArrayElement<MenusQuery['menusByTownAndCategory']>
-    | ArrayElement<StoreMenusQuery['menusByStore']>
+  menu: MenuCardFragment
 }
 
 export default function MenuCard({ menu }: Props) {
