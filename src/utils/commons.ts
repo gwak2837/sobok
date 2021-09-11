@@ -43,8 +43,8 @@ export async function digestMessageWithSHA256(message: string) {
 
 export const { ko2en } = new Inko()
 
-export function getUserId(router: NextRouter) {
-  return ((router.query.userId ?? '') as string).slice(1)
+export function getUserUniqueName(router: NextRouter) {
+  return ((router.query.userUniqueName ?? '') as string).slice(1)
 }
 
 const urlPattern = new RegExp(

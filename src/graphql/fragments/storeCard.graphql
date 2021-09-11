@@ -1,0 +1,8 @@
+fragment storeCard on Store {
+  id
+  name
+  categories
+  imageUrls
+  hashtags
+  address
+}

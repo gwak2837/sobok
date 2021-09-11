@@ -1,7 +1,8 @@
 import Image from 'next/image'
-import { StoresQuery } from 'src/graphql/generated/types-and-hooks'
-import { ArrayElement } from 'src/utils/types'
+import { StoreCardFragment } from 'src/graphql/generated/types-and-hooks'
 import styled from 'styled-components'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const FlexContainerLi = styled.li`
   display: flex;
@@ -66,19 +67,22 @@ const LikeButton = styled.button`
 `
 
 type Props = {
-  store: ArrayElement<StoresQuery['storesByTownAndCategory']>
+  store: StoreCardFragment
 }
 
 function StoreCard({ store }: Props) {
   return (
     <FlexContainerLi>
       <CardImage>
-        <Image
-          src={store.imageUrls?.[0] ?? '/images/default-store-cover.png'}
-          alt={store.name ?? 'store-cover'}
-          layout="fill"
-          objectFit="cover"
-        />
+        {/*  eslint-disable-next-line @next/next/link-passhref */}
+        <Link href={`/stores/${store.id}`}>
+          <Image
+            src={store.imageUrls?.[0] ?? '/images/default-store-cover.png'}
+            alt={store.name ?? 'store-cover'}
+            layout="fill"
+            objectFit="cover"
+          />
+        </Link>
         <LikeButton>
           <Image src="/images/like.min.svg" alt="like" layout="fill" />
         </LikeButton>

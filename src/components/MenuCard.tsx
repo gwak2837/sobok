@@ -1,5 +1,7 @@
 import Image from 'next/image'
-import { MenusQuery, StoreMenusQuery } from 'src/graphql/generated/types-and-hooks'
+import { useRouter } from 'next/router'
+import type { MouseEvent } from 'react'
+import { MenuCardFragment, MenusQuery } from 'src/graphql/generated/types-and-hooks'
 import { ArrayElement } from 'src/utils/types'
 import styled from 'styled-components'
 
@@ -54,16 +56,35 @@ const MenuCardPrice = styled.div`
 `
 
 type Props = {
-  menu:
-    | ArrayElement<MenusQuery['menusByTownAndCategory']>
-    | ArrayElement<StoreMenusQuery['menusByStore']>
+  menu: MenuCardFragment
 }
 
 export default function MenuCard({ menu }: Props) {
   const store = (menu as ArrayElement<MenusQuery['menusByTownAndCategory']>).store
 
+  const router = useRouter()
+  const storeId = (router.query.id ?? '') as string
+
+  function goToStoreMenusPage(e: MouseEvent) {
+    e.stopPropagation()
+
+    if (store) {
+      router.push(`/stores/${store.id}/menus`)
+    }
+  }
+
+  function goToStoreMenuPage() {
+    if (store) {
+      router.push(`/stores/${store.id}/${menu.name}`)
+    } else if (storeId) {
+      router.push(`/stores/${storeId}/${menu.name}`)
+    } else {
+      console.warn('경로를 새로 추가해야 합니다.')
+    }
+  }
+
   return (
-    <FlexContainerLi>
+    <FlexContainerLi onClick={goToStoreMenuPage}>
       <MenuCardImageContainer>
         <Image
           src={menu.imageUrls?.[0] ?? '/images/default-store-cover.png'}
@@ -75,7 +96,11 @@ export default function MenuCard({ menu }: Props) {
       </MenuCardImageContainer>
       <MenuCardTextContainer>
         <MenuCardLocateAndHeart>
-          <div>{store.name}</div>
+          {store && (
+            <div onClick={goToStoreMenusPage} role="button" tabIndex={0}>
+              {store.name}
+            </div>
+          )}
           <Image
             src="/images/heart.min.svg"
             alt="heart"

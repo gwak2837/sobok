@@ -1,11 +1,16 @@
 query StoreFeed($storeId: ID!) {
   feedListByStore(storeId: $storeId) {
     id
+    creationTime
     contents
     imageUrls
+    likeCount
+    commentCount
+    isLiked
     user {
-      nickname
+      id
       imageUrl
+      nickname
     }
   }
 }

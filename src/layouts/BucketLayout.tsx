@@ -20,8 +20,8 @@ export default function BucketLayout({ children }: Props) {
   return (
     <>
       <Tabs centered defaultActiveKey={router.asPath} onTabClick={goToTabPage}>
-        <TabPane tab="매장" key={`/${userUniqueName}/buckets`} />
-        <TabPane tab="메뉴" key={`/${userUniqueName}/buckets/menu`} />
+        <TabPane tab="매장" key={`/${userUniqueName}/store-buckets`} />
+        <TabPane tab="메뉴" key={`/${userUniqueName}/menu-buckets`} />
       </Tabs>
       {children}
     </>
