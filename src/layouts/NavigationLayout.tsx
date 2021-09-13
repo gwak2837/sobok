@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 import { useRecoilValue } from 'recoil'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import { News, Trend } from 'src/components/atoms/SVGs'
+import { useMeQuery } from 'src/graphql/generated/types-and-hooks'
 import { SOBOK_COLOR, SOBOK_ACHROMATIC_COLOR } from 'src/models/constants'
 import { currentUser } from 'src/models/recoil'
 import { TABLET_MIN_WIDTH } from 'src/utils/constants'
@@ -58,6 +59,10 @@ type Props = {
 export default function NavigationLayout({ children }: Props) {
   const { uniqueName: userUniqueName } = useRecoilValue(currentUser)
 
+  const { data, loading } = useMeQuery({ skip: Boolean(userUniqueName) })
+
+  const userUniqueName2 = data?.me?.uniqueName
+
   const { asPath } = useRouter()
 
   return (
@@ -84,15 +89,15 @@ export default function NavigationLayout({ children }: Props) {
           </ClientSideLink>
         </NaigationContainer>
         <NaigationContainer>
-          <ClientSideLink href={`/@${userUniqueName}/store-buckets`}>
+          <ClientSideLink href={`/@${userUniqueName || userUniqueName2}/store-buckets`}>
             <Image src="/images/bucket.svg" alt="bucket" width={18} height={16} />
-            <TextDiv>버킷</TextDiv>
+            <TextDiv>버킷 {loading && 'loading...'}</TextDiv>
           </ClientSideLink>
         </NaigationContainer>
         <NaigationContainer>
-          <ClientSideLink href={`/@${userUniqueName}`}>
+          <ClientSideLink href={`/@${userUniqueName || userUniqueName2}`}>
             <Image src="/images/my.svg" alt="my" width={16} height={19} />
-            <TextDiv>MY</TextDiv>
+            <TextDiv>MY {loading && 'loading...'}</TextDiv>
           </ClientSideLink>
         </NaigationContainer>
       </FixedHeader>
