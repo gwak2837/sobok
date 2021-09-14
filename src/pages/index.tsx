@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import PageHead from 'src/components/PageHead'
 import NavigationLayout from 'src/layouts/NavigationLayout'
-import { ReactElement, useContext } from 'react'
+import type { ReactElement } from 'react'
 import HomeLayout from 'src/layouts/HomeLayout'
 import { Carousel } from 'antd'
 import Category from 'src/components/Category'
@@ -11,6 +11,7 @@ import { useStoresQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreCard from 'src/components/StoreCard'
 import { useRecoilValue } from 'recoil'
 import { currentTown } from 'src/models/recoil'
+import { toast } from 'react-toastify'
 
 const CarouselDiv = styled.div`
   position: relative;
@@ -35,6 +36,21 @@ export default function HomePage() {
   const { data, loading } = useStoresQuery({ skip: !townName, variables: { town: townName } })
 
   const stores = data?.storesByTownAndCategory
+
+  function a() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          toast.info(`${position.coords.latitude}, ${position.coords.longitude}`)
+        },
+        (error) => {
+          toast.warn(error.message)
+        }
+      )
+    } else {
+      toast.warn('GPS 위치 정보를 사용할 수 없습니다.')
+    }
+  }
 
   return (
     <PageHead>
@@ -65,6 +81,7 @@ export default function HomePage() {
         </GridContainerUl>
       )}
 
+      <button onClick={a}>위치</button>
       <div>
         <Link href="/@userId1">사용자 페이지</Link>
       </div>
