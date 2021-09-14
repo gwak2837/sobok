@@ -34,7 +34,7 @@ export default function LoginPage() {
   } = useForm<LoginFormValues>({
     defaultValues: {
       uniqueNameOrEmail: 'bok@sindy.in',
-      password: '1234',
+      password: 'sobok123!',
       remember: false,
     },
   })

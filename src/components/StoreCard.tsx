@@ -3,6 +3,7 @@ import { StoreCardFragment } from 'src/graphql/generated/types-and-hooks'
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import React from 'react'
 
 const FlexContainerLi = styled.li`
   display: flex;
@@ -62,7 +63,7 @@ const LikeButton = styled.button`
   width: 15px;
   height: 13px;
   z-index: 1;
-  opacity: 0.6;
+  /* opacity: 0.6; */
   cursor: pointer;
 `
 
@@ -83,10 +84,8 @@ function StoreCard({ store }: Props) {
             objectFit="cover"
           />
         </Link>
-        <LikeButton>
-          <Image src="/images/like.min.svg" alt="like" layout="fill" />
-        </LikeButton>
       </CardImage>
+      <div></div>
       <CardInfo>
         <div>{store.name}</div>
         <div>30m</div>
