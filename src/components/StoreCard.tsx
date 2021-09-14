@@ -3,7 +3,7 @@ import { StoreCardFragment } from 'src/graphql/generated/types-and-hooks'
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 const FlexContainerLi = styled.li`
   display: flex;

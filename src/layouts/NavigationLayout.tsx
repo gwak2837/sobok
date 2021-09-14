@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { useRecoilValue } from 'recoil'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import { useMeQuery } from 'src/graphql/generated/types-and-hooks'
