@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { ReactNode, useEffect } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { FlexContainerCenterCenter } from 'src/components/atoms/Styles'
 import { BackArrow, HeartFilledIcon } from 'src/components/atoms/SVG'
