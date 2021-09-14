@@ -51,8 +51,8 @@ export default function LoginPage() {
 
       setCurrentUser({ uniqueName: login?.userUniqueName })
 
-      router.replace(sessionStorage.getItem('redirectToAfterLogin') ?? '/')
-      sessionStorage.removeItem('redirectToAfterLogin')
+      router.replace(sessionStorage.getItem('redirectionUrlAfterLogin') ?? '/')
+      sessionStorage.removeItem('redirectionUrlAfterLogin')
     },
     onError: handleApolloError,
   })
