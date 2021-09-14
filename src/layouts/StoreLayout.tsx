@@ -1,21 +1,40 @@
 /* eslint-disable @next/next/link-passhref */
-import { HeartOutlined, HeartTwoTone } from '@ant-design/icons'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { ReactNode, useEffect } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
+import { FlexContainerCenterCenter } from 'src/components/atoms/Styles'
+import { BackArrow, HeartFilledIcon } from 'src/components/atoms/SVG'
 import { useStoreQuery } from 'src/graphql/generated/types-and-hooks'
 import { currentStore as storeRecoil } from 'src/models/recoil'
 import styled from 'styled-components'
 
-type Props = {
-  children: ReactNode
-}
-
-const StoreContainer = styled.div`
+const Relative = styled.div`
+  position: relative;
   background-color: #fcfcfc;
 `
+
+const AbsoluteTopLeft = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1rem;
+
+  width: 2.5rem;
+  height: 3rem;
+`
+
+const AbsoluteTopRight = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1rem;
+
+  width: 3.5rem;
+  height: 3.5rem;
+`
+
 const TabsContainer = styled.ul`
   display: flex;
   justify-content: space-between;
@@ -50,33 +69,28 @@ const StoreHeaderContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 5rem;
-  padding: 1rem 0;
+  padding: 1rem;
 `
 
-const LikedButton = styled.div`
-  position: absolute;
-  top: 0.5%;
-  left: 94%;
-  //margin: 5px;
-`
-
-const StoreName = styled.div`
+const StoreName = styled.h3`
   font-size: 1.3rem;
   font-weight: 500;
   margin-right: 3px;
 `
+
 const StoreDescription = styled.div`
   font-size: 1.1rem;
   color: #5d5d5d;
+  padding: 0.5rem 0;
 `
+
+type Props = {
+  children: ReactNode
+}
+
 export default function StoreLayout({ children }: Props) {
-  const setStore = useSetRecoilState(storeRecoil)
-
   const router = useRouter()
-
-  const { asPath } = useRouter()
-
+  const { asPath } = router
   const storeId = (router.query.id ?? '') as string
 
   const { data, loading } = useStoreQuery({ skip: !storeId, variables: { storeId } })
@@ -84,33 +98,48 @@ export default function StoreLayout({ children }: Props) {
   const store = data?.store
   const storeName = store?.name ?? '매장'
 
+  const setStore = useSetRecoilState(storeRecoil)
+
   useEffect(() => {
     if (storeId) {
       setStore({ id: storeId, name: storeName })
     }
   }, [setStore, storeId, storeName])
 
+  function goBackFromStorePage() {
+    router.push(sessionStorage.getItem('urlBeforeStorePage') ?? '/')
+    sessionStorage.removeItem('urlBeforeStorePage')
+  }
+
+  function toggleLikedStore() {
+    console.log('toggleLikedStore')
+  }
+
   return (
-    <StoreContainer>
+    <Relative>
       <Image
         src={store?.imageUrls?.[0] ?? '/images/default-store-cover.png'}
         alt="store-cover"
-        width="1080"
-        height="606"
+        width="1600"
+        height="900"
         objectFit="cover"
       />
+      <AbsoluteTopLeft onClick={goBackFromStorePage}>
+        <BackArrow color="#fff" />
+      </AbsoluteTopLeft>
+      <AbsoluteTopRight onClick={toggleLikedStore}>
+        <HeartFilledIcon filled={store?.isLiked} />
+      </AbsoluteTopRight>
+
       {loading ? (
         'loading...'
       ) : store ? (
         <StoreHeaderContainer>
-          <StoreName>
-            {storeName}
+          <FlexContainerCenterCenter>
+            <StoreName>{storeName}</StoreName>
             <Image src="/images/edit.min.svg" alt="수정요청" width="14" height="14" />
-          </StoreName>
+          </FlexContainerCenterCenter>
           <StoreDescription>{store.description}</StoreDescription>
-          <LikedButton>
-            {store.isLiked ? <HeartTwoTone twoToneColor="#ff9f74" /> : <HeartOutlined />}
-          </LikedButton>
         </StoreHeaderContainer>
       ) : (
         '결과 없음'
@@ -140,6 +169,6 @@ export default function StoreLayout({ children }: Props) {
         </Link>
       </TabsContainer>
       {children}
-    </StoreContainer>
+    </Relative>
   )
 }
