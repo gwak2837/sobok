@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/link-passhref */
 import { HeartOutlined, HeartTwoTone } from '@ant-design/icons'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -115,24 +116,24 @@ export default function StoreLayout({ children }: Props) {
         '결과 없음'
       )}
       <TabsContainer>
-        <Link href={`/stores/${storeId}`} passHref>
+        <Link href={`/stores/${storeId}`}>
           <Tab style={asPath === `/stores/${storeId}` ? SelectedTabStyle : UnSelectedTabStyle}>
             정보
           </Tab>
         </Link>
-        <Link href={`/stores/${storeId}/news`} passHref>
+        <Link href={`/stores/${storeId}/news`}>
           <Tab style={asPath === `/stores/${storeId}/news` ? SelectedTabStyle : UnSelectedTabStyle}>
             소식
           </Tab>
         </Link>
-        <Link href={`/stores/${storeId}/menus`} passHref>
+        <Link href={`/stores/${storeId}/menus`}>
           <Tab
             style={asPath === `/stores/${storeId}/menus` ? SelectedTabStyle : UnSelectedTabStyle}
           >
             메뉴
           </Tab>
         </Link>
-        <Link href={`/stores/${storeId}/feed`} passHref>
+        <Link href={`/stores/${storeId}/feed`}>
           <Tab style={asPath === `/stores/${storeId}/feed` ? SelectedTabStyle : UnSelectedTabStyle}>
             피드
           </Tab>
