@@ -30,6 +30,11 @@ const GridContainerUl = styled.ul`
   background-color: #fcfcfc;
 `
 
+const options = {
+  timeout: 10000,
+  maximumAge: 1000,
+}
+
 export default function HomePage() {
   const [coords, setCoords] = useState<GeolocationCoordinates>()
 
@@ -44,11 +49,11 @@ export default function HomePage() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setCoords(position.coords)
-          toast.info(`${position.coords.latitude}, ${position.coords.longitude}`)
         },
         (error) => {
           toast.warn(error.message)
-        }
+        },
+        options
       )
     } else {
       toast.warn('GPS 위치 정보를 사용할 수 없습니다.')

@@ -1,9 +1,9 @@
 import styled, { keyframes } from 'styled-components'
-import Image from 'next/image'
 
 export const Padding = styled.div`
   padding: 1rem;
 `
+
 export const FlexContainerCenterCenter = styled.div`
   display: flex;
   justify-content: center;
@@ -35,10 +35,12 @@ export const FlexContainerColumn = styled.div`
   display: flex;
   flex-flow: column nowrap;
 `
+
 export const GridContainerGap = styled.div`
   display: grid;
   gap: 1rem;
 `
+
 export const GridContainer = styled.div`
   display: grid;
 `

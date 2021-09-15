@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import { StoreCardFragment } from 'src/graphql/generated/types-and-hooks'
 import styled from 'styled-components'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { distanceBetween, formatDistance } from 'src/utils/commons'
+import Loading from './Loading'
 
 const FlexContainerLi = styled.li`
   display: flex;
@@ -106,14 +106,18 @@ function StoreCard({ store, coordinates }: Props) {
       <CardInfo>
         <div>{store.name}</div>
         <div>
-          {formatDistance(
-            distanceBetween(
-              coordinates?.latitude,
-              coordinates?.longitude,
-              store.latitude,
-              store.longitude
+          {coordinates ? (
+            formatDistance(
+              distanceBetween(
+                coordinates.latitude,
+                coordinates.longitude,
+                store.latitude,
+                store.longitude
+              )
             )
-          ) ?? '-'}
+          ) : (
+            <Loading />
+          )}
         </div>
       </CardInfo>
       <CardCategory>
