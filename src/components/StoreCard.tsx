@@ -77,7 +77,6 @@ function StoreCard({ store, coordinates }: Props) {
   const router = useRouter()
 
   function goToStorePage() {
-    console.log(router.asPath)
     sessionStorage.setItem('urlBeforeStorePage', router.asPath)
     sessionStorage.setItem('pageYOffsetBeforeStorePage', `${window.pageYOffset}`)
     router.push(`/stores/${store.id}`)

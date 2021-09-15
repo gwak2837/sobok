@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import NaverMapDeferScript from 'src/scripts/NaverMapDeferScript'
 import PageHead from 'src/components/PageHead'
 
