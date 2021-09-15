@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import PageHead from 'src/components/PageHead'
 import NavigationLayout from 'src/layouts/NavigationLayout'
-import type { ReactElement } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import HomeLayout from 'src/layouts/HomeLayout'
 import { Carousel } from 'antd'
 import Category from 'src/components/Category'
@@ -31,16 +31,19 @@ const GridContainerUl = styled.ul`
 `
 
 export default function HomePage() {
+  const [coords, setCoords] = useState<GeolocationCoordinates>()
+
   const townName = useRecoilValue(currentTown)
 
   const { data, loading } = useStoresQuery({ skip: !townName, variables: { town: townName } })
 
   const stores = data?.storesByTownAndCategory
 
-  function a() {
+  useEffect(() => {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          setCoords(position.coords)
           toast.info(`${position.coords.latitude}, ${position.coords.longitude}`)
         },
         (error) => {
@@ -50,7 +53,7 @@ export default function HomePage() {
     } else {
       toast.warn('GPS 위치 정보를 사용할 수 없습니다.')
     }
-  }
+  }, [])
 
   return (
     <PageHead>
@@ -71,17 +74,18 @@ export default function HomePage() {
 
       <Category />
 
-      {loading || !stores ? (
-        'loading'
-      ) : (
+      {loading ? (
+        <div>loading</div>
+      ) : stores ? (
         <GridContainerUl>
           {stores.map((store) => (
-            <StoreCard key={store.id} store={store} />
+            <StoreCard key={store.id} store={store} coordinates={coords} />
           ))}
         </GridContainerUl>
+      ) : (
+        <div>매장 목록이 없어요</div>
       )}
 
-      <button onClick={a}>위치</button>
       <div>
         <Link href="/@userId1">사용자 페이지</Link>
       </div>

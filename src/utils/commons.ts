@@ -1,30 +1,9 @@
 import Inko from 'inko'
 import { NextRouter } from 'next/router'
-import { KeyboardEvent, MouseEvent } from 'react'
-
-export function preventAndStopEnterPropagation(e: KeyboardEvent) {
-  if (e.key === 'Enter') {
-    e.preventDefault()
-    e.stopPropagation()
-  }
-}
+import { MouseEvent } from 'react'
 
 export function stopPropagation(e: MouseEvent<HTMLElement>) {
   e.stopPropagation()
-}
-
-export function formatPhoneNumber(phoneNumber: string) {
-  if (phoneNumber.length === 11) {
-    return (
-      phoneNumber.substr(0, 3) + '-' + phoneNumber.substr(3, 4) + '-' + phoneNumber.substr(7, 4)
-    )
-  } else if (phoneNumber.length === 10) {
-    return (
-      phoneNumber.substr(0, 3) + '-' + phoneNumber.substr(3, 3) + '-' + phoneNumber.substr(6, 4)
-    )
-  } else {
-    return phoneNumber
-  }
 }
 
 export function sleep(ms: number) {
@@ -59,4 +38,21 @@ const urlPattern = new RegExp(
 
 export function isValidUrl(url: string) {
   return !!urlPattern.test(url)
+}
+
+export function distanceBetween(lat1: number, lon1: number, lat2: number, lon2: number) {
+  const pi = 0.017453292519943295 // Math.PI / 180
+  const cos = Math.cos
+  const a =
+    0.5 -
+    cos((lat2 - lat1) * pi) / 2 +
+    (cos(lat1 * pi) * cos(lat2 * pi) * (1 - cos((lon2 - lon1) * pi))) / 2
+
+  return 12742 * Math.asin(Math.sqrt(a)) // 2 * 6371 km
+}
+
+export function formatDistance(distance: number) {
+  if (!distance) return null
+
+  return distance >= 0.995 ? `${distance.toFixed(1)}km` : `${Math.round(distance * 100) * 10}m`
 }
