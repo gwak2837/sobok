@@ -8,7 +8,7 @@ const CategrotyContainer = styled.div`
   //max-width: ${TABLET_MIN_WIDTH};
   padding: 1rem;
   height: 7rem;
-  overflow: scroll;
+  overflow: scroll hidden;
   flex-wrap: nowrap;
   border-bottom: solid 1px #e5e5e5;
 `

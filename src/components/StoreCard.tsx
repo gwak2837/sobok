@@ -3,7 +3,7 @@ import { StoreCardFragment } from 'src/graphql/generated/types-and-hooks'
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import { useEffect } from 'react'
 
 const FlexContainerLi = styled.li`
   display: flex;
@@ -72,18 +72,33 @@ type Props = {
 }
 
 function StoreCard({ store }: Props) {
+  const router = useRouter()
+
+  function goToStorePage() {
+    console.log(router.asPath)
+    sessionStorage.setItem('urlBeforeStorePage', router.asPath)
+    sessionStorage.setItem('pageYOffsetBeforeStorePage', `${window.pageYOffset}`)
+    router.push(`/stores/${store.id}`)
+  }
+
+  useEffect(() => {
+    const pageYOffset = sessionStorage.getItem('pageYOffsetBeforeStorePage')
+
+    if (pageYOffset) {
+      window.scrollTo(0, +pageYOffset)
+      sessionStorage.removeItem('pageYOffsetBeforeStorePage')
+    }
+  }, [])
+
   return (
     <FlexContainerLi>
-      <CardImage>
-        {/*  eslint-disable-next-line @next/next/link-passhref */}
-        <Link href={`/stores/${store.id}`}>
-          <Image
-            src={store.imageUrls?.[0] ?? '/images/default-store-cover.png'}
-            alt={store.name ?? 'store-cover'}
-            layout="fill"
-            objectFit="cover"
-          />
-        </Link>
+      <CardImage onClick={goToStorePage}>
+        <Image
+          src={store.imageUrls?.[0] ?? '/images/default-store-cover.png'}
+          alt={store.name ?? 'store-cover'}
+          layout="fill"
+          objectFit="cover"
+        />
       </CardImage>
       <div></div>
       <CardInfo>

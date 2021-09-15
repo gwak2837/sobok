@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { useRecoilValue } from 'recoil'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import { useMeQuery } from 'src/graphql/generated/types-and-hooks'
@@ -12,7 +12,7 @@ import {
 import { currentUser } from 'src/models/recoil'
 import { TABLET_MIN_WIDTH } from 'src/utils/constants'
 import styled from 'styled-components'
-import { HeartIcon, HomeIcon, NewsIcon, PersonIcon, TrendIcon } from 'src/components/atoms/SVGs'
+import { HeartIcon, HomeIcon, NewsIcon, PersonIcon, TrendIcon } from 'src/components/atoms/SVG'
 
 const Padding = styled.div`
   padding: ${NAVIGATION_HEIGHT};
