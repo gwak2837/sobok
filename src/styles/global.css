@@ -1,7 +1,11 @@
 html,
 body {
   font-size: 16px;
-  @media (max-width: 560px) {
+}
+
+@media (max-width: 560px) {
+  html,
+  body {
     font-size: 14px;
   }
 }
