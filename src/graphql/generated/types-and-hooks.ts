@@ -29,113 +29,113 @@ export type Scalars = {
 
 export type Bucket = {
   __typename?: 'Bucket'
-  id: Scalars['ID']
   creationTime: Scalars['DateTime']
+  id: Scalars['ID']
   modificationTime: Scalars['DateTime']
   name: Scalars['NonEmptyString']
   type: BucketType
-  userId: Scalars['ID']
   /** 버킷 소유자 */
   user: User
+  userId: Scalars['ID']
 }
 
 export enum BucketType {
-  Store = 'STORE',
   Menu = 'MENU',
+  Store = 'STORE',
 }
 
 export type Comment = {
   __typename?: 'Comment'
-  id: Scalars['ID']
-  creationTime: Scalars['DateTime']
-  modificationTime: Scalars['DateTime']
-  contents: Array<Scalars['NonEmptyString']>
-  /** nullable */
-  imageUrl?: Maybe<Scalars['URL']>
-  /** from other table */
-  feed: Feed
-  user: User
   /** from other table - nullable */
   comment?: Maybe<Comment>
+  contents: Array<Scalars['NonEmptyString']>
+  creationTime: Scalars['DateTime']
+  /** from other table */
+  feed: Feed
+  id: Scalars['ID']
+  /** nullable */
+  imageUrl?: Maybe<Scalars['URL']>
+  modificationTime: Scalars['DateTime']
+  user: User
 }
 
 export type Feed = {
   __typename?: 'Feed'
-  id: Scalars['ID']
-  creationTime: Scalars['DateTime']
-  modificationTime: Scalars['DateTime']
-  rating: Scalars['NonEmptyString']
-  contents: Array<Scalars['NonEmptyString']>
-  imageUrls: Array<Scalars['URL']>
-  likeCount: Scalars['Int']
   commentCount: Scalars['Int']
-  storeId: Scalars['ID']
-  userId: Scalars['ID']
-  /** 피드 좋아요 여부 (로그인 필요) */
-  isLiked: Scalars['Boolean']
-  /** 피드에 태그된 매장 */
-  store: Store
-  /** 피드 작성자 */
-  user: User
   /** 피드에 달린 댓글 */
   comments?: Maybe<Array<Comment>>
+  contents: Array<Scalars['NonEmptyString']>
+  creationTime: Scalars['DateTime']
   /** 피드에 달린 해시태그 */
   hashtags?: Maybe<Array<Scalars['NonEmptyString']>>
+  id: Scalars['ID']
+  imageUrls: Array<Scalars['URL']>
+  /** 피드 좋아요 여부 (로그인 필요) */
+  isLiked: Scalars['Boolean']
+  likeCount: Scalars['Int']
   /** 피드에 태그된 메뉴 목록 */
   menus?: Maybe<Array<Menu>>
+  modificationTime: Scalars['DateTime']
+  rating: Scalars['NonEmptyString']
+  /** 피드에 태그된 매장 */
+  store: Store
+  storeId: Scalars['ID']
+  /** 피드 작성자 */
+  user: User
+  userId: Scalars['ID']
 }
 
 /** 기본값: ALL_USER */
 export enum FeedOptions {
-  StarUser = 'STAR_USER',
+  AllUser = 'ALL_USER',
   /** 로그인 필요 */
   FollowingUser = 'FOLLOWING_USER',
-  AllUser = 'ALL_USER',
+  StarUser = 'STAR_USER',
 }
 
 /** 성별 */
 export enum Gender {
-  Other = 'OTHER',
-  Male = 'MALE',
   Female = 'FEMALE',
+  Male = 'MALE',
+  Other = 'OTHER',
 }
 
 export type Menu = {
   __typename?: 'Menu'
-  id: Scalars['ID']
-  creationTime: Scalars['DateTime']
-  modificationTime: Scalars['DateTime']
-  name: Scalars['NonEmptyString']
-  price: Scalars['Int']
-  isSoldOut: Scalars['Boolean']
-  imageUrls: Array<Scalars['URL']>
   category: Scalars['NonEmptyString']
-  storeId: Scalars['ID']
+  creationTime: Scalars['DateTime']
+  /** 메뉴에 달린 해시태그 */
+  hashtags?: Maybe<Array<Scalars['NonEmptyString']>>
+  id: Scalars['ID']
+  imageUrls: Array<Scalars['URL']>
   /** 로그인한 사용자가 이 메뉴를 버킷에 담은 여부 */
   isInBucket: Scalars['Boolean']
   /** 로그인한 사용자가 이 메뉴를 좋아하는 여부 */
   isLiked: Scalars['Boolean']
+  isSoldOut: Scalars['Boolean']
+  modificationTime: Scalars['DateTime']
+  name: Scalars['NonEmptyString']
+  price: Scalars['Int']
   /** 이 메뉴를 판매하는 매장 */
   store: Store
-  /** 메뉴에 달린 해시태그 */
-  hashtags?: Maybe<Array<Scalars['NonEmptyString']>>
+  storeId: Scalars['ID']
 }
 
 export type Mutation = {
   __typename?: 'Mutation'
   /** 고유 이름 또는 이메일과 비밀번호를 전송하면 JWT 인증 토큰을 반환함 */
-  login?: Maybe<Scalars['JWT']>
+  login?: Maybe<UserAuthentication>
   /** JWT 인증 토큰과 같이 요청하면 로그아웃 성공 여부를 반환함 */
   logout: Scalars['Boolean']
   /** 회원가입에 필요한 정보를 주면 성공했을 때 인증 토큰을 반환함 */
-  register?: Maybe<Scalars['JWT']>
+  register?: Maybe<UserAuthentication>
   /** 회원탈퇴 시 사용자 정보가 모두 초기화됩 */
   unregister: Scalars['Boolean']
 }
 
 export type MutationLoginArgs = {
-  uniqueNameOrEmail: Scalars['NonEmptyString']
   passwordHash: Scalars['NonEmptyString']
+  uniqueNameOrEmail: Scalars['NonEmptyString']
 }
 
 export type MutationRegisterArgs = {
@@ -144,33 +144,33 @@ export type MutationRegisterArgs = {
 
 export type News = {
   __typename?: 'News'
-  id: Scalars['ID']
-  creationTime: Scalars['DateTime']
-  modificationTime: Scalars['DateTime']
-  title: Scalars['NonEmptyString']
-  contents: Array<Scalars['NonEmptyString']>
   category: Scalars['NonEmptyString']
-  storeId: Scalars['ID']
+  contents: Array<Scalars['NonEmptyString']>
+  creationTime: Scalars['DateTime']
+  id: Scalars['ID']
   imageUrls?: Maybe<Array<Scalars['URL']>>
   /** 뉴스 좋아요 여부 (로그인 필요) */
   isLiked: Scalars['Boolean']
+  modificationTime: Scalars['DateTime']
   /** 이 소식을 올린 매장 */
   store: Store
+  storeId: Scalars['ID']
+  title: Scalars['NonEmptyString']
 }
 
 /** 기본값: ALL_STORE */
 export enum NewsOptions {
+  AllStore = 'ALL_STORE',
   /** 로그인 필요 */
   LikedStore = 'LIKED_STORE',
-  AllStore = 'ALL_STORE',
 }
 
 /** OAuth 공급자 */
 export enum Provider {
-  Sobok = 'SOBOK',
   Google = 'GOOGLE',
-  Naver = 'NAVER',
   Kakao = 'KAKAO',
+  Naver = 'NAVER',
+  Sobok = 'SOBOK',
 }
 
 export type Query = {
@@ -190,7 +190,7 @@ export type Query = {
   /** 사용자 고유 이름 중복 여부 검사 */
   isUniqueNameUnique: Scalars['Boolean']
   /** 인증 토큰과 같이 요청하면 사용자 정보를 반환 */
-  me: User
+  me?: Maybe<User>
   /** 메뉴 상세 */
   menu?: Maybe<Menu>
   /** 메뉴 상세 */
@@ -236,8 +236,8 @@ export type QueryFeedListByStoreArgs = {
 }
 
 export type QueryFeedListByTownArgs = {
-  town?: Maybe<Scalars['NonEmptyString']>
   option?: Maybe<FeedOptions>
+  town?: Maybe<Scalars['NonEmptyString']>
 }
 
 export type QueryIsEmailUniqueArgs = {
@@ -253,8 +253,8 @@ export type QueryMenuArgs = {
 }
 
 export type QueryMenuByNameArgs = {
-  storeId: Scalars['ID']
   name: Scalars['NonEmptyString']
+  storeId: Scalars['ID']
 }
 
 export type QueryMenusByStoreArgs = {
@@ -262,8 +262,8 @@ export type QueryMenusByStoreArgs = {
 }
 
 export type QueryMenusByTownAndCategoryArgs = {
-  town?: Maybe<Scalars['NonEmptyString']>
   category?: Maybe<Scalars['NonEmptyString']>
+  town?: Maybe<Scalars['NonEmptyString']>
 }
 
 export type QueryMenusInBucketArgs = {
@@ -276,14 +276,14 @@ export type QueryNewsArgs = {
 }
 
 export type QueryNewsListByStoreArgs = {
-  storeId: Scalars['ID']
   categories?: Maybe<Array<Scalars['NonEmptyString']>>
+  storeId: Scalars['ID']
 }
 
 export type QueryNewsListByTownArgs = {
-  town?: Maybe<Scalars['NonEmptyString']>
-  option?: Maybe<NewsOptions>
   categories?: Maybe<Array<Scalars['NonEmptyString']>>
+  option?: Maybe<NewsOptions>
+  town?: Maybe<Scalars['NonEmptyString']>
 }
 
 export type QuerySearchFeedArgs = {
@@ -303,8 +303,8 @@ export type QueryStoreArgs = {
 }
 
 export type QueryStoresByTownAndCategoryArgs = {
-  town?: Maybe<Scalars['NonEmptyString']>
   categories?: Maybe<Array<Scalars['NonEmptyString']>>
+  town?: Maybe<Scalars['NonEmptyString']>
 }
 
 export type QueryStoresInBucketArgs = {
@@ -313,84 +313,76 @@ export type QueryStoresInBucketArgs = {
 }
 
 export type RegisterInput = {
-  uniqueName: Scalars['NonEmptyString']
-  email: Scalars['EmailAddress']
-  passwordHash: Scalars['NonEmptyString']
-  name: Scalars['NonEmptyString']
-  phone: Scalars['NonEmptyString']
-  gender: Gender
   bio?: Maybe<Scalars['String']>
   birth?: Maybe<Scalars['Date']>
+  email: Scalars['EmailAddress']
+  gender: Gender
   imageUrl?: Maybe<Scalars['URL']>
+  name: Scalars['NonEmptyString']
+  passwordHash: Scalars['NonEmptyString']
+  phone: Scalars['NonEmptyString']
+  uniqueName: Scalars['NonEmptyString']
 }
 
 export type Store = {
   __typename?: 'Store'
-  id: Scalars['ID']
-  creationTime: Scalars['DateTime']
-  modificationTime: Scalars['DateTime']
-  name: Scalars['NonEmptyString']
-  town: Scalars['NonEmptyString']
   address: Scalars['NonEmptyString']
-  categories: Array<Scalars['NonEmptyString']>
-  tel?: Maybe<Scalars['String']>
-  registrationNumber?: Maybe<Scalars['String']>
-  description?: Maybe<Scalars['String']>
   businessHours?: Maybe<Array<Scalars['NonEmptyString']>>
+  categories: Array<Scalars['NonEmptyString']>
+  creationTime: Scalars['DateTime']
+  description?: Maybe<Scalars['String']>
+  /** 매장에 달린 해시태그 */
+  hashtags?: Maybe<Array<Scalars['NonEmptyString']>>
   holidays?: Maybe<Array<Scalars['Date']>>
+  id: Scalars['ID']
   imageUrls?: Maybe<Array<Scalars['URL']>>
-  userId: Scalars['ID']
   /** 로그인한 사용자가 이 매장을 버킷에 담은 여부 */
   isInBucket: Scalars['Boolean']
   /** 로그인한 사용자가 이 매장을 좋아하는 여부 */
   isLiked: Scalars['Boolean']
   /** 매장에서 판매하는 메뉴 목록 */
   menus: Array<Menu>
-  /** 매장에 달린 해시태그 */
-  hashtags?: Maybe<Array<Scalars['NonEmptyString']>>
+  modificationTime: Scalars['DateTime']
+  name: Scalars['NonEmptyString']
   /** 매장에서 올린 소식 목록 */
   news?: Maybe<Array<News>>
+  registrationNumber?: Maybe<Scalars['String']>
+  tel?: Maybe<Scalars['String']>
+  town: Scalars['NonEmptyString']
   /** 매장을 소유한 사용자 정보 */
   user?: Maybe<User>
+  userId: Scalars['ID']
 }
 
 export type Trend = {
   __typename?: 'Trend'
-  id: Scalars['ID']
-  creationTime: Scalars['DateTime']
-  modificationTime: Scalars['DateTime']
   contents: Array<Scalars['NonEmptyString']>
+  creationTime: Scalars['DateTime']
+  id: Scalars['ID']
+  modificationTime: Scalars['DateTime']
   /** 트렌드 작성자 */
   user: User
 }
 
 export type User = {
   __typename?: 'User'
-  id: Scalars['ID']
-  creationTime: Scalars['DateTime']
-  modificationTime: Scalars['DateTime']
-  uniqueName: Scalars['NonEmptyString']
-  email: Scalars['EmailAddress']
-  name: Scalars['NonEmptyString']
-  phone: Scalars['NonEmptyString']
-  gender: Gender
-  isEmailVerified: Scalars['Boolean']
-  isStarUser: Scalars['Boolean']
-  providers: Array<Provider>
   bio?: Maybe<Scalars['String']>
   birth?: Maybe<Scalars['Date']>
-  imageUrl?: Maybe<Scalars['URL']>
-  nickname?: Maybe<Scalars['String']>
   /** 내가 쓴 댓글 */
   comments?: Maybe<Array<Comment>>
+  creationTime: Scalars['DateTime']
+  email: Scalars['EmailAddress']
   /** 내가 쓴 피드 */
   feed?: Maybe<Array<Feed>>
-  /** 내가 소유한 매장 */
-  stores?: Maybe<Array<Store>>
-  /** 사용자가 따르고 있는 다른 사용자 */
-  followings?: Maybe<Array<User>>
   /** 사용자를 따르는 다른 사용자 */
   followers?: Maybe<Array<User>>
+  /** 사용자가 따르고 있는 다른 사용자 */
+  followings?: Maybe<Array<User>>
+  gender: Gender
+  id: Scalars['ID']
+  imageUrl?: Maybe<Scalars['URL']>
+  isEmailVerified: Scalars['Boolean']
+  isStarUser: Scalars['Boolean']
   /** 좋아요 누른 댓글 */
   likedComments?: Maybe<Array<Comment>>
   /** 좋아요 누른 피드 */
@@ -405,8 +397,22 @@ export type User = {
   likedTrends?: Maybe<Array<Trend>>
   /** 내 메뉴 버킷 리스트 */
   menuBuckets?: Maybe<Array<Bucket>>
+  modificationTime: Scalars['DateTime']
+  name: Scalars['NonEmptyString']
+  nickname?: Maybe<Scalars['String']>
+  phone: Scalars['NonEmptyString']
+  providers: Array<Provider>
   /** 내 매장 버킷 리스트 */
   storeBuckets?: Maybe<Array<Bucket>>
+  /** 내가 소유한 매장 */
+  stores?: Maybe<Array<Store>>
+  uniqueName: Scalars['NonEmptyString']
+}
+
+export type UserAuthentication = {
+  __typename?: 'UserAuthentication'
+  jwt: Scalars['JWT']
+  userUniqueName: Scalars['NonEmptyString']
 }
 
 export type MenuCardFragment = {
@@ -435,7 +441,10 @@ export type LoginMutationVariables = Exact<{
   passwordHash: Scalars['NonEmptyString']
 }>
 
-export type LoginMutation = { __typename?: 'Mutation'; login?: Maybe<any> }
+export type LoginMutation = {
+  __typename?: 'Mutation'
+  login?: Maybe<{ __typename?: 'UserAuthentication'; userUniqueName: any; jwt: any }>
+}
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never }>
 
@@ -445,7 +454,10 @@ export type RegisterMutationVariables = Exact<{
   input: RegisterInput
 }>
 
-export type RegisterMutation = { __typename?: 'Mutation'; register?: Maybe<any> }
+export type RegisterMutation = {
+  __typename?: 'Mutation'
+  register?: Maybe<{ __typename?: 'UserAuthentication'; userUniqueName: any; jwt: any }>
+}
 
 export type BucketMenusQueryVariables = Exact<{
   bucketId: Scalars['ID']
@@ -517,11 +529,18 @@ export type IsEmailUniqueQueryVariables = Exact<{
 
 export type IsEmailUniqueQuery = { __typename?: 'Query'; isEmailUnique: boolean }
 
-export type IsIdUniqueQueryVariables = Exact<{
-  id: Scalars['NonEmptyString']
+export type IsUniqueNameUniqueQueryVariables = Exact<{
+  uniqueName: Scalars['NonEmptyString']
 }>
 
-export type IsIdUniqueQuery = { __typename?: 'Query'; isUniqueNameUnique: boolean }
+export type IsUniqueNameUniqueQuery = { __typename?: 'Query'; isUniqueNameUnique: boolean }
+
+export type MeQueryVariables = Exact<{ [key: string]: never }>
+
+export type MeQuery = {
+  __typename?: 'Query'
+  me?: Maybe<{ __typename?: 'User'; id: string; uniqueName: any }>
+}
 
 export type MenuBucketsQueryVariables = Exact<{
   userUniqueName?: Maybe<Scalars['NonEmptyString']>
@@ -743,7 +762,10 @@ export const StoreCardFragmentDoc = gql`
 `
 export const LoginDocument = gql`
   mutation Login($uniqueNameOrEmail: NonEmptyString!, $passwordHash: NonEmptyString!) {
-    login(uniqueNameOrEmail: $uniqueNameOrEmail, passwordHash: $passwordHash)
+    login(uniqueNameOrEmail: $uniqueNameOrEmail, passwordHash: $passwordHash) {
+      userUniqueName
+      jwt
+    }
   }
 `
 export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>
@@ -812,7 +834,10 @@ export type LogoutMutationOptions = Apollo.BaseMutationOptions<
 >
 export const RegisterDocument = gql`
   mutation Register($input: RegisterInput!) {
-    register(input: $input)
+    register(input: $input) {
+      userUniqueName
+      jwt
+    }
   }
 `
 export type RegisterMutationFn = Apollo.MutationFunction<
@@ -1045,43 +1070,94 @@ export type IsEmailUniqueQueryResult = Apollo.QueryResult<
   IsEmailUniqueQuery,
   IsEmailUniqueQueryVariables
 >
-export const IsIdUniqueDocument = gql`
-  query IsIdUnique($id: NonEmptyString!) {
-    isUniqueNameUnique(uniqueName: $id)
+export const IsUniqueNameUniqueDocument = gql`
+  query IsUniqueNameUnique($uniqueName: NonEmptyString!) {
+    isUniqueNameUnique(uniqueName: $uniqueName)
   }
 `
 
 /**
- * __useIsIdUniqueQuery__
+ * __useIsUniqueNameUniqueQuery__
  *
- * To run a query within a React component, call `useIsIdUniqueQuery` and pass it any options that fit your needs.
- * When your component renders, `useIsIdUniqueQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useIsUniqueNameUniqueQuery` and pass it any options that fit your needs.
+ * When your component renders, `useIsUniqueNameUniqueQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useIsIdUniqueQuery({
+ * const { data, loading, error } = useIsUniqueNameUniqueQuery({
  *   variables: {
- *      id: // value for 'id'
+ *      uniqueName: // value for 'uniqueName'
  *   },
  * });
  */
-export function useIsIdUniqueQuery(
-  baseOptions: Apollo.QueryHookOptions<IsIdUniqueQuery, IsIdUniqueQueryVariables>
+export function useIsUniqueNameUniqueQuery(
+  baseOptions: Apollo.QueryHookOptions<IsUniqueNameUniqueQuery, IsUniqueNameUniqueQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<IsIdUniqueQuery, IsIdUniqueQueryVariables>(IsIdUniqueDocument, options)
+  return Apollo.useQuery<IsUniqueNameUniqueQuery, IsUniqueNameUniqueQueryVariables>(
+    IsUniqueNameUniqueDocument,
+    options
+  )
 }
-export function useIsIdUniqueLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<IsIdUniqueQuery, IsIdUniqueQueryVariables>
+export function useIsUniqueNameUniqueLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    IsUniqueNameUniqueQuery,
+    IsUniqueNameUniqueQueryVariables
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<IsIdUniqueQuery, IsIdUniqueQueryVariables>(IsIdUniqueDocument, options)
+  return Apollo.useLazyQuery<IsUniqueNameUniqueQuery, IsUniqueNameUniqueQueryVariables>(
+    IsUniqueNameUniqueDocument,
+    options
+  )
 }
-export type IsIdUniqueQueryHookResult = ReturnType<typeof useIsIdUniqueQuery>
-export type IsIdUniqueLazyQueryHookResult = ReturnType<typeof useIsIdUniqueLazyQuery>
-export type IsIdUniqueQueryResult = Apollo.QueryResult<IsIdUniqueQuery, IsIdUniqueQueryVariables>
+export type IsUniqueNameUniqueQueryHookResult = ReturnType<typeof useIsUniqueNameUniqueQuery>
+export type IsUniqueNameUniqueLazyQueryHookResult = ReturnType<
+  typeof useIsUniqueNameUniqueLazyQuery
+>
+export type IsUniqueNameUniqueQueryResult = Apollo.QueryResult<
+  IsUniqueNameUniqueQuery,
+  IsUniqueNameUniqueQueryVariables
+>
+export const MeDocument = gql`
+  query Me {
+    me {
+      id
+      uniqueName
+    }
+  }
+`
+
+/**
+ * __useMeQuery__
+ *
+ * To run a query within a React component, call `useMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMeQuery(baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, options)
+}
+export function useMeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, options)
+}
+export type MeQueryHookResult = ReturnType<typeof useMeQuery>
+export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>
+export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>
 export const MenuBucketsDocument = gql`
   query MenuBuckets($userUniqueName: NonEmptyString) {
     buckets(type: MENU, userUniqueName: $userUniqueName) {
