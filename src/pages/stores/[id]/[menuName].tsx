@@ -31,15 +31,17 @@ export default function StoreMenuPage() {
         height="300"
         objectFit="cover"
       />
-      {loading || !menu ? (
-        'loading...'
-      ) : (
+      {loading ? (
+        <div>loading</div>
+      ) : menu ? (
         <>
           <div>{menu.name}</div>
           <div>{menu.price}</div>
           <div>{menu.isLiked ? <HeartTwoTone twoToneColor="#ff9f74" /> : <HeartOutlined />}</div>
           <div>{menu.isSoldOut ? '품절' : '판매 중'}</div>
         </>
+      ) : (
+        <div>메뉴가 없어요..?</div>
       )}
     </PageHead>
   )

@@ -21,6 +21,10 @@ export type Scalars = {
   EmailAddress: any
   /** A field whose value is a JSON Web Token (JWT): https://jwt.io/introduction. */
   JWT: any
+  /** A field whose value is a valid decimal degrees latitude number (53.471): https://en.wikipedia.org/wiki/Latitude */
+  Latitude: any
+  /** A field whose value is a valid decimal degrees longitude number (53.471): https://en.wikipedia.org/wiki/Longitude */
+  Longitude: any
   /** A string that cannot be passed as an empty value */
   NonEmptyString: any
   /** A field whose value conforms to the standard URL format as specified in RFC3986: https://www.ietf.org/rfc/rfc3986.txt. */
@@ -340,6 +344,8 @@ export type Store = {
   isInBucket: Scalars['Boolean']
   /** 로그인한 사용자가 이 매장을 좋아하는 여부 */
   isLiked: Scalars['Boolean']
+  latitude: Scalars['Latitude']
+  longitude: Scalars['Longitude']
   /** 매장에서 판매하는 메뉴 목록 */
   menus: Array<Menu>
   modificationTime: Scalars['DateTime']
@@ -434,6 +440,8 @@ export type StoreCardFragment = {
   imageUrls?: Maybe<Array<any>>
   hashtags?: Maybe<Array<any>>
   address: any
+  latitude: any
+  longitude: any
 }
 
 export type LoginMutationVariables = Exact<{
@@ -497,6 +505,8 @@ export type BucketStoresQuery = {
       imageUrls?: Maybe<Array<any>>
       hashtags?: Maybe<Array<any>>
       address: any
+      latitude: any
+      longitude: any
     }>
   >
 }
@@ -735,6 +745,8 @@ export type StoresQuery = {
       imageUrls?: Maybe<Array<any>>
       hashtags?: Maybe<Array<any>>
       address: any
+      latitude: any
+      longitude: any
     }>
   >
 }
@@ -758,6 +770,8 @@ export const StoreCardFragmentDoc = gql`
     imageUrls
     hashtags
     address
+    latitude
+    longitude
   }
 `
 export const LoginDocument = gql`

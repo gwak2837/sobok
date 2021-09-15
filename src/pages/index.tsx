@@ -3,14 +3,15 @@ import Link from 'next/link'
 import Image from 'next/image'
 import PageHead from 'src/components/PageHead'
 import NavigationLayout from 'src/layouts/NavigationLayout'
-import { ReactElement, useContext } from 'react'
+import { ReactElement, useEffect } from 'react'
 import HomeLayout from 'src/layouts/HomeLayout'
 import { Carousel } from 'antd'
 import Category from 'src/components/Category'
 import { useStoresQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreCard from 'src/components/StoreCard'
-import { useRecoilValue } from 'recoil'
-import { currentTown } from 'src/models/recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { currentLocation, currentTown } from 'src/models/recoil'
+import { toast } from 'react-toastify'
 
 const CarouselDiv = styled.div`
   position: relative;
@@ -31,10 +32,32 @@ const GridContainerUl = styled.ul`
 
 export default function HomePage() {
   const townName = useRecoilValue(currentTown)
+  const [coordinates, setCoordinates] = useRecoilState(currentLocation)
 
   const { data, loading } = useStoresQuery({ skip: !townName, variables: { town: townName } })
 
   const stores = data?.storesByTownAndCategory
+
+  useEffect(() => {
+    if (!coordinates) {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setCoordinates(position.coords)
+          },
+          (error) => {
+            toast.warn(error.message)
+          },
+          {
+            timeout: 10000,
+            maximumAge: 1000,
+          }
+        )
+      } else {
+        toast.warn('GPS 위치 정보를 사용할 수 없습니다.')
+      }
+    }
+  }, [coordinates, setCoordinates])
 
   return (
     <PageHead>
@@ -55,14 +78,16 @@ export default function HomePage() {
 
       <Category />
 
-      {loading || !stores ? (
-        'loading'
-      ) : (
+      {loading ? (
+        <div>loading</div>
+      ) : stores ? (
         <GridContainerUl>
           {stores.map((store) => (
-            <StoreCard key={store.id} store={store} />
+            <StoreCard key={store.id} store={store} coordinates={coordinates} />
           ))}
         </GridContainerUl>
+      ) : (
+        <div>매장 목록이 없어요</div>
       )}
 
       <div>

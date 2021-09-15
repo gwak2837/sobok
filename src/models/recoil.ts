@@ -14,3 +14,8 @@ export const currentUser = atom({
   key: 'currentUser',
   default: { uniqueName: '' },
 })
+
+export const currentLocation = atom<GeolocationCoordinates | undefined>({
+  key: 'currentLocation',
+  default: undefined,
+})

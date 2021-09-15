@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import { StoreCardFragment } from 'src/graphql/generated/types-and-hooks'
 import styled from 'styled-components'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { distanceBetween, formatDistance } from 'src/utils/commons'
+import Loading from './Loading'
 
 const FlexContainerLi = styled.li`
   display: flex;
@@ -69,9 +70,10 @@ const LikeButton = styled.button`
 
 type Props = {
   store: StoreCardFragment
+  coordinates?: GeolocationCoordinates
 }
 
-function StoreCard({ store }: Props) {
+function StoreCard({ store, coordinates }: Props) {
   const router = useRouter()
 
   function goToStorePage() {
@@ -103,7 +105,20 @@ function StoreCard({ store }: Props) {
       <div></div>
       <CardInfo>
         <div>{store.name}</div>
-        <div>30m</div>
+        <div>
+          {coordinates ? (
+            formatDistance(
+              distanceBetween(
+                coordinates.latitude,
+                coordinates.longitude,
+                store.latitude,
+                store.longitude
+              )
+            )
+          ) : (
+            <Loading />
+          )}
+        </div>
       </CardInfo>
       <CardCategory>
         {store.categories.map((category, i) => (
