@@ -6,8 +6,37 @@ import { useNewsListQuery } from 'src/graphql/generated/types-and-hooks'
 import NavigationLayout from 'src/layouts/NavigationLayout'
 import NewsLayout from 'src/layouts/NewsLayout'
 import { currentTown } from 'src/models/recoil'
+import styled from 'styled-components'
 
 const description = ''
+
+const NewsCategoryContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  overflow: scroll hidden;
+  background-color: #fcfcfc;
+`
+
+const ActiveStoreCategoryButton = styled.button`
+  padding: 0.6rem 1.2rem;
+  margin-right: 8px;
+  border: none;
+  border-radius: 19px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background-color: #ff9f74;
+  color: white;
+  white-space: nowrap;
+  cursor: pointer;
+`
+
+const UnActiveStoreCategoryButton = styled(ActiveStoreCategoryButton)`
+  color: black;
+  background-color: white;
+  border: solid 1px #f0f0f0;
+`
+
 
 export default function AllStoreNewsPage() {
   const townName = useRecoilValue(currentTown)
@@ -23,8 +52,21 @@ export default function AllStoreNewsPage() {
 
   const newsList = data?.newsListByTown
 
+  const CategoriesHandler = (e:any) => {
+    const category = e.target.value
+    console.log(category)
+  }
+
   return (
     <PageHead title="전체 매장 소식 - 소복" description={description}>
+      <NewsCategoryContainer>
+        <ActiveStoreCategoryButton onClick={CategoriesHandler}>전체</ActiveStoreCategoryButton>
+        <UnActiveStoreCategoryButton onClick={CategoriesHandler}>신메뉴소식</UnActiveStoreCategoryButton>
+        <UnActiveStoreCategoryButton onClick={CategoriesHandler}>오늘의 라인업</UnActiveStoreCategoryButton>
+        <UnActiveStoreCategoryButton>할인/이벤트</UnActiveStoreCategoryButton>
+        <UnActiveStoreCategoryButton>품절</UnActiveStoreCategoryButton>
+        <UnActiveStoreCategoryButton>공지사항</UnActiveStoreCategoryButton>
+      </NewsCategoryContainer>
       {loading
         ? 'loading...'
         : newsList
