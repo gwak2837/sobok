@@ -4,6 +4,7 @@ import { ArrayElement } from 'src/utils/types'
 import styled from 'styled-components'
 
 const StoreNewsCardContainer = styled.li`
+background-color: #fcfcfc;
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -39,9 +40,9 @@ export default function NewsCard({ news }: Props) {
         <div>{news.category}</div>
         <div>{news.creationTime.slice(0, 10)}</div>
       </StoreInfo>
-      <h3>{news.title}</h3>
+     
       {news.contents.map((content, i) => (
-        <StoreNewsContent key={i}>{content}</StoreNewsContent>
+        <StoreNewsContent key={i}><b>{news.title}</b><br />{content}</StoreNewsContent>
       ))}
     </StoreNewsCardContainer>
   )
