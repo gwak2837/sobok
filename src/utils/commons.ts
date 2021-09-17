@@ -56,3 +56,12 @@ export function formatDistance(distance: number) {
 
   return distance >= 0.995 ? `${distance.toFixed(1)}km` : `${Math.round(distance * 100) * 10}m`
 }
+
+export const naverMapBasicConfiguration = {
+  disableKineticPan: false,
+  mapDataControl: false,
+  minZoom: 11,
+  maxZoom: 19,
+  zoomControl: true,
+  zoom: 16,
+}
