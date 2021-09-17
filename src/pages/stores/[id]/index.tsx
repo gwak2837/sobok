@@ -6,10 +6,10 @@ import StoreLayout from 'src/layouts/StoreLayout'
 import { currentStore } from 'src/models/recoil'
 import styled from 'styled-components'
 import Image from 'next/image'
-import Script from 'next/script'
-import { createNaverMap } from 'src/utils/commons'
 
-const description = '매장 정보 페이지'
+import { createNaverMap } from 'src/utils/commons'
+import NaverMapScript from 'src/scripts/NaverMapScript'
+import { SquareFrame } from 'src/components/atoms/Styles'
 
 const StoreInfoContainer = styled.div`
   display: flex;
@@ -41,17 +41,37 @@ const InfoContentContainer = styled.div`
   padding: 1rem;
   font-size: 1.1rem;
 `
+
+const AbsolutePosition = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`
+
+const NaverMap = styled.div`
+  width: 100%;
+  height: 100%;
+`
+
+type Coordinate = {
+  latitude: number
+  longitude: number
+}
+
+const description = '매장 정보 페이지'
+
 export default function StoreInfoPage() {
-  const isNaverMapInitialized = useRef(false)
-  const mapRef = useRef<any>()
+  const storeCoordinate = useRef<Coordinate>()
+  const naverMapRef = useRef<any>()
 
   function initializeNaverMap(latitude: number, longitude: number) {
-    mapRef.current = createNaverMap(latitude, longitude)
-    isNaverMapInitialized.current = true
+    naverMapRef.current = createNaverMap(latitude, longitude)
 
     new naver.maps.Marker({
       position: new naver.maps.LatLng(latitude, longitude),
-      map: mapRef.current,
+      map: naverMapRef.current,
     })
   }
 
@@ -59,8 +79,15 @@ export default function StoreInfoPage() {
 
   const { data, loading, error } = useStoreDetailQuery({
     onCompleted: (data) => {
-      if (data.store && naver.maps.Map && !isNaverMapInitialized.current) {
-        initializeNaverMap(data.store.latitude, data.store.longitude)
+      if (data.store) {
+        if (globalThis.naver) {
+          initializeNaverMap(data.store.latitude, data.store.longitude)
+        } else {
+          storeCoordinate.current = {
+            latitude: data.store.latitude,
+            longitude: data.store.longitude,
+          }
+        }
       }
     },
     skip: !storeId,
@@ -69,18 +96,16 @@ export default function StoreInfoPage() {
 
   const storeDetail = data?.store
 
-  function handleLoad() {
-    if (storeDetail && !isNaverMapInitialized.current) {
-      initializeNaverMap(storeDetail.latitude, storeDetail.longitude)
-    }
-  }
-
   return (
     <PageHead title={`${storeName} 정보 - 소복`} description={description}>
-      <Script
-        onLoad={handleLoad}
-        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uprwl7nxp3"
+      <NaverMapScript
+        onLoad={() => {
+          if (storeCoordinate.current) {
+            initializeNaverMap(storeCoordinate.current.latitude, storeCoordinate.current.longitude)
+          }
+        }}
       />
+
       {loading ? (
         'loading...'
       ) : storeDetail ? (
@@ -110,6 +135,7 @@ export default function StoreInfoPage() {
               ))}
             </div>
           </InfoContentContainer>
+
           <InfoTitleContainer>
             <div>해시태그</div>
             <button>
@@ -121,12 +147,15 @@ export default function StoreInfoPage() {
               <span key={i}>#{hashtags} </span>
             ))}
           </InfoContentContainer>
+
           <InfoTitleContainer>
             <div>위치</div>
           </InfoTitleContainer>
-          <InfoContentContainer>
-            <div id="map" ref={mapRef} style={{ width: '100%', height: '300px' }}></div>
-          </InfoContentContainer>
+          <SquareFrame>
+            <AbsolutePosition>
+              <NaverMap id="map" ref={naverMapRef} />
+            </AbsolutePosition>
+          </SquareFrame>
         </StoreInfoContainer>
       ) : (
         '매장 정보가 없어요...'
