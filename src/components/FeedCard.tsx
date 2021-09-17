@@ -79,7 +79,7 @@ export default function FeedCard({ feed }: Props) {
       <CardImage>
         <Image
           src={feed.imageUrls?.[0] ?? '/images/default-store-cover.png'}
-          alt={'feed-cover'}
+          alt="feed-cover"
           width="400"
           height="264"
           objectFit="cover"
