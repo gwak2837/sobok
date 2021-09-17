@@ -8,8 +8,8 @@ type Props = {
   children: ReactNode
 }
 
-const TabsStyle = { 
-  boxShadow: "0 2px 4px 0 rgba(0, 0, 0, 0.08)"
+const TabsStyle = {
+  boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.08)',
 }
 export default function NewsLayout({ children }: Props) {
   const router = useRouter()

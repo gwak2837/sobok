@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useState, MouseEvent } from 'react'
 import { useRecoilValue } from 'recoil'
 import NewsCard from 'src/components/NewsCard'
 import PageHead from 'src/components/PageHead'
@@ -37,7 +37,6 @@ const UnActiveStoreCategoryButton = styled(ActiveStoreCategoryButton)`
   border: solid 1px #f0f0f0;
 `
 
-
 export default function AllStoreNewsPage() {
   const townName = useRecoilValue(currentTown)
 
@@ -52,17 +51,21 @@ export default function AllStoreNewsPage() {
 
   const newsList = data?.newsListByTown
 
-  const CategoriesHandler = (e:any) => {
-    const category = e.target.value
+  function categoriesHandler(e: MouseEvent) {
+    const category = (e.target as HTMLElement).textContent
     console.log(category)
   }
 
   return (
     <PageHead title="전체 매장 소식 - 소복" description={description}>
       <NewsCategoryContainer>
-        <ActiveStoreCategoryButton onClick={CategoriesHandler}>전체</ActiveStoreCategoryButton>
-        <UnActiveStoreCategoryButton onClick={CategoriesHandler}>신메뉴소식</UnActiveStoreCategoryButton>
-        <UnActiveStoreCategoryButton onClick={CategoriesHandler}>오늘의 라인업</UnActiveStoreCategoryButton>
+        <ActiveStoreCategoryButton onClick={categoriesHandler}>전체</ActiveStoreCategoryButton>
+        <UnActiveStoreCategoryButton onClick={categoriesHandler}>
+          신메뉴소식
+        </UnActiveStoreCategoryButton>
+        <UnActiveStoreCategoryButton onClick={categoriesHandler}>
+          오늘의 라인업
+        </UnActiveStoreCategoryButton>
         <UnActiveStoreCategoryButton>할인/이벤트</UnActiveStoreCategoryButton>
         <UnActiveStoreCategoryButton>품절</UnActiveStoreCategoryButton>
         <UnActiveStoreCategoryButton>공지사항</UnActiveStoreCategoryButton>
