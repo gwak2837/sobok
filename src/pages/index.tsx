@@ -12,6 +12,7 @@ import StoreCard from 'src/components/StoreCard'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { currentLocation, currentTown } from 'src/models/recoil'
 import { toast } from 'react-toastify'
+import { getCurrentPositionFromGeolocationAPI } from 'src/utils/web-api'
 
 const CarouselDiv = styled.div`
   position: relative;
@@ -40,22 +41,9 @@ export default function HomePage() {
 
   useEffect(() => {
     if (!coordinates) {
-      if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setCoordinates(position.coords)
-          },
-          (error) => {
-            toast.warn(error.message)
-          },
-          {
-            timeout: 10000,
-            maximumAge: 1000,
-          }
-        )
-      } else {
-        toast.warn('GPS 위치 정보를 사용할 수 없습니다.')
-      }
+      getCurrentPositionFromGeolocationAPI()
+        .then((position) => setCoordinates(position.coords))
+        .catch((error) => toast.warn(error))
     }
   }, [coordinates, setCoordinates])
 

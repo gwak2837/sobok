@@ -144,6 +144,7 @@ export default function StoreLayout({ children }: Props) {
       ) : (
         '결과 없음'
       )}
+
       <TabsContainer>
         <Link href={`/stores/${storeId}`}>
           <Tab style={asPath === `/stores/${storeId}` ? SelectedTabStyle : UnSelectedTabStyle}>

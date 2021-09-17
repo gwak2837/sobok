@@ -51,11 +51,6 @@ export default function SobokApp({ Component, pageProps }: AppPropsWithLayout) {
     }
   }, [router.events])
 
-  // Kakao API 초기화
-  useEffect(() => {
-    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY)
-  }, [])
-
   return (
     <>
       <Head>

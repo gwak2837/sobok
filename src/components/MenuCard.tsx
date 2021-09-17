@@ -69,6 +69,8 @@ export default function MenuCard({ menu }: Props) {
     e.stopPropagation()
 
     if (store) {
+      sessionStorage.setItem('urlBeforeStorePage', router.asPath)
+      sessionStorage.setItem('pageYOffsetBeforeStorePage', `${window.pageYOffset}`)
       router.push(`/stores/${store.id}/menus`)
     }
   }

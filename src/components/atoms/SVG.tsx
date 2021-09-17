@@ -1,10 +1,6 @@
 import { SOBOK_ACHROMATIC_COLOR } from 'src/utils/constants'
 import styles from './SVG.module.css'
 
-type Props = {
-  color?: string
-}
-
 type HeartFilledIconProps = {
   filled?: boolean
 }
@@ -36,8 +32,15 @@ type ColoredIconProps = {
 
 export function BackArrow({ color = SOBOK_ACHROMATIC_COLOR }: ColoredIconProps) {
   return (
-    <svg width="100%" height="100%" viewBox="0 0 7.87 14.242" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className={`${styles.svg}`}
+      width="100%"
+      height="100%"
+      viewBox="0 0 7.87 14.242"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
+        className={styles.path}
         d="M6.81 1.061L.75 7.121l6.06 6.06"
         data-name="120"
         fill="none"

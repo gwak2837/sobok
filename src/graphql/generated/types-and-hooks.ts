@@ -641,6 +641,8 @@ export type StoreDetailQuery = {
     id: string
     tel?: Maybe<string>
     address: any
+    latitude: any
+    longitude: any
     registrationNumber?: Maybe<string>
     businessHours?: Maybe<Array<any>>
     holidays?: Maybe<Array<any>>
@@ -1410,6 +1412,8 @@ export const StoreDetailDocument = gql`
       id
       tel
       address
+      latitude
+      longitude
       registrationNumber
       businessHours
       holidays
