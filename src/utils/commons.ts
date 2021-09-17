@@ -57,11 +57,13 @@ export function formatDistance(distance: number) {
   return distance >= 0.995 ? `${distance.toFixed(1)}km` : `${Math.round(distance * 100) * 10}m`
 }
 
-export const naverMapBasicConfiguration = {
-  disableKineticPan: false,
-  mapDataControl: false,
-  minZoom: 11,
-  maxZoom: 19,
-  zoomControl: true,
-  zoom: 16,
+export function createNaverMap(latitude: number, longitude: number) {
+  return new naver.maps.Map('map', {
+    center: new naver.maps.LatLng(latitude, longitude),
+    disableKineticPan: false,
+    mapDataControl: false,
+    minZoom: 13, // 추후 서비스가 전국 단위로 확대될 때 10으로 변경
+    maxZoom: 19,
+    zoom: 16,
+  })
 }

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useRef } from 'react'
 import { useRecoilValue } from 'recoil'
 import PageHead from 'src/components/PageHead'
 import { useStoreDetailQuery } from 'src/graphql/generated/types-and-hooks'
@@ -6,6 +6,8 @@ import StoreLayout from 'src/layouts/StoreLayout'
 import { currentStore } from 'src/models/recoil'
 import styled from 'styled-components'
 import Image from 'next/image'
+import Script from 'next/script'
+import { createNaverMap } from 'src/utils/commons'
 
 const description = '매장 정보 페이지'
 
@@ -40,14 +42,45 @@ const InfoContentContainer = styled.div`
   font-size: 1.1rem;
 `
 export default function StoreInfoPage() {
+  const isNaverMapInitialized = useRef(false)
+  const mapRef = useRef<any>()
+
+  function initializeNaverMap(latitude: number, longitude: number) {
+    mapRef.current = createNaverMap(latitude, longitude)
+    isNaverMapInitialized.current = true
+
+    new naver.maps.Marker({
+      position: new naver.maps.LatLng(latitude, longitude),
+      map: mapRef.current,
+    })
+  }
+
   const { id: storeId, name: storeName } = useRecoilValue(currentStore)
 
-  const { data, loading, error } = useStoreDetailQuery({ skip: !storeId, variables: { storeId } })
+  const { data, loading, error } = useStoreDetailQuery({
+    onCompleted: (data) => {
+      if (data.store && naver.maps.Map && !isNaverMapInitialized.current) {
+        initializeNaverMap(data.store.latitude, data.store.longitude)
+      }
+    },
+    skip: !storeId,
+    variables: { storeId },
+  })
 
   const storeDetail = data?.store
 
+  function handleLoad() {
+    if (storeDetail && !isNaverMapInitialized.current) {
+      initializeNaverMap(storeDetail.latitude, storeDetail.longitude)
+    }
+  }
+
   return (
     <PageHead title={`${storeName} 정보 - 소복`} description={description}>
+      <Script
+        onLoad={handleLoad}
+        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uprwl7nxp3"
+      />
       {loading ? (
         'loading...'
       ) : storeDetail ? (
@@ -84,15 +117,19 @@ export default function StoreInfoPage() {
             </button>
           </InfoTitleContainer>
           <InfoContentContainer>
-            <div>
-              {storeDetail.hashtags?.map((hashtags, i) => (
-                <span key={i}>#{hashtags} </span>
-              ))}{' '}
-            </div>
+            {storeDetail.hashtags?.map((hashtags, i) => (
+              <span key={i}>#{hashtags} </span>
+            ))}
+          </InfoContentContainer>
+          <InfoTitleContainer>
+            <div>위치</div>
+          </InfoTitleContainer>
+          <InfoContentContainer>
+            <div id="map" ref={mapRef} style={{ width: '100%', height: '300px' }}></div>
           </InfoContentContainer>
         </StoreInfoContainer>
       ) : (
-        ''
+        '매장 정보가 없어요...'
       )}
     </PageHead>
   )
