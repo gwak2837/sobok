@@ -36,7 +36,7 @@ export default function LocationPage() {
     <PageHead title=" - 소복" description={description}>
       <NaverMapScript onLoad={initializeNaverMap} />
 
-      <div id="map" ref={naverMapRef} style={{ width: '100vw', height: '100vh' }}></div>
+      <div id="map" ref={naverMapRef} style={{ width: '100%', height: '100vh' }} />
     </PageHead>
   )
 }

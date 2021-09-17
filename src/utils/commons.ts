@@ -58,12 +58,18 @@ export function formatDistance(distance: number) {
 }
 
 export function createNaverMap(latitude: number, longitude: number) {
-  return new naver.maps.Map('map', {
-    center: new naver.maps.LatLng(latitude, longitude),
+  const maps = naver.maps
+
+  return new maps.Map('map', {
+    center: new maps.LatLng(latitude, longitude),
     disableKineticPan: false,
     mapDataControl: false,
     minZoom: 13, // 추후 서비스가 전국 단위로 확대될 때 10으로 변경
     maxZoom: 19,
     zoom: 16,
+    zoomControl: true,
+    zoomControlOptions: {
+      style: maps.ZoomControlStyle.SMALL,
+    },
   })
 }
