@@ -63,7 +63,7 @@ export default function SearchFormLayout({ children }: Props) {
       <FixedPosition>
         <TopIconDiv>
           <ClientSideLink href="/">
-            <Image src="/images/left-arrow.min.svg" alt="left-arrow" width={8} height={14.3} />
+            <Image src="/images/left-arrow@3x.png" alt="left-arrow" width={8} height={14.3} />
           </ClientSideLink>
         </TopIconDiv>
         <SearchFormContainer>
