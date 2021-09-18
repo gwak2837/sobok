@@ -37,7 +37,7 @@ const HistoryResultButton = styled.div`
   border: solid 1px #e5e5e5;
   border-radius: 4px;
   flex-wrap: nowrap;
- 
+
   button {
     display: flex;
     justify-content: flex-end;
@@ -47,6 +47,20 @@ const HistoryResultButton = styled.div`
     margin: 0 3px;
   }
 `
+
+const PopularList = [
+  '인기검색어1',
+  '인기검색어2',
+  '인기검색어3',
+  '인기검색어4',
+  '인기검색어5',
+  '인기검색어6',
+  '인기검색어7',
+  '인기검색어8',
+  '인기검색어9',
+  '인기검색어10',
+]
+
 export default function SearchPage() {
   const [historyList, setHistoryList] = useState([])
 
@@ -118,6 +132,12 @@ export default function SearchPage() {
       <HorizontalLine />
       <PopularContainer>
         <h3>인기검색어</h3>
+        {PopularList.map((content, index) => (
+          <div key={index}>
+            <span>{index+1}</span>
+            <span>{content}</span>
+          </div>
+        ))}
       </PopularContainer>
     </PageHead>
   )
