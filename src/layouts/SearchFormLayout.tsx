@@ -27,6 +27,7 @@ const FixedPosition = styled.div`
 
 const SearchFormContainer = styled.form`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   border-radius: 5px;
   border: solid 1px #e5e5e5;
