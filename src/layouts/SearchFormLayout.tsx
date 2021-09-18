@@ -16,7 +16,7 @@ const FixedPosition = styled.div`
   z-index: 1;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 0 0.8rem;
   width: 100%;
   max-width: ${TABLET_MIN_WIDTH};
@@ -36,6 +36,7 @@ const SearchFormContainer = styled.form`
   input {
     width: 90%;
     border: none;
+    outline: none;
     padding-left: 0.5rem;
   }
   button {
