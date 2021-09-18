@@ -12,13 +12,13 @@ const HistoryContainer = styled.div`
   height: 15rem;
   overflow: scroll;
   h3 {
-    margin-bottom: 10px;
+    margin-bottom: 13px;
   }
 `
 const PopularContainer = styled.div`
   padding: 1rem;
   h3 {
-    margin-bottom: 10px;
+    margin-bottom: 13px;
   }
 `
 
@@ -45,6 +45,20 @@ const HistoryResultButton = styled.div`
     border: none;
     background-color: white;
     margin: 0 3px;
+  }
+`
+
+const PoPularResultContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-row-gap: 15px;
+  grid-auto-flow: column;
+
+  span:first-child {
+    display: inline-block;
+    width: 25px;
+    color: #ff9f74;
   }
 `
 
@@ -132,12 +146,14 @@ export default function SearchPage() {
       <HorizontalLine />
       <PopularContainer>
         <h3>인기검색어</h3>
-        {PopularList.map((content, index) => (
-          <div key={index}>
-            <span>{index+1}</span>
-            <span>{content}</span>
-          </div>
-        ))}
+        <PoPularResultContainer>
+          {PopularList.map((content, index) => (
+            <div key={index}>
+              <span>{index + 1}</span>
+              <span>{content}</span>
+            </div>
+          ))}
+        </PoPularResultContainer>
       </PopularContainer>
     </PageHead>
   )
