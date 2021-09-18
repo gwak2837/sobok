@@ -1,11 +1,17 @@
+import type { ReactElement, ReactNode } from 'react'
 import PageHead from 'src/components/PageHead'
+import SearchFormLayout from 'src/layouts/SearchFormLayout'
 
 const description = ''
 
 export default function SearchPage() {
   return (
     <PageHead title=" - 소복" description={description}>
-      검색 페이지
+      {}
     </PageHead>
   )
+}
+
+SearchPage.getLayout = function getLayout(page: ReactElement) {
+  return <SearchFormLayout>{page}</SearchFormLayout>
 }
