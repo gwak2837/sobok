@@ -13,6 +13,7 @@ body {
 body {
   padding: 0;
   color: #111;
+  background-color: #fcfcfc;
   font-family: 'Noto Sans KR', 'Roboto', -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
     sans-serif;
   line-height: normal;
