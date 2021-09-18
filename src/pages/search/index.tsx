@@ -4,8 +4,12 @@ import SearchFormLayout from 'src/layouts/SearchFormLayout'
 
 const description = ''
 
-export default function SearchPage({ children }: { children: ReactNode }) {
-  return <PageHead title=" - 소복" description={description}>{}</PageHead>
+export default function SearchPage() {
+  return (
+    <PageHead title=" - 소복" description={description}>
+      {}
+    </PageHead>
+  )
 }
 
 SearchPage.getLayout = function getLayout(page: ReactElement) {
