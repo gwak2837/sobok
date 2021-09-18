@@ -9,7 +9,7 @@ const description = ''
 
 const HistoryContainer = styled.div`
   padding: 1rem;
-  height: 15rem;
+  height: 330px;
   overflow: scroll;
   h3 {
     margin-bottom: 13px;
