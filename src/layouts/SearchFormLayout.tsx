@@ -1,6 +1,4 @@
-import { Tabs } from 'antd'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import { TOP_HEADER_HEIGHT, TABLET_MIN_WIDTH } from 'src/utils/constants'
@@ -28,22 +26,23 @@ const FixedPosition = styled.div`
 `
 
 const SearchFormContainer = styled.form`
+  display: flex;
+  align-items: center;
   border-radius: 5px;
   border: solid 1px #e5e5e5;
   padding: 0.5rem;
   width: 22.22rem;
   height: 2.65rem;
+  input {
+    width: 90%;
+    border: none;
+    padding-left: 0.5rem;
+  }
+  button {
+    border: none;
+    background-color: white;
+  }
 `
-
-const FlexContainer = styled.div`
-  display: flex;
-  align-items: center;
-`
-const LocationH3 = styled.h3`
-  display: inline-block;
-  color: black;
-`
-
 const TopIconDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -57,12 +56,6 @@ type Props = {
 }
 
 export default function SearchFormLayout({ children }: Props) {
-  const router = useRouter()
-
-  function goToTabPage(activeKey: string) {
-    router.push(activeKey)
-  }
-
   return (
     <HomeContainer>
       <FixedPosition>
@@ -71,7 +64,11 @@ export default function SearchFormLayout({ children }: Props) {
             <Image src="/images/left-arrow.min.svg" alt="left-arrow" width={8} height={14.3} />
           </ClientSideLink>
         </TopIconDiv>
-        <SearchFormContainer></SearchFormContainer>
+        <SearchFormContainer>
+          <Image src="/images/search.svg" alt="search.svg" width={17} height={17} />
+          <input placeholder="검색어를 입력해주세요." />
+          <button>검색</button>
+        </SearchFormContainer>
       </FixedPosition>
       {children}
     </HomeContainer>
