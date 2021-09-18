@@ -18,29 +18,37 @@ const NewsCategoryContainer = styled.div`
   background-color: #fcfcfc;
 `
 
-const ActiveStoreCategoryButton = styled.button`
+const UnActiveStoreCategoryButton = styled.button`
   padding: 0.6rem 1.2rem;
   margin-right: 8px;
   border: none;
   border-radius: 19px;
   font-size: 0.8rem;
   font-weight: 500;
-  background-color: #ff9f74;
-  color: white;
+  background-color: #fcfcfc;
+  color: #8e8e8e;
   white-space: nowrap;
   cursor: pointer;
 `
 
-const UnActiveStoreCategoryButton = styled(ActiveStoreCategoryButton)`
+const ActiveStoreCategoryButton = styled(UnActiveStoreCategoryButton)`
   color: black;
-  background-color: white;
+  background-color: #ff9f74;
   border: solid 1px #f0f0f0;
 `
+const ActiveStoreCategoryButtonStyle = {
+  color: 'white',
+  backgroundColor: '#ff9f74',
+  border: 'solid 1px #f0f0f0',
+}
 
 export default function AllStoreNewsPage() {
+  const CategoryList = ['전체', '신메뉴소식', '오늘의 라인업', '할인/이벤트', '품절', '공지사항']
+
   const townName = useRecoilValue(currentTown)
 
   const [categories, setCategories] = useState('')
+  const [clicked, setClicked] = useState(false)
 
   const { data, loading } = useNewsListQuery({
     variables: {
@@ -53,22 +61,33 @@ export default function AllStoreNewsPage() {
 
   function categoriesHandler(e: MouseEvent) {
     const category = (e.target as HTMLElement).textContent
-    console.log(category)
+    console.log(category, clicked)
+    setClicked(true)
   }
 
   return (
     <PageHead title="전체 매장 소식 - 소복" description={description}>
       <NewsCategoryContainer>
-        <ActiveStoreCategoryButton onClick={categoriesHandler}>전체</ActiveStoreCategoryButton>
+        {CategoryList.map((category) => (
+          <UnActiveStoreCategoryButton
+            key={category}
+            onClick={categoriesHandler}
+            onChange={() => setClicked(true)}
+            style={clicked ? ActiveStoreCategoryButtonStyle : {}}
+          >
+            {category}
+          </UnActiveStoreCategoryButton>
+        ))}
+        {/* <ActiveStoreCategoryButton onClick={categoriesHandler}>전체</ActiveStoreCategoryButton>
         <UnActiveStoreCategoryButton onClick={categoriesHandler}>
-          신메뉴소식
+          신메뉴소식s
         </UnActiveStoreCategoryButton>
         <UnActiveStoreCategoryButton onClick={categoriesHandler}>
           오늘의 라인업
         </UnActiveStoreCategoryButton>
         <UnActiveStoreCategoryButton>할인/이벤트</UnActiveStoreCategoryButton>
         <UnActiveStoreCategoryButton>품절</UnActiveStoreCategoryButton>
-        <UnActiveStoreCategoryButton>공지사항</UnActiveStoreCategoryButton>
+        <UnActiveStoreCategoryButton>공지사항</UnActiveStoreCategoryButton> */}
       </NewsCategoryContainer>
       {loading
         ? 'loading...'
