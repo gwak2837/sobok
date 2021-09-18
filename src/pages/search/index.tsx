@@ -1,16 +1,25 @@
-import type { ReactElement, ReactNode } from 'react'
+import type { ReactElement } from 'react'
+import { useState, useEffect } from 'react'
 import PageHead from 'src/components/PageHead'
 import SearchFormLayout from 'src/layouts/SearchFormLayout'
 import styled from 'styled-components'
+import Image from 'next/image'
 
 const description = ''
 
 const HistoryContainer = styled.div`
   padding: 1rem;
   height: 15rem;
+  overflow: scroll;
+  h3 {
+    margin-bottom: 10px;
+  }
 `
 const PopularContainer = styled.div`
   padding: 1rem;
+  h3 {
+    margin-bottom: 10px;
+  }
 `
 
 const HorizontalLine = styled.div`
@@ -18,12 +27,93 @@ const HorizontalLine = styled.div`
   background-color: #eaeaea;
   opacity: 0.58;
 `
-
+const HistoryResultButton = styled.div`
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0.5rem;
+  margin: 0 0.7rem 0.7rem 0;
+  background-color: white;
+  border: solid 1px #e5e5e5;
+  border-radius: 4px;
+  flex-wrap: nowrap;
+ 
+  button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border: none;
+    background-color: white;
+    margin: 0 3px;
+  }
+`
 export default function SearchPage() {
+  const [historyList, setHistoryList] = useState([])
+
   return (
     <PageHead title=" - 소복" description={description}>
       <HistoryContainer>
         <h3>최근검색어</h3>
+        <HistoryResultButton>
+          <div>크로플</div>
+          <button>
+            <Image src="/images/x.min.svg" alt="delete" width={7.1} height={7.1} />
+          </button>
+        </HistoryResultButton>
+        <HistoryResultButton>
+          <div>논</div>
+          <button>
+            <Image src="/images/x.min.svg" alt="delete" width={7.1} height={7.1} />
+          </button>
+        </HistoryResultButton>
+        <HistoryResultButton>
+          <div>아이스아메리카노</div>
+          <button>
+            <Image src="/images/x.min.svg" alt="delete" width={7.1} height={7.1} />
+          </button>
+        </HistoryResultButton>
+        <HistoryResultButton>
+          <div>따뜻한아메</div>
+          <button>
+            <Image src="/images/x.min.svg" alt="delete" width={7.1} height={7.1} />
+          </button>
+        </HistoryResultButton>
+        <HistoryResultButton>
+          <div>시원한아이스아메리카노</div>
+          <button>
+            <Image src="/images/x.min.svg" alt="delete" width={7.1} height={7.1} />
+          </button>
+        </HistoryResultButton>
+        <HistoryResultButton>
+          <div>진짜아이스아메리카노</div>
+          <button>
+            <Image src="/images/x.min.svg" alt="delete" width={7.1} height={7.1} />
+          </button>
+        </HistoryResultButton>
+        <HistoryResultButton>
+          <div>아이스아메리카노</div>
+          <button>
+            <Image src="/images/x.min.svg" alt="delete" width={7.1} height={7.1} />
+          </button>
+        </HistoryResultButton>
+        <HistoryResultButton>
+          <div>아이스아메리카노</div>
+          <button>
+            <Image src="/images/x.min.svg" alt="delete" width={7.1} height={7.1} />
+          </button>
+        </HistoryResultButton>
+        <HistoryResultButton>
+          <div>아이스아메리카노</div>
+          <button>
+            <Image src="/images/x.min.svg" alt="delete" width={7.1} height={7.1} />
+          </button>
+        </HistoryResultButton>
+        <HistoryResultButton>
+          <div>아이스아메리카노</div>
+          <button>
+            <Image src="/images/x.min.svg" alt="delete" width={7.1} height={7.1} />
+          </button>
+        </HistoryResultButton>
       </HistoryContainer>
       <HorizontalLine />
       <PopularContainer>
