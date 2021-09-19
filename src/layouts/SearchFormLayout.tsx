@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import { TOP_HEADER_HEIGHT, TABLET_MIN_WIDTH } from 'src/utils/constants'
 import styled from 'styled-components'
+import { BackArrow } from 'src/components/atoms/SVG'
 
 const HomeContainer = styled.div`
   max-width: ${TABLET_MIN_WIDTH};
@@ -63,7 +64,7 @@ export default function SearchFormLayout({ children }: Props) {
       <FixedPosition>
         <TopIconDiv>
           <ClientSideLink href="/">
-            <Image src="/images/left-arrow.min.svg" alt="left-arrow" width={8} height={14.3} />
+            <BackArrow color="#707070" />
           </ClientSideLink>
         </TopIconDiv>
         <SearchFormContainer>
