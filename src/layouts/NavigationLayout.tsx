@@ -49,6 +49,7 @@ const SClientSideLink = styled(ClientSideLink)<{ color: string }>`
 
   width: 100%;
   height: 100%;
+  font-size: 0.9rem;
 `
 
 const IconWrapper = styled.div`
