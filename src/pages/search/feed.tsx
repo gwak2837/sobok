@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react'
 import PageHead from 'src/components/PageHead'
 import { SearchResultLayout } from './all'
+import SearchFormLayout from 'src/layouts/SearchFormLayout'
 
 const description = ''
 
@@ -13,5 +14,9 @@ export default function FeedSearchPage() {
 }
 
 FeedSearchPage.getLayout = function getLayout(page: ReactElement) {
-  return <SearchResultLayout>{page}</SearchResultLayout>
+  return (
+    <SearchFormLayout>
+      <SearchResultLayout>{page}</SearchResultLayout>
+    </SearchFormLayout>
+  )
 }

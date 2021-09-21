@@ -1,18 +1,21 @@
 import { LockTwoTone, UnlockTwoTone } from '@ant-design/icons'
 import { Button, Input } from 'antd'
 import { Controller, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
+import { handleApolloError } from 'src/apollo/error'
 import { MarginH4, RedText } from 'src/components/atoms/Styles'
 import PageHead from 'src/components/PageHead'
 import {
   Gender,
   useIsEmailUniqueLazyQuery,
-  useIsIdUniqueLazyQuery,
+  useIsUniqueNameUniqueLazyQuery,
+  useRegisterMutation,
 } from 'src/graphql/generated/types-and-hooks'
 
 type RegisterFormValues = {
-  id: string
+  uniqueName: string
   email: string
-  password: string
+  passwordHash: string
   name: string
   phone: string
   gender: Gender
@@ -69,25 +72,33 @@ export default function RegisterPage() {
     handleSubmit,
   } = useForm<RegisterFormValues>({
     defaultValues: {
-      id: '',
+      uniqueName: '',
       email: 'bok1@sindy.com',
-      password: '',
+      passwordHash: '',
       name: '',
       phone: '',
       gender: Gender.Other,
     },
   })
 
-  const [isIdUnique, isIdUniqueResult] = useIsIdUniqueLazyQuery()
-  const isIdUniqueLoading = isIdUniqueResult.loading
-  const isIdUniqueData = isIdUniqueResult.data
+  const [isUniqueNameUnique, isUniqueNameUniqueResult] = useIsUniqueNameUniqueLazyQuery()
+  const isUniqueNameUniqueLoading = isUniqueNameUniqueResult.loading
+  const isUniqueNameUniqueData = isUniqueNameUniqueResult.data?.isUniqueNameUnique
 
   const [isEmailUnique, isEmailUniqueResult] = useIsEmailUniqueLazyQuery()
   const isEmailUniqueLoading = isEmailUniqueResult.loading
-  const isEmailUniqueData = isEmailUniqueResult.data
+  const isEmailUniqueData = isEmailUniqueResult.data?.isEmailUnique
+
+  const [register, { loading }] = useRegisterMutation({
+    onCompleted: ({ register }) => {
+      toast.success('회원가입에 성공했어요.')
+      console.log(register)
+    },
+    onError: handleApolloError,
+  })
 
   function verifyId() {
-    isIdUnique({ variables: { id: getValues('id') } })
+    isUniqueNameUnique({ variables: { uniqueName: getValues('uniqueName') } })
   }
   function verifyEmail() {
     isEmailUnique({ variables: { email: getValues('email') } })
@@ -95,6 +106,9 @@ export default function RegisterPage() {
 
   function onSubmit(input: RegisterFormValues) {
     console.log(input)
+    // const passwordHash = await digestMessageWithSHA256(ko2en(password))
+    // login({ variables: { uniqueNameOrEmail, passwordHash } })
+    register({ variables: { input } })
   }
 
   return (
@@ -104,10 +118,10 @@ export default function RegisterPage() {
           <MarginH4>아이디</MarginH4>
           <Controller
             control={control}
-            name="id"
+            name="uniqueName"
             render={({ field }) => (
               <Input
-                disabled={isIdUniqueLoading}
+                disabled={isUniqueNameUniqueLoading}
                 placeholder="밥은 대충 먹더라도"
                 size="large"
                 {...field}
@@ -115,14 +129,14 @@ export default function RegisterPage() {
             )}
             rules={validateId}
           />
-          <RedText>{errors.id ? errors.id.message : <br />}</RedText>
+          <RedText>{errors.uniqueName ? errors.uniqueName.message : <br />}</RedText>
         </label>
 
-        <Button loading={isIdUniqueLoading} onClick={verifyId} size="large">
+        <Button loading={isUniqueNameUniqueLoading} onClick={verifyId} size="large">
           아이디 중복 검사
         </Button>
-        {isIdUniqueData &&
-          (isIdUniqueData.isUniqueNameUnique ? <div>사용 가능</div> : <RedText>중복</RedText>)}
+        {isUniqueNameUniqueData &&
+          (isUniqueNameUniqueData ? <div>사용 가능</div> : <RedText>중복</RedText>)}
 
         <label htmlFor="email">
           <MarginH4>이메일</MarginH4>
@@ -146,8 +160,7 @@ export default function RegisterPage() {
         <Button loading={isEmailUniqueLoading} onClick={verifyEmail} size="large">
           이메일 중복 검사
         </Button>
-        {isEmailUniqueData &&
-          (isEmailUniqueData.isEmailUnique ? <div>사용 가능</div> : <RedText>중복</RedText>)}
+        {isEmailUniqueData && (isEmailUniqueData ? <div>사용 가능</div> : <RedText>중복</RedText>)}
       </form>
     </PageHead>
   )

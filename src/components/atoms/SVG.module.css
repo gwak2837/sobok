@@ -1,0 +1,27 @@
+.svg:hover .path {
+  stroke: #ff9f74;
+}
+.path {
+  transition: stroke 0.5s ease;
+}
+
+.trendPath {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.4px;
+}
+
+.personPath {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.3px;
+}
+
+.newsPath {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.3px;
+}

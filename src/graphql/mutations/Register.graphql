@@ -1,3 +1,6 @@
 mutation Register($input: RegisterInput!) {
-  register(input: $input)
+  register(input: $input) {
+    userUniqueName
+    jwt
+  }
 }

@@ -3,6 +3,8 @@ query StoreDetail($storeId: ID!) {
     id
     tel
     address
+    latitude
+    longitude
     registrationNumber
     businessHours
     holidays

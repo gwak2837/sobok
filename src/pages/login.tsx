@@ -4,10 +4,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { useSetRecoilState } from 'recoil'
 import { handleApolloError } from 'src/apollo/error'
 import { MarginH4, RedText } from 'src/components/atoms/Styles'
 import PageHead from 'src/components/PageHead'
 import { useLoginMutation } from 'src/graphql/generated/types-and-hooks'
+import { currentUser } from 'src/models/recoil'
 import { ko2en } from 'src/utils/commons'
 import { validateId, validatePassword, renderPasswordInputIcon } from './register'
 
@@ -20,6 +22,8 @@ type LoginFormValues = {
 const description = ''
 
 export default function LoginPage() {
+  const setCurrentUser = useSetRecoilState(currentUser)
+
   const router = useRouter()
 
   const {
@@ -30,32 +34,32 @@ export default function LoginPage() {
   } = useForm<LoginFormValues>({
     defaultValues: {
       uniqueNameOrEmail: 'bok@sindy.in',
-      password: '1234',
+      password: 'sobok123!',
       remember: false,
     },
   })
 
   const [login, { loading }] = useLoginMutation({
-    onCompleted: (data) => {
+    onCompleted: ({ login }) => {
       toast.success('로그인에 성공했어요.')
 
       if (getValues('remember')) {
-        localStorage.setItem('token', data.login)
+        localStorage.setItem('token', login?.jwt)
       } else {
-        sessionStorage.setItem('token', data.login)
+        sessionStorage.setItem('token', login?.jwt)
       }
 
-      // refetchUser()
+      setCurrentUser({ uniqueName: login?.userUniqueName })
 
-      router.replace(sessionStorage.getItem('redirectToAfterLogin') ?? '/')
-      sessionStorage.removeItem('redirectToAfterLogin')
+      router.replace(sessionStorage.getItem('redirectionUrlAfterLogin') ?? '/')
+      sessionStorage.removeItem('redirectionUrlAfterLogin')
     },
     onError: handleApolloError,
   })
 
   function onSubmit({ uniqueNameOrEmail, password }: LoginFormValues) {
-    console.log(uniqueNameOrEmail, password)
     // const passwordHash = await digestMessageWithSHA256(ko2en(password))
+    // login({ variables: { uniqueNameOrEmail, passwordHash } })
     login({ variables: { uniqueNameOrEmail, passwordHash: ko2en(password) } })
   }
 

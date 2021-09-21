@@ -1,8 +1,10 @@
 import Image from 'next/image'
 import { StoreCardFragment } from 'src/graphql/generated/types-and-hooks'
 import styled from 'styled-components'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { distanceBetween, formatDistance } from 'src/utils/commons'
+import Loading from './Loading'
 
 const FlexContainerLi = styled.li`
   display: flex;
@@ -62,34 +64,60 @@ const LikeButton = styled.button`
   width: 15px;
   height: 13px;
   z-index: 1;
-  opacity: 0.6;
+  /* opacity: 0.6; */
   cursor: pointer;
 `
 
 type Props = {
   store: StoreCardFragment
+  coordinates?: GeolocationCoordinates
 }
 
-function StoreCard({ store }: Props) {
+function StoreCard({ store, coordinates }: Props) {
+  const router = useRouter()
+
+  function goToStorePage() {
+    sessionStorage.setItem('urlBeforeStorePage', router.asPath)
+    sessionStorage.setItem('pageYOffsetBeforeStorePage', `${window.pageYOffset}`)
+    router.push(`/stores/${store.id}`)
+  }
+
+  useEffect(() => {
+    const pageYOffset = sessionStorage.getItem('pageYOffsetBeforeStorePage')
+
+    if (pageYOffset) {
+      window.scrollTo(0, +pageYOffset)
+      sessionStorage.removeItem('pageYOffsetBeforeStorePage')
+    }
+  }, [])
+
   return (
     <FlexContainerLi>
-      <CardImage>
-        {/*  eslint-disable-next-line @next/next/link-passhref */}
-        <Link href={`/stores/${store.id}`}>
-          <Image
-            src={store.imageUrls?.[0] ?? '/images/default-store-cover.png'}
-            alt={store.name ?? 'store-cover'}
-            layout="fill"
-            objectFit="cover"
-          />
-        </Link>
-        <LikeButton>
-          <Image src="/images/like.min.svg" alt="like" layout="fill" />
-        </LikeButton>
+      <CardImage onClick={goToStorePage}>
+        <Image
+          src={store.imageUrls?.[0] ?? '/images/default-store-cover.png'}
+          alt={store.name ?? 'store-cover'}
+          layout="fill"
+          objectFit="cover"
+        />
       </CardImage>
+      <div></div>
       <CardInfo>
         <div>{store.name}</div>
-        <div>30m</div>
+        <div>
+          {coordinates ? (
+            formatDistance(
+              distanceBetween(
+                coordinates.latitude,
+                coordinates.longitude,
+                store.latitude,
+                store.longitude
+              )
+            )
+          ) : (
+            <Loading />
+          )}
+        </div>
       </CardInfo>
       <CardCategory>
         {store.categories.map((category, i) => (

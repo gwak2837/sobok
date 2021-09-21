@@ -134,7 +134,6 @@ export default class SobokDocument extends Document {
                   `,
             }}
           />
-          <script defer src="https://developers.kakao.com/sdk/js/kakao.min.js" />
         </Head>
         <body>
           <Main />

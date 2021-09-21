@@ -1,5 +1,6 @@
 import type { ReactElement, ReactNode } from 'react'
 import PageHead from 'src/components/PageHead'
+import SearchFormLayout from 'src/layouts/SearchFormLayout'
 
 export function SearchResultLayout({ children }: { children: ReactNode }) {
   return (
@@ -21,5 +22,9 @@ export default function AllSearchPage() {
 }
 
 AllSearchPage.getLayout = function getLayout(page: ReactElement) {
-  return <SearchResultLayout>{page}</SearchResultLayout>
+  return (
+    <SearchFormLayout>
+      <SearchResultLayout>{page}</SearchResultLayout>
+    </SearchFormLayout>
+  )
 }
