@@ -1,4 +1,4 @@
-import { HeartTwoTone, HeartOutlined } from '@ant-design/icons'
+import { HeartOutlined, HeartTwoTone } from '@ant-design/icons'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import PageHead from 'src/components/PageHead'

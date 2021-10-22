@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { ReactElement } from 'react'
 import { useRecoilValue } from 'recoil'
 import FeedCard from 'src/components/FeedCard'
@@ -5,9 +6,8 @@ import PageHead from 'src/components/PageHead'
 import { useFeedListQuery } from 'src/graphql/generated/types-and-hooks'
 import HomeLayout from 'src/layouts/HomeLayout'
 import NavigationLayout from 'src/layouts/NavigationLayout'
-import styled from 'styled-components'
-import Image from 'next/image'
 import { currentTown } from 'src/models/recoil'
+import styled from 'styled-components'
 
 const description = ''
 

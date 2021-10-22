@@ -1,6 +1,6 @@
-import koLocale from 'date-fns/locale/ko'
-import formatWithOptions from 'date-fns/fp/formatWithOptions'
 import { parse } from 'date-fns'
+import formatWithOptions from 'date-fns/fp/formatWithOptions'
+import koLocale from 'date-fns/locale/ko'
 
 export const formatDate = formatWithOptions({ locale: koLocale })
 export const parseDate = (dateFormat: string) => (str: string) => parse(str, dateFormat, new Date())

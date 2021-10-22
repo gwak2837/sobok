@@ -1,4 +1,4 @@
-import { Input, Button, Checkbox } from 'antd'
+import { Button, Checkbox, Input } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -10,8 +10,9 @@ import { MarginH4, RedText } from 'src/components/atoms/Styles'
 import PageHead from 'src/components/PageHead'
 import { useLoginMutation } from 'src/graphql/generated/types-and-hooks'
 import { currentUser } from 'src/models/recoil'
-import { ko2en } from 'src/utils/commons'
-import { validateId, validatePassword, renderPasswordInputIcon } from './register'
+import { ko2en } from 'src/utils'
+
+import { renderPasswordInputIcon, validateId, validatePassword } from './register'
 
 type LoginFormValues = {
   uniqueNameOrEmail: string

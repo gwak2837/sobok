@@ -1,4 +1,4 @@
-import { ReactElement, useState, MouseEvent } from 'react'
+import { MouseEvent, ReactElement, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import NewsCard from 'src/components/NewsCard'
 import PageHead from 'src/components/PageHead'

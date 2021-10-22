@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import { ReactNode } from 'react'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
-import { TOP_HEADER_HEIGHT, TABLET_MIN_WIDTH } from 'src/utils/constants'
-import styled from 'styled-components'
 import { BackArrow } from 'src/components/atoms/SVG'
+import { TABLET_MIN_WIDTH, TOP_HEADER_HEIGHT } from 'src/utils/constants'
+import styled from 'styled-components'
 
 const HomeContainer = styled.div`
   max-width: ${TABLET_MIN_WIDTH};
