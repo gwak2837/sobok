@@ -4,24 +4,17 @@
 
 2021년 8월 10일 (화) ~ ing
 
-## 구성원
+## Introduction
 
-|  이름  |                      GitHub                      |              역할               |
-| :----: | :----------------------------------------------: | :-----------------------------: |
-| 곽태욱 | [@rmfpdlxmtidl](https://github.com/rmfpdlxmtidl) |          Apollo Client          |
-| 김효진 |       [@hy57in](https://github.com/hy57in)       | GA, Vercel 배포, CSS 애니메이션 |
-
-## 프로젝트 소개
-
-### 동기
+### Why
 
 디저트 검색이 불편해서
 
-### 목적
+### What
 
 디저트 검색을 편리하게 만들자!
 
-## 데모
+## Demo
 
 ### 사용법
 
@@ -31,11 +24,7 @@ https://sobok.vercel.app 에 들어오세요~
 
 git 또는 이미지 첨부
 
-## 프로젝트 구조
-
-![images/architecture.webp](images/architecture.webp)
-
-## 개발 환경
+## Requires
 
 - macOS 11.2
 - [Git](https://git-scm.com/downloads) 2.32
@@ -53,7 +42,11 @@ $ code --version
 
 위 명령어를 통해 프로젝트에 필요한 모든 프로그램이 설치되어 있는지 확인합니다.
 
-## 설치 방법
+## Project structure
+
+![images/architecture.webp](images/architecture.webp)
+
+## Quick start
 
 ### 프로젝트 다운로드
 
@@ -68,7 +61,7 @@ $ yarn
 
 그리고 프로젝트 폴더에서 VSCode를 실행하면 오른쪽 아래에 '권장 확장 프로그램 설치' 알림이 뜨는데, 프로젝트에서 권장하는 확장 프로그램(ESLint, Prettier 등)을 모두 설치합니다.
 
-### 환경 변수 설정
+### Create environment variables
 
 ```
 NEXT_PUBLIC_BACKEND_URL=
@@ -80,22 +73,21 @@ NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY=
 
 > [Next.js 환경 변수 (nextjs.org)](https://nextjs.org/docs/basic-features/environment-variables)
 
-### 개발 모드
+### Start Node.js server
 
 ```shell
 $ yarn dev
 ```
 
-로컬 컴퓨터에서 개발 모드로 프로젝트를 실행하면, 수정한 파일을 저장했을 때 코드 변경 사항이 자동으로 브라우저에 반영됩니다.
+파일 변경 사항이 바로 반영되는 Next.js 웹 서버를 실행합니다.
 
-### 배포 모드
+or
 
 ```shell
-$ yarn build
-$ yarn start
+$ yarn build && yarn start
 ```
 
-코드 변경 사항이 자동으로 반영되진 않지만 코드 최적화로 인해 실행 속도가 빠릅니다.
+TypeScript 파일을 JavaScript로 트랜스파일 및 최적화한 후 Next.js 웹 서버를 실행합니다.
 
 ### 브라우저 실행
 
@@ -105,16 +97,7 @@ http://localhost:3000
 
 브라우저에서 아래 주소로 접속하면 개발 중인 사이트를 볼 수 있습니다.
 
-### (Windows) ESLint LF 오류
-
-```shell
-$ git config --global core.autocrlf input
-$ git config --global core.eol lf
-```
-
-에디터에서 라인 시퀀스 관련 ESLint 오류가 발생하면 Git 관련 설정을 위와 같이 변경해줍니다. 그리고 프로젝트 폴더를 지우고 다시 클론합니다.
-
-> https://velog.io/@gwak2837/줄-시퀀스-충돌
+## Errors
 
 ### (Windows) PowerShell 보안 오류
 
@@ -145,16 +128,6 @@ $ yarn generate
 서버로부터 GraphQL Schema를 받아서 이에 해당하는 TypeScript 자료형과 apollo hook 등을 자동으로 생성해줍니다. 서버나 로컬의 GraphQL Schema가 변경됐을 때마다 실행합니다.
 
 ### Build
-
-#### 정적 빌드
-
-```shell
-$ yarn export
-```
-
-결과물에 웹 서버가 없게끔 정적으로 빌드합니다. 이 경우 결과물에 HTML, CSS, JS 파일만 포함됩니다.
-
-#### 동적 빌드
 
 ```shell
 $ yarn build

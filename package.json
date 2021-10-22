@@ -2,16 +2,16 @@
   "name": "sobok",
   "version": "0.1.0",
   "description": "sobok-frontend",
-  "license": "GPL-3.0-only",
   "homepage": "https://sobok.vercel.app",
-  "repository": "https://github.com/teamsindy20/sobok.git",
-  "author": "sindy",
-  "private": true,
-  "engines": {
-    "node": ">=14.15.4"
+  "bugs": {
+    "url": "https://github.com/teamsindy20/sobok/issues",
+    "email": "teamsindy20@gmail.com"
   },
+  "license": "GPL-3.0-only",
+  "author": "sindy <teamsindy20@gmail.com>",
+  "repository": "https://github.com/teamsindy20/sobok.git",
   "scripts": {
-    "dev": "next",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "format": "prettier . --write --ignore-path .gitignore",
@@ -78,6 +78,10 @@
     "jest": "^27.1.1",
     "prettier": "^2.4.0",
     "typescript": "^4.3.5"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=14.15.4"
   },
   "browserslist": [
     "defaults",
