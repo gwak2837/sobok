@@ -12,8 +12,6 @@ import { currentTown } from 'src/models/recoil'
 import { sleep } from 'src/utils'
 import styled from 'styled-components'
 
-import stores from './search/stores'
-
 const description = ''
 
 const MenuContainer = styled.div`
