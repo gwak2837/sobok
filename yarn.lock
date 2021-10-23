@@ -11088,26 +11088,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-infinite-scroll-hook@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "react-infinite-scroll-hook@npm:4.0.1"
-  dependencies:
-    react-intersection-observer-hook: ^2.0.3
-  peerDependencies:
-    react: ">=16.8.0"
-  checksum: c91b1457b3e33068b907758de88eb9b1665ce3976b4a0dcf85eeb07ff0dd9bfd4105a6804c25d98ab21717837d02be8cb9c0981636d1c8892120ae6cfa17e40b
-  languageName: node
-  linkType: hard
-
-"react-intersection-observer-hook@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "react-intersection-observer-hook@npm:2.0.3"
-  peerDependencies:
-    react: ">=16.8.0"
-  checksum: a2c739a4bb53cd29870101fa2f256adac23617a9df97a142241615ba1b4f3021c3ab0ea0de50f51d170cf39e68c003a8a15e02ea3884ea0fd21721fa5507562a
-  languageName: node
-  linkType: hard
-
 "react-is@npm:*, react-is@npm:17.0.2, react-is@npm:^17.0.1":
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
@@ -11995,7 +11975,6 @@ resolve@^2.0.0-next.3:
     react: ^17.0.2
     react-dom: ^17.0.2
     react-hook-form: ^7.15.2
-    react-infinite-scroll-hook: ^4.0.1
     react-toastify: ^7.0.4
     recoil: ^0.4.1
     sharp: ^0.29.1
