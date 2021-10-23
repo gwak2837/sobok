@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
 
 type Options = {
-  fetchMoreStores: () => void
+  onIntersecting: () => void
   hasMoreData: boolean
 }
 
-function useInfiniteScroll({ fetchMoreStores, hasMoreData }: Options) {
+function useInfiniteScroll({ onIntersecting, hasMoreData }: Options) {
   const loadingRef = useRef(null)
   const observer = useRef<IntersectionObserver>()
 
@@ -19,7 +19,7 @@ function useInfiniteScroll({ fetchMoreStores, hasMoreData }: Options) {
 
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          fetchMoreStores()
+          onIntersecting()
         }
       }, intersectionObserverOption)
 

@@ -62,12 +62,7 @@ export default function HomePage() {
     notifyOnNetworkStatusChange: true,
     onError: handleApolloError,
     skip: !townName,
-    variables: {
-      town: townName,
-      pagination: {
-        limit,
-      },
-    },
+    variables: { town: townName, pagination: { limit } },
   })
 
   const stores = data?.storesByTownAndCategories
@@ -91,7 +86,7 @@ export default function HomePage() {
     }
   }
 
-  const sentryRef = useInfiniteScroll({ hasMoreData, fetchMoreStores })
+  const sentryRef = useInfiniteScroll({ hasMoreData, onIntersecting: fetchMoreStores })
 
   return (
     <PageHead>
@@ -119,7 +114,7 @@ export default function HomePage() {
           ))}
         </GridContainerUl>
       ) : (
-        <div>매장 목록이 없어요</div>
+        <div>매장이 없어요</div>
       )}
 
       {loading && <div>loading...</div>}
