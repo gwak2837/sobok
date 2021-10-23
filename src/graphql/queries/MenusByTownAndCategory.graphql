@@ -1,0 +1,16 @@
+query MenusByTownAndCategory(
+  $town: NonEmptyString
+  $category: NonEmptyString
+  $order: MenuOrder
+  $pagination: Pagination!
+) {
+  menusByTownAndCategory(town: $town, category: $category, order: $order, pagination: $pagination) {
+    ...menuCard
+    store {
+      id
+      name
+      latitude
+      longitude
+    }
+  }
+}

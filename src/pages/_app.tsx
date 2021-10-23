@@ -1,8 +1,8 @@
-import 'antd/dist/antd.css'
 import 'react-toastify/dist/ReactToastify.min.css'
 import 'animate.css/animate.min.css'
-import 'normalize.css'
+import 'antd/dist/antd.css'
 import 'src/styles/custom-antd.css'
+import 'normalize.css'
 import 'src/styles/global.css'
 
 import { ApolloProvider } from '@apollo/client'

@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useRecoilState } from 'recoil'
 import PageHead from 'src/components/PageHead'
-import { currentLocation } from 'src/models/recoil'
+import { currentCoordinates } from 'src/models/recoil'
 import NaverMapScript from 'src/scripts/NaverMapScript'
 import { createNaverMap } from 'src/utils'
 import { getCurrentPositionFromGeolocationAPI } from 'src/utils/web-api'
@@ -13,7 +13,7 @@ export default function LocationPage() {
   const [naverMapLoading, setNaverMapLoading] = useState(true)
   const naverMapRef = useRef<any>()
 
-  const [, setCoordinates] = useRecoilState(currentLocation)
+  const [, setCoordinates] = useRecoilState(currentCoordinates)
 
   async function initializeNaverMap() {
     setNaverMapLoading(false)
