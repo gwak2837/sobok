@@ -66,6 +66,11 @@ export default function HomeLayout({ children }: Props) {
     router.push(activeKey)
   }
 
+  // useEffect(() => {
+  //   getCoordinates()
+  //   setTown()
+  // }, [])
+
   return (
     <HomeContainer>
       <FixedPosition>

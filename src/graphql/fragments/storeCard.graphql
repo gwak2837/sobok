@@ -3,8 +3,8 @@ fragment storeCard on Store {
   name
   categories
   imageUrls
-  hashtags
-  address
   latitude
   longitude
+  isLiked
+  hashtags
 }
