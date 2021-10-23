@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 import { useRecoilValue } from 'recoil'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import { currentTown } from 'src/models/recoil'
-import { TOP_HEADER_HEIGHT, TABLET_MIN_WIDTH } from 'src/utils/constants'
+import { TABLET_MIN_WIDTH, TOP_HEADER_HEIGHT } from 'src/utils/constants'
 import styled from 'styled-components'
 
 const { TabPane } = Tabs
@@ -65,6 +65,11 @@ export default function HomeLayout({ children }: Props) {
   function goToTabPage(activeKey: string) {
     router.push(activeKey)
   }
+
+  // useEffect(() => {
+  //   getCoordinates()
+  //   setTown()
+  // }, [])
 
   return (
     <HomeContainer>

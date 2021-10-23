@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { ReactElement } from 'react'
 import PageHead from 'src/components/PageHead'
 import NavigationLayout from 'src/layouts/NavigationLayout'
-import { getUserUniqueName } from 'src/utils/commons'
+import { getUserUniqueName } from 'src/utils'
 
 const description = ''
 

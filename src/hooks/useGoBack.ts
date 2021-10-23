@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useCallback, MouseEvent } from 'react'
+import { MouseEvent, useCallback } from 'react'
 
 export default function useGoBack() {
   const router = useRouter()

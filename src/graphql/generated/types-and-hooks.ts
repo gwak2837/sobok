@@ -27,8 +27,12 @@ export type Scalars = {
   Longitude: any
   /** A string that cannot be passed as an empty value */
   NonEmptyString: any
+  /** Integers that will have a value greater than 0. */
+  PositiveInt: any
   /** A field whose value conforms to the standard URL format as specified in RFC3986: https://www.ietf.org/rfc/rfc3986.txt. */
   URL: any
+  /** A field whose value is a generic Universally Unique Identifier: https://en.wikipedia.org/wiki/Universally_unique_identifier. */
+  UUID: any
 }
 
 export type Bucket = {
@@ -50,24 +54,22 @@ export enum BucketType {
 
 export type Comment = {
   __typename?: 'Comment'
-  /** from other table - nullable */
-  comment?: Maybe<Comment>
   contents: Array<Scalars['NonEmptyString']>
   creationTime: Scalars['DateTime']
-  /** from other table */
+  /** 이 댓글이 달린 피드 */
   feed: Feed
   id: Scalars['ID']
-  /** nullable */
   imageUrl?: Maybe<Scalars['URL']>
   modificationTime: Scalars['DateTime']
+  /** 이 댓글의 상위 댓글 */
+  parentComment?: Maybe<Comment>
+  /** 댓글을 작성한 사용자 */
   user: User
 }
 
 export type Feed = {
   __typename?: 'Feed'
   commentCount: Scalars['Int']
-  /** 피드에 달린 댓글 */
-  comments?: Maybe<Array<Comment>>
   contents: Array<Scalars['NonEmptyString']>
   creationTime: Scalars['DateTime']
   /** 피드에 달린 해시태그 */
@@ -77,8 +79,6 @@ export type Feed = {
   /** 피드 좋아요 여부 (로그인 필요) */
   isLiked: Scalars['Boolean']
   likeCount: Scalars['Int']
-  /** 피드에 태그된 메뉴 목록 */
-  menus?: Maybe<Array<Menu>>
   modificationTime: Scalars['DateTime']
   rating: Scalars['NonEmptyString']
   /** 피드에 태그된 매장 */
@@ -89,12 +89,21 @@ export type Feed = {
   userId: Scalars['ID']
 }
 
-/** 기본값: ALL_USER */
+/** 기본값: 모든 사용자 */
 export enum FeedOptions {
-  AllUser = 'ALL_USER',
   /** 로그인 필요 */
   FollowingUser = 'FOLLOWING_USER',
   StarUser = 'STAR_USER',
+}
+
+export type FeedOrder = {
+  by?: Maybe<FeedOrderBy>
+  direction?: Maybe<OrderDirection>
+}
+
+/** 기본값: id */
+export enum FeedOrderBy {
+  CreationTime = 'CREATION_TIME',
 }
 
 /** 성별 */
@@ -123,6 +132,17 @@ export type Menu = {
   /** 이 메뉴를 판매하는 매장 */
   store: Store
   storeId: Scalars['ID']
+}
+
+export type MenuOrder = {
+  by?: Maybe<MenuOrderBy>
+  direction?: Maybe<OrderDirection>
+}
+
+/** 기본값: id */
+export enum MenuOrderBy {
+  Name = 'NAME',
+  Price = 'PRICE',
 }
 
 export type Mutation = {
@@ -169,6 +189,17 @@ export enum NewsOptions {
   LikedStore = 'LIKED_STORE',
 }
 
+/** 기본값: 내림차순 */
+export enum OrderDirection {
+  Asc = 'ASC',
+}
+
+export type Pagination = {
+  lastId?: Maybe<Scalars['ID']>
+  lastValue?: Maybe<Scalars['NonEmptyString']>
+  limit: Scalars['PositiveInt']
+}
+
 /** OAuth 공급자 */
 export enum Provider {
   Google = 'GOOGLE',
@@ -179,10 +210,12 @@ export enum Provider {
 
 export type Query = {
   __typename?: 'Query'
-  /** 버켓 상세 정보 */
-  bucket?: Maybe<Bucket>
   /** 메뉴 또는 매장 버킷 리스트를 반환, 로그인 상태 또는 userId를 입력해야 함 */
   buckets?: Maybe<Array<Bucket>>
+  /** 피드에 달린 댓글 */
+  comments?: Maybe<Array<Comment>>
+  /** 특정 게시글에 달린 댓글 */
+  commentsByFeed?: Maybe<Array<Maybe<Comment>>>
   /** 피드 상세 */
   feed?: Maybe<Feed>
   /** 특정 매장 피드 목록 */
@@ -193,42 +226,77 @@ export type Query = {
   isEmailUnique: Scalars['Boolean']
   /** 사용자 고유 이름 중복 여부 검사 */
   isUniqueNameUnique: Scalars['Boolean']
+  /** 좋아요 누른 댓글 */
+  likedComments?: Maybe<Array<Comment>>
+  /** 좋아요 누른 피드 */
+  likedFeed?: Maybe<Array<Feed>>
+  /** 좋아요 누른 메뉴 */
+  likedMenus?: Maybe<Array<Menu>>
+  /** 좋아요 누른 소식 */
+  likedNews?: Maybe<Array<News>>
+  /** 좋아요 누른 매장 */
+  likedStores?: Maybe<Array<Store>>
+  /** 좋아요 누른 트렌드 */
+  likedTrends?: Maybe<Array<Trend>>
   /** 인증 토큰과 같이 요청하면 사용자 정보를 반환 */
-  me?: Maybe<User>
+  me: User
   /** 메뉴 상세 */
   menu?: Maybe<Menu>
   /** 메뉴 상세 */
   menuByName?: Maybe<Menu>
+  /** 피드에 태그된 메뉴 목록 */
+  menus?: Maybe<Array<Menu>>
   /** 특정 매장 메뉴 목록 */
   menusByStore?: Maybe<Array<Menu>>
   /** 특정 동네 및 특정 카테고리 피드 목록 */
   menusByTownAndCategory?: Maybe<Array<Menu>>
-  /** 메뉴 버킷에만 해당 */
+  /** 메뉴 버킷에서 메뉴 가져오기 */
   menusInBucket?: Maybe<Array<Menu>>
+  /** 내가 쓴 댓글 */
+  myComments?: Maybe<Array<Comment>>
+  /** 나를 따르는 다른 사용자 */
+  myFollowers?: Maybe<Array<User>>
+  /** 내가 따르고 있는 다른 사용자 */
+  myFollowings?: Maybe<Array<User>>
+  /** 내 메뉴 버킷 리스트 */
+  myMenuBuckets?: Maybe<Array<Bucket>>
+  /** 내 매장 버킷 리스트 */
+  myStoreBuckets?: Maybe<Array<Bucket>>
+  /** 내가 소유한 매장 */
+  myStores?: Maybe<Array<Store>>
+  /** 내가 쓴 피드 */
+  myfeed?: Maybe<Array<Feed>>
   /** 소식 상세 */
   news?: Maybe<News>
   /** 특정 매장 소식 목록 */
   newsListByStore?: Maybe<Array<News>>
   /** 옵션별 여러 매장 소식 목록 */
   newsListByTown?: Maybe<Array<News>>
-  searchFeed?: Maybe<Array<Menu>>
+  /** 해시태그로 메뉴 검색 */
+  searchFeedList?: Maybe<Array<Feed>>
+  /** 해시태그로 메뉴 검색 */
   searchMenus?: Maybe<Array<Menu>>
-  searchStores?: Maybe<Array<Menu>>
+  /** 해시태그로 매장 검색 */
+  searchStores?: Maybe<Array<Store>>
   /** 특정 매장 정보 */
   store?: Maybe<Store>
+  /** 특정 매장 정보 */
+  storeInfo?: Maybe<Store>
   /** 동네 및 카테고리별 매장 목록 */
-  storesByTownAndCategory?: Maybe<Array<Store>>
+  storesByTownAndCategories?: Maybe<Array<Store>>
   /** 매장 버킷에만 해당 */
   storesInBucket?: Maybe<Array<Store>>
-}
-
-export type QueryBucketArgs = {
-  id: Scalars['ID']
+  /** 대댓글 */
+  subComments?: Maybe<Array<Maybe<Comment>>>
 }
 
 export type QueryBucketsArgs = {
   type: BucketType
   userUniqueName?: Maybe<Scalars['NonEmptyString']>
+}
+
+export type QueryCommentsByFeedArgs = {
+  feedId: Scalars['ID']
 }
 
 export type QueryFeedArgs = {
@@ -267,6 +335,8 @@ export type QueryMenusByStoreArgs = {
 
 export type QueryMenusByTownAndCategoryArgs = {
   category?: Maybe<Scalars['NonEmptyString']>
+  order?: Maybe<MenuOrder>
+  pagination: Pagination
   town?: Maybe<Scalars['NonEmptyString']>
 }
 
@@ -290,30 +360,46 @@ export type QueryNewsListByTownArgs = {
   town?: Maybe<Scalars['NonEmptyString']>
 }
 
-export type QuerySearchFeedArgs = {
+export type QuerySearchFeedListArgs = {
   hashtags: Array<Scalars['NonEmptyString']>
+  order?: Maybe<FeedOrder>
+  pagination: Pagination
 }
 
 export type QuerySearchMenusArgs = {
   hashtags: Array<Scalars['NonEmptyString']>
+  order?: Maybe<MenuOrder>
+  pagination: Pagination
 }
 
 export type QuerySearchStoresArgs = {
   hashtags: Array<Scalars['NonEmptyString']>
+  order?: Maybe<StoreOrder>
+  pagination: Pagination
 }
 
 export type QueryStoreArgs = {
   id: Scalars['ID']
 }
 
-export type QueryStoresByTownAndCategoryArgs = {
+export type QueryStoreInfoArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryStoresByTownAndCategoriesArgs = {
   categories?: Maybe<Array<Scalars['NonEmptyString']>>
+  order?: Maybe<StoreOrder>
+  pagination: Pagination
   town?: Maybe<Scalars['NonEmptyString']>
 }
 
 export type QueryStoresInBucketArgs = {
   bucketId: Scalars['ID']
   userUniqueName: Scalars['NonEmptyString']
+}
+
+export type QuerySubCommentsArgs = {
+  id: Scalars['ID']
 }
 
 export type RegisterInput = {
@@ -346,18 +432,24 @@ export type Store = {
   isLiked: Scalars['Boolean']
   latitude: Scalars['Latitude']
   longitude: Scalars['Longitude']
-  /** 매장에서 판매하는 메뉴 목록 */
-  menus: Array<Menu>
   modificationTime: Scalars['DateTime']
   name: Scalars['NonEmptyString']
-  /** 매장에서 올린 소식 목록 */
-  news?: Maybe<Array<News>>
   registrationNumber?: Maybe<Scalars['String']>
   tel?: Maybe<Scalars['String']>
   town: Scalars['NonEmptyString']
   /** 매장을 소유한 사용자 정보 */
   user?: Maybe<User>
   userId: Scalars['ID']
+}
+
+export type StoreOrder = {
+  by?: Maybe<StoreOrderBy>
+  direction?: Maybe<OrderDirection>
+}
+
+/** 기본값: id */
+export enum StoreOrderBy {
+  Name = 'NAME',
 }
 
 export type Trend = {
@@ -374,44 +466,21 @@ export type User = {
   __typename?: 'User'
   bio?: Maybe<Scalars['String']>
   birth?: Maybe<Scalars['Date']>
-  /** 내가 쓴 댓글 */
-  comments?: Maybe<Array<Comment>>
   creationTime: Scalars['DateTime']
   email: Scalars['EmailAddress']
-  /** 내가 쓴 피드 */
-  feed?: Maybe<Array<Feed>>
-  /** 사용자를 따르는 다른 사용자 */
-  followers?: Maybe<Array<User>>
-  /** 사용자가 따르고 있는 다른 사용자 */
-  followings?: Maybe<Array<User>>
+  feedCount: Scalars['Int']
+  followerCount: Scalars['Int']
+  followingCount: Scalars['Int']
   gender: Gender
-  id: Scalars['ID']
+  id: Scalars['UUID']
   imageUrl?: Maybe<Scalars['URL']>
   isEmailVerified: Scalars['Boolean']
   isStarUser: Scalars['Boolean']
-  /** 좋아요 누른 댓글 */
-  likedComments?: Maybe<Array<Comment>>
-  /** 좋아요 누른 피드 */
-  likedFeed?: Maybe<Array<Feed>>
-  /** 좋아요 누른 메뉴 */
-  likedMenus?: Maybe<Array<Menu>>
-  /** 좋아요 누른 소식 */
-  likedNews?: Maybe<Array<News>>
-  /** 좋아요 누른 매장 */
-  likedStores?: Maybe<Array<Store>>
-  /** 좋아요 누른 트렌드 */
-  likedTrends?: Maybe<Array<Trend>>
-  /** 내 메뉴 버킷 리스트 */
-  menuBuckets?: Maybe<Array<Bucket>>
   modificationTime: Scalars['DateTime']
   name: Scalars['NonEmptyString']
   nickname?: Maybe<Scalars['String']>
   phone: Scalars['NonEmptyString']
   providers: Array<Provider>
-  /** 내 매장 버킷 리스트 */
-  storeBuckets?: Maybe<Array<Bucket>>
-  /** 내가 소유한 매장 */
-  stores?: Maybe<Array<Store>>
   uniqueName: Scalars['NonEmptyString']
 }
 
@@ -438,10 +507,10 @@ export type StoreCardFragment = {
   name: any
   categories: Array<any>
   imageUrls?: Maybe<Array<any>>
-  hashtags?: Maybe<Array<any>>
-  address: any
   latitude: any
   longitude: any
+  isLiked: boolean
+  hashtags?: Maybe<Array<any>>
 }
 
 export type LoginMutationVariables = Exact<{
@@ -503,10 +572,10 @@ export type BucketStoresQuery = {
       name: any
       categories: Array<any>
       imageUrls?: Maybe<Array<any>>
-      hashtags?: Maybe<Array<any>>
-      address: any
       latitude: any
       longitude: any
+      isLiked: boolean
+      hashtags?: Maybe<Array<any>>
     }>
   >
 }
@@ -528,7 +597,7 @@ export type FeedListQuery = {
       likeCount: number
       commentCount: number
       isLiked: boolean
-      user: { __typename?: 'User'; id: string; imageUrl?: Maybe<any>; nickname?: Maybe<string> }
+      user: { __typename?: 'User'; id: any; imageUrl?: Maybe<any>; nickname?: Maybe<string> }
     }>
   >
 }
@@ -549,7 +618,7 @@ export type MeQueryVariables = Exact<{ [key: string]: never }>
 
 export type MeQuery = {
   __typename?: 'Query'
-  me?: Maybe<{ __typename?: 'User'; id: string; uniqueName: any }>
+  me: { __typename?: 'User'; id: any; uniqueName: any }
 }
 
 export type MenuBucketsQueryVariables = Exact<{
@@ -561,12 +630,14 @@ export type MenuBucketsQuery = {
   buckets?: Maybe<Array<{ __typename?: 'Bucket'; id: string; name: any }>>
 }
 
-export type MenusQueryVariables = Exact<{
+export type MenusByTownAndCategoryQueryVariables = Exact<{
   town?: Maybe<Scalars['NonEmptyString']>
   category?: Maybe<Scalars['NonEmptyString']>
+  order?: Maybe<MenuOrder>
+  pagination: Pagination
 }>
 
-export type MenusQuery = {
+export type MenusByTownAndCategoryQuery = {
   __typename?: 'Query'
   menusByTownAndCategory?: Maybe<
     Array<{
@@ -578,7 +649,7 @@ export type MenusQuery = {
       imageUrls: Array<any>
       isLiked: boolean
       hashtags?: Maybe<Array<any>>
-      store: { __typename?: 'Store'; id: string; name: any; address: any }
+      store: { __typename?: 'Store'; id: string; name: any; latitude: any; longitude: any }
     }>
   >
 }
@@ -667,7 +738,7 @@ export type StoreFeedQuery = {
       likeCount: number
       commentCount: number
       isLiked: boolean
-      user: { __typename?: 'User'; id: string; imageUrl?: Maybe<any>; nickname?: Maybe<string> }
+      user: { __typename?: 'User'; id: any; imageUrl?: Maybe<any>; nickname?: Maybe<string> }
     }>
   >
 }
@@ -731,24 +802,26 @@ export type StoreNewsQuery = {
   >
 }
 
-export type StoresQueryVariables = Exact<{
+export type StoresByTownAndCategoriesQueryVariables = Exact<{
   town?: Maybe<Scalars['NonEmptyString']>
   categories?: Maybe<Array<Scalars['NonEmptyString']> | Scalars['NonEmptyString']>
+  order?: Maybe<StoreOrder>
+  pagination: Pagination
 }>
 
-export type StoresQuery = {
+export type StoresByTownAndCategoriesQuery = {
   __typename?: 'Query'
-  storesByTownAndCategory?: Maybe<
+  storesByTownAndCategories?: Maybe<
     Array<{
       __typename?: 'Store'
       id: string
       name: any
       categories: Array<any>
       imageUrls?: Maybe<Array<any>>
-      hashtags?: Maybe<Array<any>>
-      address: any
       latitude: any
       longitude: any
+      isLiked: boolean
+      hashtags?: Maybe<Array<any>>
     }>
   >
 }
@@ -770,10 +843,10 @@ export const StoreCardFragmentDoc = gql`
     name
     categories
     imageUrls
-    hashtags
-    address
     latitude
     longitude
+    isLiked
+    hashtags
   }
 `
 export const LoginDocument = gql`
@@ -1217,14 +1290,25 @@ export function useMenuBucketsLazyQuery(
 export type MenuBucketsQueryHookResult = ReturnType<typeof useMenuBucketsQuery>
 export type MenuBucketsLazyQueryHookResult = ReturnType<typeof useMenuBucketsLazyQuery>
 export type MenuBucketsQueryResult = Apollo.QueryResult<MenuBucketsQuery, MenuBucketsQueryVariables>
-export const MenusDocument = gql`
-  query Menus($town: NonEmptyString, $category: NonEmptyString) {
-    menusByTownAndCategory(town: $town, category: $category) {
+export const MenusByTownAndCategoryDocument = gql`
+  query MenusByTownAndCategory(
+    $town: NonEmptyString
+    $category: NonEmptyString
+    $order: MenuOrder
+    $pagination: Pagination!
+  ) {
+    menusByTownAndCategory(
+      town: $town
+      category: $category
+      order: $order
+      pagination: $pagination
+    ) {
       ...menuCard
       store {
         id
         name
-        address
+        latitude
+        longitude
       }
     }
   }
@@ -1232,37 +1316,58 @@ export const MenusDocument = gql`
 `
 
 /**
- * __useMenusQuery__
+ * __useMenusByTownAndCategoryQuery__
  *
- * To run a query within a React component, call `useMenusQuery` and pass it any options that fit your needs.
- * When your component renders, `useMenusQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useMenusByTownAndCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMenusByTownAndCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useMenusQuery({
+ * const { data, loading, error } = useMenusByTownAndCategoryQuery({
  *   variables: {
  *      town: // value for 'town'
  *      category: // value for 'category'
+ *      order: // value for 'order'
+ *      pagination: // value for 'pagination'
  *   },
  * });
  */
-export function useMenusQuery(
-  baseOptions?: Apollo.QueryHookOptions<MenusQuery, MenusQueryVariables>
+export function useMenusByTownAndCategoryQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    MenusByTownAndCategoryQuery,
+    MenusByTownAndCategoryQueryVariables
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<MenusQuery, MenusQueryVariables>(MenusDocument, options)
+  return Apollo.useQuery<MenusByTownAndCategoryQuery, MenusByTownAndCategoryQueryVariables>(
+    MenusByTownAndCategoryDocument,
+    options
+  )
 }
-export function useMenusLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<MenusQuery, MenusQueryVariables>
+export function useMenusByTownAndCategoryLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    MenusByTownAndCategoryQuery,
+    MenusByTownAndCategoryQueryVariables
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<MenusQuery, MenusQueryVariables>(MenusDocument, options)
+  return Apollo.useLazyQuery<MenusByTownAndCategoryQuery, MenusByTownAndCategoryQueryVariables>(
+    MenusByTownAndCategoryDocument,
+    options
+  )
 }
-export type MenusQueryHookResult = ReturnType<typeof useMenusQuery>
-export type MenusLazyQueryHookResult = ReturnType<typeof useMenusLazyQuery>
-export type MenusQueryResult = Apollo.QueryResult<MenusQuery, MenusQueryVariables>
+export type MenusByTownAndCategoryQueryHookResult = ReturnType<
+  typeof useMenusByTownAndCategoryQuery
+>
+export type MenusByTownAndCategoryLazyQueryHookResult = ReturnType<
+  typeof useMenusByTownAndCategoryLazyQuery
+>
+export type MenusByTownAndCategoryQueryResult = Apollo.QueryResult<
+  MenusByTownAndCategoryQuery,
+  MenusByTownAndCategoryQueryVariables
+>
 export const NewsListDocument = gql`
   query NewsList($town: NonEmptyString, $option: NewsOptions, $categories: [NonEmptyString!]) {
     newsListByTown(town: $town, option: $option, categories: $categories) {
@@ -1641,9 +1746,19 @@ export function useStoreNewsLazyQuery(
 export type StoreNewsQueryHookResult = ReturnType<typeof useStoreNewsQuery>
 export type StoreNewsLazyQueryHookResult = ReturnType<typeof useStoreNewsLazyQuery>
 export type StoreNewsQueryResult = Apollo.QueryResult<StoreNewsQuery, StoreNewsQueryVariables>
-export const StoresDocument = gql`
-  query Stores($town: NonEmptyString, $categories: [NonEmptyString!]) {
-    storesByTownAndCategory(town: $town, categories: $categories) {
+export const StoresByTownAndCategoriesDocument = gql`
+  query StoresByTownAndCategories(
+    $town: NonEmptyString
+    $categories: [NonEmptyString!]
+    $order: StoreOrder
+    $pagination: Pagination!
+  ) {
+    storesByTownAndCategories(
+      town: $town
+      categories: $categories
+      order: $order
+      pagination: $pagination
+    ) {
       ...storeCard
     }
   }
@@ -1651,34 +1766,55 @@ export const StoresDocument = gql`
 `
 
 /**
- * __useStoresQuery__
+ * __useStoresByTownAndCategoriesQuery__
  *
- * To run a query within a React component, call `useStoresQuery` and pass it any options that fit your needs.
- * When your component renders, `useStoresQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useStoresByTownAndCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStoresByTownAndCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useStoresQuery({
+ * const { data, loading, error } = useStoresByTownAndCategoriesQuery({
  *   variables: {
  *      town: // value for 'town'
  *      categories: // value for 'categories'
+ *      order: // value for 'order'
+ *      pagination: // value for 'pagination'
  *   },
  * });
  */
-export function useStoresQuery(
-  baseOptions?: Apollo.QueryHookOptions<StoresQuery, StoresQueryVariables>
+export function useStoresByTownAndCategoriesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    StoresByTownAndCategoriesQuery,
+    StoresByTownAndCategoriesQueryVariables
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<StoresQuery, StoresQueryVariables>(StoresDocument, options)
+  return Apollo.useQuery<StoresByTownAndCategoriesQuery, StoresByTownAndCategoriesQueryVariables>(
+    StoresByTownAndCategoriesDocument,
+    options
+  )
 }
-export function useStoresLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<StoresQuery, StoresQueryVariables>
+export function useStoresByTownAndCategoriesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    StoresByTownAndCategoriesQuery,
+    StoresByTownAndCategoriesQueryVariables
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<StoresQuery, StoresQueryVariables>(StoresDocument, options)
+  return Apollo.useLazyQuery<
+    StoresByTownAndCategoriesQuery,
+    StoresByTownAndCategoriesQueryVariables
+  >(StoresByTownAndCategoriesDocument, options)
 }
-export type StoresQueryHookResult = ReturnType<typeof useStoresQuery>
-export type StoresLazyQueryHookResult = ReturnType<typeof useStoresLazyQuery>
-export type StoresQueryResult = Apollo.QueryResult<StoresQuery, StoresQueryVariables>
+export type StoresByTownAndCategoriesQueryHookResult = ReturnType<
+  typeof useStoresByTownAndCategoriesQuery
+>
+export type StoresByTownAndCategoriesLazyQueryHookResult = ReturnType<
+  typeof useStoresByTownAndCategoriesLazyQuery
+>
+export type StoresByTownAndCategoriesQueryResult = Apollo.QueryResult<
+  StoresByTownAndCategoriesQuery,
+  StoresByTownAndCategoriesQueryVariables
+>

@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import styled from 'styled-components'
 import { TABLET_MIN_WIDTH } from 'src/utils/constants'
+import styled from 'styled-components'
 
 const CategrotyContainer = styled.div`
   display: flex;

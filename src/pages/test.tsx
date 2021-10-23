@@ -2,10 +2,10 @@ import React from 'react'
 import {
   HeartFilledIcon,
   HeartIcon,
-  TrendIcon,
-  PersonIcon,
-  NewsIcon,
   HomeIcon,
+  NewsIcon,
+  PersonIcon,
+  TrendIcon,
 } from 'src/components/atoms/SVG'
 import PageHead from 'src/components/PageHead'
 import { SOBOK_COLOR } from 'src/utils/constants'

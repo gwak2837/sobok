@@ -2,17 +2,17 @@ import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 import { useRecoilValue } from 'recoil'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
+import { HeartIcon, HomeIcon, NewsIcon, PersonIcon, TrendIcon } from 'src/components/atoms/SVG'
 import { useMeQuery } from 'src/graphql/generated/types-and-hooks'
-import {
-  SOBOK_COLOR,
-  SOBOK_ACHROMATIC_COLOR,
-  SOBOK_TEXT_COLOR,
-  NAVIGATION_HEIGHT,
-} from 'src/utils/constants'
 import { currentUser } from 'src/models/recoil'
+import {
+  NAVIGATION_HEIGHT,
+  SOBOK_ACHROMATIC_COLOR,
+  SOBOK_COLOR,
+  SOBOK_TEXT_COLOR,
+} from 'src/utils/constants'
 import { TABLET_MIN_WIDTH } from 'src/utils/constants'
 import styled from 'styled-components'
-import { HeartIcon, HomeIcon, NewsIcon, PersonIcon, TrendIcon } from 'src/components/atoms/SVG'
 
 const Padding = styled.div`
   padding: ${NAVIGATION_HEIGHT};

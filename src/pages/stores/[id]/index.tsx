@@ -1,15 +1,14 @@
+import Image from 'next/image'
 import { ReactElement, useRef } from 'react'
 import { useRecoilValue } from 'recoil'
+import { SquareFrame } from 'src/components/atoms/Styles'
 import PageHead from 'src/components/PageHead'
 import { useStoreDetailQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
 import { currentStore } from 'src/models/recoil'
-import styled from 'styled-components'
-import Image from 'next/image'
-
-import { createNaverMap } from 'src/utils/commons'
 import NaverMapScript from 'src/scripts/NaverMapScript'
-import { SquareFrame } from 'src/components/atoms/Styles'
+import { createNaverMap } from 'src/utils'
+import styled from 'styled-components'
 
 const StoreInfoContainer = styled.div`
   display: flex;

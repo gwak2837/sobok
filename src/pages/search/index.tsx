@@ -1,9 +1,9 @@
+import Image from 'next/image'
 import type { ReactElement } from 'react'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import PageHead from 'src/components/PageHead'
 import SearchFormLayout from 'src/layouts/SearchFormLayout'
 import styled from 'styled-components'
-import Image from 'next/image'
 
 const description = ''
 

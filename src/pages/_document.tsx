@@ -1,5 +1,5 @@
 /* eslint-disable react/no-danger */
-import Document, { DocumentContext, Html, Head, Main, NextScript } from 'next/document'
+import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document'
 import {
   APPLICATION_SHORT_NAME,
   CANONICAL_URL,

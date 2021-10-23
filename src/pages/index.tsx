@@ -1,18 +1,26 @@
-import styled from 'styled-components'
-import Link from 'next/link'
-import Image from 'next/image'
-import PageHead from 'src/components/PageHead'
-import NavigationLayout from 'src/layouts/NavigationLayout'
-import { ReactElement, useEffect } from 'react'
-import HomeLayout from 'src/layouts/HomeLayout'
 import { Carousel } from 'antd'
-import Category from 'src/components/Category'
-import { useStoresQuery } from 'src/graphql/generated/types-and-hooks'
-import StoreCard from 'src/components/StoreCard'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { currentLocation, currentTown } from 'src/models/recoil'
+import Image from 'next/image'
+import Link from 'next/link'
+import { ReactElement, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { handleApolloError } from 'src/apollo/error'
+import Category from 'src/components/Category'
+import PageHead from 'src/components/PageHead'
+import StoreCard from 'src/components/StoreCard'
+import {
+  StoreOrder,
+  useStoresByTownAndCategoriesQuery,
+} from 'src/graphql/generated/types-and-hooks'
+import useInfiniteScroll from 'src/hooks/useInfiniteScroll'
+import HomeLayout from 'src/layouts/HomeLayout'
+import NavigationLayout from 'src/layouts/NavigationLayout'
+import { currentCoordinates, currentTown } from 'src/models/recoil'
+import { sleep } from 'src/utils'
 import { getCurrentPositionFromGeolocationAPI } from 'src/utils/web-api'
+import styled from 'styled-components'
+
+import stores from './search/stores'
 
 const CarouselDiv = styled.div`
   position: relative;
@@ -31,13 +39,12 @@ const GridContainerUl = styled.ul`
   background-color: #fcfcfc;
 `
 
+const limit = 4
+
 export default function HomePage() {
   const townName = useRecoilValue(currentTown)
-  const [coordinates, setCoordinates] = useRecoilState(currentLocation)
 
-  const { data, loading } = useStoresQuery({ skip: !townName, variables: { town: townName } })
-
-  const stores = data?.storesByTownAndCategory
+  const [coordinates, setCoordinates] = useRecoilState(currentCoordinates)
 
   useEffect(() => {
     if (!coordinates) {
@@ -46,6 +53,40 @@ export default function HomePage() {
         .catch((error) => toast.warn(error))
     }
   }, [coordinates, setCoordinates])
+
+  const [lastId, setLastId] = useState('')
+  const [lastValue, setLastValue] = useState('')
+  const [order, setOrder] = useState<StoreOrder>({})
+
+  const { data, loading, fetchMore, refetch } = useStoresByTownAndCategoriesQuery({
+    notifyOnNetworkStatusChange: true,
+    onError: handleApolloError,
+    skip: !townName,
+    variables: { town: townName, pagination: { limit } },
+  })
+
+  const stores = data?.storesByTownAndCategories
+
+  const [hasMoreData, setHasMoreData] = useState(true)
+
+  async function fetchMoreStores() {
+    await sleep(2000) //
+
+    if (stores && stores.length > 0) {
+      const { data } = await fetchMore({
+        variables: {
+          pagination: {
+            lastId: stores[stores.length - 1].id,
+            limit,
+          },
+        },
+      })
+
+      if (data.storesByTownAndCategories?.length !== limit) setHasMoreData(false)
+    }
+  }
+
+  const sentryRef = useInfiniteScroll({ hasMoreData, onIntersecting: fetchMoreStores })
 
   return (
     <PageHead>
@@ -66,33 +107,18 @@ export default function HomePage() {
 
       <Category />
 
-      {loading ? (
-        <div>loading</div>
-      ) : stores ? (
+      {stores ? (
         <GridContainerUl>
           {stores.map((store) => (
             <StoreCard key={store.id} store={store} coordinates={coordinates} />
           ))}
         </GridContainerUl>
       ) : (
-        <div>매장 목록이 없어요</div>
+        <div>매장이 없어요</div>
       )}
 
-      <div>
-        <Link href="/@userId1">사용자 페이지</Link>
-      </div>
-      <div>
-        <Link href="/@userId2">사용자2 페이지</Link>
-      </div>
-      <div>
-        <Link href="/register">회원가입 페이지</Link>
-      </div>
-      <div>
-        <Link href="/login">로그인 페이지</Link>
-      </div>
-      <div>
-        <Link href="/stores/1">매장 페이지</Link>
-      </div>
+      {loading && <div>loading...</div>}
+      {!loading && hasMoreData && <div ref={sentryRef}>무한 스크롤</div>}
     </PageHead>
   )
 }

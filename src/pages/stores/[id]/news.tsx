@@ -1,7 +1,7 @@
 import { ReactElement, useContext } from 'react'
 import { useRecoilValue } from 'recoil'
-import PageHead from 'src/components/PageHead'
 import NewsCard from 'src/components/NewsCard'
+import PageHead from 'src/components/PageHead'
 import { useStoreNewsQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
 import { currentStore } from 'src/models/recoil'
