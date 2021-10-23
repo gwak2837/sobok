@@ -2,8 +2,6 @@
 
 소소한 행복 :)
 
-2021년 8월 10일 (화) ~ ing
-
 ## Introduction
 
 ### Why
@@ -14,24 +12,20 @@
 
 디저트 검색을 편리하게 만들자!
 
-## Demo
-
-### 사용법
+### How
 
 https://sobok.vercel.app 에 들어오세요~
 
-### 사진·영상
-
-git 또는 이미지 첨부
+(gif 또는 이미지 첨부)
 
 ## Requires
 
-- macOS 11.2
+- macOS 11.5
 - [Git](https://git-scm.com/downloads) 2.32
-- [Node](https://nodejs.org/ko/download/) LTS
-- [Yarn](https://yarnpkg.com/getting-started/install#about-global-installs) 3.0
-- [Visual Studio Code](https://code.visualstudio.com/Download) 1.58
-- Chrome 89.0, Safari 14.0, Whale 2.9, Firefox 87.0
+- [Node](https://nodejs.org/ko/download/) 16 Alpine
+- [Yarn](https://yarnpkg.com/getting-started/install#about-global-installs) berry
+- [Visual Studio Code](https://code.visualstudio.com/Download) 1.61
+- Chrome 94.0, Safari 14.0, Whale 2.9, Firefox 87.0
 
 ```bash
 $ git --version
@@ -48,12 +42,12 @@ $ code --version
 
 ## Quick start
 
-### 프로젝트 다운로드
+### Download codes
 
 ```shell
-$ git clone 프로젝트-주소
-$ cd 프로젝트-폴더
-$ git checkout 브랜치-이름
+$ git clone https://github.com/teamsindy20/sobok.git
+$ cd sobok
+$ git checkout main
 $ yarn
 ```
 
@@ -89,7 +83,7 @@ $ yarn build && yarn start
 
 TypeScript 파일을 JavaScript로 트랜스파일 및 최적화한 후 Next.js 웹 서버를 실행합니다.
 
-### 브라우저 실행
+### Browser
 
 ```
 http://localhost:3000
@@ -109,9 +103,9 @@ PowerShell을 관리자 권한으로 열어서 보안 정책을 위와 같이 �
 
 > https://velog.io/@gwak2837/powershell-yarn-보안-오류
 
-## 스크립트
+## Scripts
 
-### Pre-Push
+### `pre-push`
 
 ```shell
 $ yarn pre-push
@@ -119,7 +113,7 @@ $ yarn pre-push
 
 코드 포맷, 린트, TypeScript 타입 검사를 전부 수행합니다. 현재 이 명령어는 원격 저장소로 push 하기 전에 husky가 자동으로 실행해주고, 문제가 없는 경우에만 커밋을 원격 저장소로 push합니다.
 
-### GraphQL Code Generator
+### `generate`
 
 ```shell
 $ yarn generate
@@ -127,7 +121,7 @@ $ yarn generate
 
 서버로부터 GraphQL Schema를 받아서 이에 해당하는 TypeScript 자료형과 apollo hook 등을 자동으로 생성해줍니다. 서버나 로컬의 GraphQL Schema가 변경됐을 때마다 실행합니다.
 
-### Build
+### `build`
 
 ```shell
 $ yarn build
