@@ -70,23 +70,25 @@ export default function HomePage() {
   const [hasMoreData, setHasMoreData] = useState(true)
 
   async function fetchMoreStores() {
-    await sleep(2000) //
-
     if (stores && stores.length > 0) {
-      const { data } = await fetchMore({
+      const lastStore = stores[stores.length - 1]
+      const response = await fetchMore({
         variables: {
           pagination: {
-            lastId: stores[stores.length - 1].id,
+            lastId: lastStore.id,
             limit,
           },
         },
-      })
+      }).catch(() => setHasMoreData(false))
 
-      if (data.storesByTownAndCategories?.length !== limit) setHasMoreData(false)
+      if (response?.data.storesByTownAndCategories?.length !== limit) setHasMoreData(false)
     }
   }
 
-  const sentryRef = useInfiniteScroll({ hasMoreData, onIntersecting: fetchMoreStores })
+  const infiniteScrollRef = useInfiniteScroll({
+    hasMoreData,
+    onIntersecting: fetchMoreStores,
+  })
 
   return (
     <PageHead>
@@ -118,7 +120,7 @@ export default function HomePage() {
       )}
 
       {loading && <div>loading...</div>}
-      {!loading && hasMoreData && <div ref={sentryRef}>무한 스크롤</div>}
+      {!loading && hasMoreData && <div ref={infiniteScrollRef}>무한 스크롤</div>}
     </PageHead>
   )
 }
