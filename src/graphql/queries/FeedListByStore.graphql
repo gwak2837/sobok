@@ -1,0 +1,5 @@
+query FeedListByStore($storeId: ID!, $order: FeedOrder, $pagination: Pagination!) {
+  feedListByStore(storeId: $storeId, order: $order, pagination: $pagination) {
+    ...feedCard
+  }
+}
