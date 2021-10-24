@@ -6,11 +6,11 @@ type Options = {
 }
 
 function useInfiniteScroll({ onIntersecting, hasMoreData }: Options) {
-  const loadingRef = useRef(null)
+  const infiniteScrollRef = useRef(null)
   const observer = useRef<IntersectionObserver>()
 
   useEffect(() => {
-    if (loadingRef.current) {
+    if (infiniteScrollRef.current) {
       const intersectionObserverOption = {
         // root: null
         // rootMargin: '0',
@@ -23,18 +23,22 @@ function useInfiniteScroll({ onIntersecting, hasMoreData }: Options) {
         }
       }, intersectionObserverOption)
 
-      observer.current.observe(loadingRef.current as any)
+      observer.current.observe(infiniteScrollRef.current as any)
+    }
+
+    return () => {
+      observer.current?.disconnect()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loadingRef.current])
+  }, [infiniteScrollRef.current, onIntersecting])
 
   useEffect(() => {
-    if (!hasMoreData && loadingRef.current) {
-      observer.current?.unobserve(loadingRef.current as any)
+    if (!hasMoreData) {
+      observer.current?.disconnect()
     }
   }, [hasMoreData])
 
-  return loadingRef
+  return infiniteScrollRef
 }
 
 export default useInfiniteScroll

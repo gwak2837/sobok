@@ -11,6 +11,7 @@
   "author": "sindy <teamsindy20@gmail.com>",
   "repository": "https://github.com/teamsindy20/sobok.git",
   "scripts": {
+    "clean": "rm -rf .yarn/cache .yarn/unplugged .yarn/install-state.gz dist .pnp.cjs yarn.lock",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -19,7 +20,7 @@
     "type": "tsc --pretty",
     "test": "jest",
     "pre-push": "yarn format && yarn lint && yarn type",
-    "generate": "graphql-codegen dotenv_config_path=.env.development --require dotenv/config",
+    "generate": "rm -rf src/graphql/generated && graphql-codegen dotenv_config_path=.env.development --require dotenv/config",
     "postinstall": "husky install"
   },
   "dependencies": {

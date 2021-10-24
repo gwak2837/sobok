@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ReactElement, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { handleApolloError } from 'src/apollo/error'
+import { toastApolloError } from 'src/apollo/error'
 import Category from 'src/components/Category'
 import PageHead from 'src/components/PageHead'
 import StoreCard from 'src/components/StoreCard'
@@ -60,7 +60,7 @@ export default function HomePage() {
 
   const { data, loading, fetchMore, refetch } = useStoresByTownAndCategoriesQuery({
     notifyOnNetworkStatusChange: true,
-    onError: handleApolloError,
+    onError: toastApolloError,
     skip: !townName,
     variables: { town: townName, pagination: { limit } },
   })
@@ -70,23 +70,25 @@ export default function HomePage() {
   const [hasMoreData, setHasMoreData] = useState(true)
 
   async function fetchMoreStores() {
-    await sleep(2000) //
-
     if (stores && stores.length > 0) {
-      const { data } = await fetchMore({
+      const lastStore = stores[stores.length - 1]
+      const response = await fetchMore({
         variables: {
           pagination: {
-            lastId: stores[stores.length - 1].id,
+            lastId: lastStore.id,
             limit,
           },
         },
-      })
+      }).catch(() => setHasMoreData(false))
 
-      if (data.storesByTownAndCategories?.length !== limit) setHasMoreData(false)
+      if (response?.data.storesByTownAndCategories?.length !== limit) setHasMoreData(false)
     }
   }
 
-  const sentryRef = useInfiniteScroll({ hasMoreData, onIntersecting: fetchMoreStores })
+  const infiniteScrollRef = useInfiniteScroll({
+    hasMoreData,
+    onIntersecting: fetchMoreStores,
+  })
 
   return (
     <PageHead>
@@ -118,7 +120,7 @@ export default function HomePage() {
       )}
 
       {loading && <div>loading...</div>}
-      {!loading && hasMoreData && <div ref={sentryRef}>무한 스크롤</div>}
+      {!loading && hasMoreData && <div ref={infiniteScrollRef}>무한 스크롤</div>}
     </PageHead>
   )
 }

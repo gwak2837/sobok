@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { useSetRecoilState } from 'recoil'
-import { handleApolloError } from 'src/apollo/error'
+import { toastApolloError } from 'src/apollo/error'
 import { MarginH4, RedText } from 'src/components/atoms/Styles'
 import PageHead from 'src/components/PageHead'
 import { useLoginMutation } from 'src/graphql/generated/types-and-hooks'
@@ -55,7 +55,7 @@ export default function LoginPage() {
       router.replace(sessionStorage.getItem('redirectionUrlAfterLogin') ?? '/')
       sessionStorage.removeItem('redirectionUrlAfterLogin')
     },
-    onError: handleApolloError,
+    onError: toastApolloError,
   })
 
   function onSubmit({ uniqueNameOrEmail, password }: LoginFormValues) {

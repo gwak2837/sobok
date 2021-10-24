@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import { useRecoilValue } from 'recoil'
-import { handleApolloError } from 'src/apollo/error'
+import { toastApolloError } from 'src/apollo/error'
 import MenuCard from 'src/components/MenuCard'
 import MenuCategory from 'src/components/MenuCategory'
 import PageHead from 'src/components/PageHead'
@@ -37,7 +37,7 @@ export default function MenusPage() {
 
   const { data, loading, fetchMore } = useMenusByTownAndCategoryQuery({
     notifyOnNetworkStatusChange: true,
-    onError: handleApolloError,
+    onError: toastApolloError,
     skip: !townName,
     variables: { town: townName, pagination: { limit } },
   })
@@ -47,23 +47,25 @@ export default function MenusPage() {
   const [hasMoreData, setHasMoreData] = useState(true)
 
   async function fetchMoreMenus() {
-    await sleep(2000) //
-
     if (menus && menus.length > 0) {
-      const { data } = await fetchMore({
+      const lastMenu = menus[menus.length - 1]
+      const response = await fetchMore({
         variables: {
           pagination: {
-            lastId: menus[menus.length - 1].id,
+            lastId: lastMenu.id,
             limit,
           },
         },
-      })
+      }).catch(() => setHasMoreData(false))
 
-      if (data.menusByTownAndCategory?.length !== limit) setHasMoreData(false)
+      if (response?.data.menusByTownAndCategory?.length !== limit) setHasMoreData(false)
     }
   }
 
-  const sentryRef = useInfiniteScroll({ hasMoreData, onIntersecting: fetchMoreMenus })
+  const infiniteScrollRef = useInfiniteScroll({
+    hasMoreData,
+    onIntersecting: fetchMoreMenus,
+  })
 
   return (
     <PageHead title={`${townName} 메뉴 - 소복`} description={description}>
@@ -82,7 +84,7 @@ export default function MenusPage() {
         )}
 
         {loading && <div>loading...</div>}
-        {!loading && hasMoreData && <div ref={sentryRef}>무한 스크롤</div>}
+        {!loading && hasMoreData && <div ref={infiniteScrollRef}>무한 스크롤</div>}
       </MenuContainer>
     </PageHead>
   )

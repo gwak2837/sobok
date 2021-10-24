@@ -1,0 +1,14 @@
+fragment feedCard on Feed {
+  id
+  creationTime
+  contents
+  imageUrls
+  likeCount
+  commentCount
+  isLiked
+  user {
+    id
+    imageUrl
+    nickname
+  }
+}

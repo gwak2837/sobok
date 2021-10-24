@@ -14,6 +14,26 @@ const cache = new InMemoryCache({
           },
           keyArgs: ['town', 'categories', 'order'],
         },
+        menusByTownAndCategory: {
+          merge(existing, incoming) {
+            if (!existing) {
+              return incoming
+            } else {
+              return [...existing, ...incoming]
+            }
+          },
+          keyArgs: ['town', 'categories', 'order'],
+        },
+        feedListByTown: {
+          merge(existing, incoming) {
+            if (!existing) {
+              return incoming
+            } else {
+              return [...existing, ...incoming]
+            }
+          },
+          keyArgs: ['town', 'option', 'order'],
+        },
       },
     },
   },
