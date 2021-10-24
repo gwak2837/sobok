@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { NewsListQuery, StoreNewsQuery } from 'src/graphql/generated/types-and-hooks'
+import { NewsListByStoreQuery, NewsListByTownQuery } from 'src/graphql/generated/types-and-hooks'
 import { ArrayElement } from 'src/utils/types'
 import styled from 'styled-components'
 
@@ -34,12 +34,12 @@ const StoreNewsContent = styled.div`
 
 type Props = {
   news:
-    | ArrayElement<StoreNewsQuery['newsListByStore']>
-    | ArrayElement<NewsListQuery['newsListByTown']>
+    | ArrayElement<NewsListByStoreQuery['newsListByStore']>
+    | ArrayElement<NewsListByTownQuery['newsListByTown']>
 }
 
 export default function NewsCard({ news }: Props) {
-  const store = (news as ArrayElement<NewsListQuery['newsListByTown']>).store
+  const store = (news as ArrayElement<NewsListByTownQuery['newsListByTown']>).store
 
   return (
     <StoreNewsCardContainer>
