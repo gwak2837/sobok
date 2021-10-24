@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import { useRecoilValue } from 'recoil'
-import { handleApolloError } from 'src/apollo/error'
+import { toastApolloError } from 'src/apollo/error'
 import MenuCard from 'src/components/MenuCard'
 import MenuCategory from 'src/components/MenuCategory'
 import PageHead from 'src/components/PageHead'
@@ -37,7 +37,7 @@ export default function MenusPage() {
 
   const { data, loading, fetchMore } = useMenusByTownAndCategoryQuery({
     notifyOnNetworkStatusChange: true,
-    onError: handleApolloError,
+    onError: toastApolloError,
     skip: !townName,
     variables: { town: townName, pagination: { limit } },
   })

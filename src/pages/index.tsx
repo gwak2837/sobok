@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ReactElement, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { handleApolloError } from 'src/apollo/error'
+import { toastApolloError } from 'src/apollo/error'
 import Category from 'src/components/Category'
 import PageHead from 'src/components/PageHead'
 import StoreCard from 'src/components/StoreCard'
@@ -60,7 +60,7 @@ export default function HomePage() {
 
   const { data, loading, fetchMore, refetch } = useStoresByTownAndCategoriesQuery({
     notifyOnNetworkStatusChange: true,
-    onError: handleApolloError,
+    onError: toastApolloError,
     skip: !townName,
     variables: { town: townName, pagination: { limit } },
   })
