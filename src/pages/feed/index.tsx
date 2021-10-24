@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { ReactElement, useState } from 'react'
 import { useRecoilValue } from 'recoil'
+import { toastApolloError } from 'src/apollo/error'
 import FeedCard from 'src/components/FeedCard'
 import PageHead from 'src/components/PageHead'
 import { useFeedListByTownQuery } from 'src/graphql/generated/types-and-hooks'
@@ -67,6 +68,8 @@ export default function FeedPage() {
   const townName = useRecoilValue(currentTown)
 
   const { data, loading, fetchMore } = useFeedListByTownQuery({
+    onError: toastApolloError,
+    notifyOnNetworkStatusChange: true,
     skip: !townName,
     variables: { town: townName, pagination: { limit } },
   })
@@ -75,7 +78,7 @@ export default function FeedPage() {
 
   const [hasMoreData, setHasMoreData] = useState(true)
 
-  async function fetchMoreStores() {
+  async function fetchMoreFeedList() {
     if (feedList && feedList.length > 0) {
       const lastFeed = feedList[feedList.length - 1]
       const response = await fetchMore({
@@ -93,7 +96,7 @@ export default function FeedPage() {
 
   const infiniteScrollRef = useInfiniteScroll({
     hasMoreData,
-    onIntersecting: fetchMoreStores,
+    onIntersecting: fetchMoreFeedList,
   })
 
   return (
@@ -116,11 +119,12 @@ export default function FeedPage() {
               <FeedCard key={feed.id} feed={feed} />
             ))}
           </GridContainerUl>
+        ) : loading ? (
+          <div>loading...</div>
         ) : (
           <div>결과 없음</div>
         )}
 
-        {loading && <div>loading...</div>}
         {!loading && hasMoreData && <div ref={infiniteScrollRef}>무한 스크롤</div>}
       </FeedContainer>
     </PageHead>

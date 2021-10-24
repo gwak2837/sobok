@@ -115,11 +115,12 @@ export default function HomePage() {
             <StoreCard key={store.id} store={store} coordinates={coordinates} />
           ))}
         </GridContainerUl>
+      ) : loading ? (
+        <div>loading...</div>
       ) : (
         <div>매장이 없어요</div>
       )}
 
-      {loading && <div>loading...</div>}
       {!loading && hasMoreData && <div ref={infiniteScrollRef}>무한 스크롤</div>}
     </PageHead>
   )
