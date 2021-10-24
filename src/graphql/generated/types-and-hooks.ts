@@ -189,6 +189,16 @@ export enum NewsOptions {
   LikedStore = 'LIKED_STORE',
 }
 
+export type NewsOrder = {
+  by?: Maybe<NewsOrderBy>
+  direction?: Maybe<OrderDirection>
+}
+
+/** 기본값: id */
+export enum NewsOrderBy {
+  Name = 'NAME',
+}
+
 /** 기본값: 내림차순 */
 export enum OrderDirection {
   Asc = 'ASC',
@@ -270,7 +280,7 @@ export type Query = {
   news?: Maybe<News>
   /** 특정 매장 소식 목록 */
   newsListByStore?: Maybe<Array<News>>
-  /** 옵션별 여러 매장 소식 목록 */
+  /** 동네별 매장 소식 목록 */
   newsListByTown?: Maybe<Array<News>>
   /** 해시태그로 메뉴 검색 */
   searchFeedList?: Maybe<Array<Feed>>
@@ -355,12 +365,16 @@ export type QueryNewsArgs = {
 
 export type QueryNewsListByStoreArgs = {
   categories?: Maybe<Array<Scalars['NonEmptyString']>>
+  order?: Maybe<NewsOrder>
+  pagination: Pagination
   storeId: Scalars['ID']
 }
 
 export type QueryNewsListByTownArgs = {
   categories?: Maybe<Array<Scalars['NonEmptyString']>>
   option?: Maybe<NewsOptions>
+  order?: Maybe<NewsOrder>
+  pagination: Pagination
   town?: Maybe<Scalars['NonEmptyString']>
 }
 
@@ -503,12 +517,7 @@ export type FeedCardFragment = {
   likeCount: number
   commentCount: number
   isLiked: boolean
-  user: {
-    __typename?: 'User'
-    id: any
-    imageUrl?: any | null | undefined
-    nickname?: string | null | undefined
-  }
+  user: { __typename?: 'User'; id: any; imageUrl?: Maybe<any>; nickname?: Maybe<string> }
 }
 
 export type MenuCardFragment = {
@@ -519,7 +528,7 @@ export type MenuCardFragment = {
   isSoldOut: boolean
   imageUrls: Array<any>
   isLiked: boolean
-  hashtags?: Array<any> | null | undefined
+  hashtags?: Maybe<Array<any>>
 }
 
 export type StoreCardFragment = {
@@ -527,11 +536,11 @@ export type StoreCardFragment = {
   id: string
   name: any
   categories: Array<any>
-  imageUrls?: Array<any> | null | undefined
+  imageUrls?: Maybe<Array<any>>
   latitude: any
   longitude: any
   isLiked: boolean
-  hashtags?: Array<any> | null | undefined
+  hashtags?: Maybe<Array<any>>
 }
 
 export type LoginMutationVariables = Exact<{
@@ -541,7 +550,7 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = {
   __typename?: 'Mutation'
-  login?: { __typename?: 'UserAuthentication'; userUniqueName: any; jwt: any } | null | undefined
+  login?: Maybe<{ __typename?: 'UserAuthentication'; userUniqueName: any; jwt: any }>
 }
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never }>
@@ -554,7 +563,7 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = {
   __typename?: 'Mutation'
-  register?: { __typename?: 'UserAuthentication'; userUniqueName: any; jwt: any } | null | undefined
+  register?: Maybe<{ __typename?: 'UserAuthentication'; userUniqueName: any; jwt: any }>
 }
 
 export type BucketMenusQueryVariables = Exact<{
@@ -564,20 +573,19 @@ export type BucketMenusQueryVariables = Exact<{
 
 export type BucketMenusQuery = {
   __typename?: 'Query'
-  menusInBucket?:
-    | Array<{
-        __typename?: 'Menu'
-        id: string
-        name: any
-        price: number
-        isSoldOut: boolean
-        imageUrls: Array<any>
-        isLiked: boolean
-        hashtags?: Array<any> | null | undefined
-        store: { __typename?: 'Store'; id: string; name: any; address: any }
-      }>
-    | null
-    | undefined
+  menusInBucket?: Maybe<
+    Array<{
+      __typename?: 'Menu'
+      id: string
+      name: any
+      price: number
+      isSoldOut: boolean
+      imageUrls: Array<any>
+      isLiked: boolean
+      hashtags?: Maybe<Array<any>>
+      store: { __typename?: 'Store'; id: string; name: any; address: any }
+    }>
+  >
 }
 
 export type BucketStoresQueryVariables = Exact<{
@@ -587,20 +595,19 @@ export type BucketStoresQueryVariables = Exact<{
 
 export type BucketStoresQuery = {
   __typename?: 'Query'
-  storesInBucket?:
-    | Array<{
-        __typename?: 'Store'
-        id: string
-        name: any
-        categories: Array<any>
-        imageUrls?: Array<any> | null | undefined
-        latitude: any
-        longitude: any
-        isLiked: boolean
-        hashtags?: Array<any> | null | undefined
-      }>
-    | null
-    | undefined
+  storesInBucket?: Maybe<
+    Array<{
+      __typename?: 'Store'
+      id: string
+      name: any
+      categories: Array<any>
+      imageUrls?: Maybe<Array<any>>
+      latitude: any
+      longitude: any
+      isLiked: boolean
+      hashtags?: Maybe<Array<any>>
+    }>
+  >
 }
 
 export type FeedListByStoreQueryVariables = Exact<{
@@ -611,25 +618,19 @@ export type FeedListByStoreQueryVariables = Exact<{
 
 export type FeedListByStoreQuery = {
   __typename?: 'Query'
-  feedListByStore?:
-    | Array<{
-        __typename?: 'Feed'
-        id: string
-        creationTime: any
-        contents: Array<any>
-        imageUrls: Array<any>
-        likeCount: number
-        commentCount: number
-        isLiked: boolean
-        user: {
-          __typename?: 'User'
-          id: any
-          imageUrl?: any | null | undefined
-          nickname?: string | null | undefined
-        }
-      }>
-    | null
-    | undefined
+  feedListByStore?: Maybe<
+    Array<{
+      __typename?: 'Feed'
+      id: string
+      creationTime: any
+      contents: Array<any>
+      imageUrls: Array<any>
+      likeCount: number
+      commentCount: number
+      isLiked: boolean
+      user: { __typename?: 'User'; id: any; imageUrl?: Maybe<any>; nickname?: Maybe<string> }
+    }>
+  >
 }
 
 export type FeedListByTownQueryVariables = Exact<{
@@ -641,25 +642,19 @@ export type FeedListByTownQueryVariables = Exact<{
 
 export type FeedListByTownQuery = {
   __typename?: 'Query'
-  feedListByTown?:
-    | Array<{
-        __typename?: 'Feed'
-        id: string
-        creationTime: any
-        contents: Array<any>
-        imageUrls: Array<any>
-        likeCount: number
-        commentCount: number
-        isLiked: boolean
-        user: {
-          __typename?: 'User'
-          id: any
-          imageUrl?: any | null | undefined
-          nickname?: string | null | undefined
-        }
-      }>
-    | null
-    | undefined
+  feedListByTown?: Maybe<
+    Array<{
+      __typename?: 'Feed'
+      id: string
+      creationTime: any
+      contents: Array<any>
+      imageUrls: Array<any>
+      likeCount: number
+      commentCount: number
+      isLiked: boolean
+      user: { __typename?: 'User'; id: any; imageUrl?: Maybe<any>; nickname?: Maybe<string> }
+    }>
+  >
 }
 
 export type IsEmailUniqueQueryVariables = Exact<{
@@ -687,7 +682,7 @@ export type MenuBucketsQueryVariables = Exact<{
 
 export type MenuBucketsQuery = {
   __typename?: 'Query'
-  buckets?: Array<{ __typename?: 'Bucket'; id: string; name: any }> | null | undefined
+  buckets?: Maybe<Array<{ __typename?: 'Bucket'; id: string; name: any }>>
 }
 
 export type MenusByTownAndCategoryQueryVariables = Exact<{
@@ -699,48 +694,65 @@ export type MenusByTownAndCategoryQueryVariables = Exact<{
 
 export type MenusByTownAndCategoryQuery = {
   __typename?: 'Query'
-  menusByTownAndCategory?:
-    | Array<{
-        __typename?: 'Menu'
-        id: string
-        name: any
-        price: number
-        isSoldOut: boolean
-        imageUrls: Array<any>
-        isLiked: boolean
-        hashtags?: Array<any> | null | undefined
-        store: { __typename?: 'Store'; id: string; name: any; latitude: any; longitude: any }
-      }>
-    | null
-    | undefined
+  menusByTownAndCategory?: Maybe<
+    Array<{
+      __typename?: 'Menu'
+      id: string
+      name: any
+      price: number
+      isSoldOut: boolean
+      imageUrls: Array<any>
+      isLiked: boolean
+      hashtags?: Maybe<Array<any>>
+      store: { __typename?: 'Store'; id: string; name: any; latitude: any; longitude: any }
+    }>
+  >
 }
 
-export type NewsListQueryVariables = Exact<{
+export type NewsListByStoreQueryVariables = Exact<{
+  categories?: Maybe<Array<Scalars['NonEmptyString']> | Scalars['NonEmptyString']>
+  order?: Maybe<NewsOrder>
+  pagination: Pagination
+  storeId: Scalars['ID']
+}>
+
+export type NewsListByStoreQuery = {
+  __typename?: 'Query'
+  newsListByStore?: Maybe<
+    Array<{
+      __typename?: 'News'
+      id: string
+      creationTime: any
+      title: any
+      contents: Array<any>
+      category: any
+      imageUrls?: Maybe<Array<any>>
+    }>
+  >
+}
+
+export type NewsListByTownQueryVariables = Exact<{
   town?: Maybe<Scalars['NonEmptyString']>
   option?: Maybe<NewsOptions>
   categories?: Maybe<Array<Scalars['NonEmptyString']> | Scalars['NonEmptyString']>
+  order?: Maybe<NewsOrder>
+  pagination: Pagination
 }>
 
-export type NewsListQuery = {
+export type NewsListByTownQuery = {
   __typename?: 'Query'
-  newsListByTown?:
-    | Array<{
-        __typename?: 'News'
-        id: string
-        creationTime: any
-        title: any
-        contents: Array<any>
-        category: any
-        imageUrls?: Array<any> | null | undefined
-        store: {
-          __typename?: 'Store'
-          id: string
-          name: any
-          imageUrls?: Array<any> | null | undefined
-        }
-      }>
-    | null
-    | undefined
+  newsListByTown?: Maybe<
+    Array<{
+      __typename?: 'News'
+      id: string
+      creationTime: any
+      title: any
+      contents: Array<any>
+      category: any
+      imageUrls?: Maybe<Array<any>>
+      store: { __typename?: 'Store'; id: string; name: any; imageUrls?: Maybe<Array<any>> }
+    }>
+  >
 }
 
 export type StoreQueryVariables = Exact<{
@@ -749,17 +761,14 @@ export type StoreQueryVariables = Exact<{
 
 export type StoreQuery = {
   __typename?: 'Query'
-  store?:
-    | {
-        __typename?: 'Store'
-        id: string
-        name: any
-        description?: string | null | undefined
-        imageUrls?: Array<any> | null | undefined
-        isLiked: boolean
-      }
-    | null
-    | undefined
+  store?: Maybe<{
+    __typename?: 'Store'
+    id: string
+    name: any
+    description?: Maybe<string>
+    imageUrls?: Maybe<Array<any>>
+    isLiked: boolean
+  }>
 }
 
 export type StoreBucketsQueryVariables = Exact<{
@@ -768,7 +777,7 @@ export type StoreBucketsQueryVariables = Exact<{
 
 export type StoreBucketsQuery = {
   __typename?: 'Query'
-  buckets?: Array<{ __typename?: 'Bucket'; id: string; name: any }> | null | undefined
+  buckets?: Maybe<Array<{ __typename?: 'Bucket'; id: string; name: any }>>
 }
 
 export type StoreDetailQueryVariables = Exact<{
@@ -777,22 +786,19 @@ export type StoreDetailQueryVariables = Exact<{
 
 export type StoreDetailQuery = {
   __typename?: 'Query'
-  store?:
-    | {
-        __typename?: 'Store'
-        id: string
-        tel?: string | null | undefined
-        address: any
-        latitude: any
-        longitude: any
-        registrationNumber?: string | null | undefined
-        businessHours?: Array<any> | null | undefined
-        holidays?: Array<any> | null | undefined
-        categories: Array<any>
-        hashtags?: Array<any> | null | undefined
-      }
-    | null
-    | undefined
+  store?: Maybe<{
+    __typename?: 'Store'
+    id: string
+    tel?: Maybe<string>
+    address: any
+    latitude: any
+    longitude: any
+    registrationNumber?: Maybe<string>
+    businessHours?: Maybe<Array<any>>
+    holidays?: Maybe<Array<any>>
+    categories: Array<any>
+    hashtags?: Maybe<Array<any>>
+  }>
 }
 
 export type StoreMenuQueryVariables = Exact<{
@@ -802,20 +808,17 @@ export type StoreMenuQueryVariables = Exact<{
 
 export type StoreMenuQuery = {
   __typename?: 'Query'
-  menuByName?:
-    | {
-        __typename?: 'Menu'
-        id: string
-        name: any
-        price: number
-        isSoldOut: boolean
-        imageUrls: Array<any>
-        isLiked: boolean
-        hashtags?: Array<any> | null | undefined
-        store: { __typename?: 'Store'; id: string; name: any }
-      }
-    | null
-    | undefined
+  menuByName?: Maybe<{
+    __typename?: 'Menu'
+    id: string
+    name: any
+    price: number
+    isSoldOut: boolean
+    imageUrls: Array<any>
+    isLiked: boolean
+    hashtags?: Maybe<Array<any>>
+    store: { __typename?: 'Store'; id: string; name: any }
+  }>
 }
 
 export type StoreMenusQueryVariables = Exact<{
@@ -824,39 +827,18 @@ export type StoreMenusQueryVariables = Exact<{
 
 export type StoreMenusQuery = {
   __typename?: 'Query'
-  menusByStore?:
-    | Array<{
-        __typename?: 'Menu'
-        id: string
-        name: any
-        price: number
-        isSoldOut: boolean
-        imageUrls: Array<any>
-        isLiked: boolean
-        hashtags?: Array<any> | null | undefined
-      }>
-    | null
-    | undefined
-}
-
-export type StoreNewsQueryVariables = Exact<{
-  storeId: Scalars['ID']
-}>
-
-export type StoreNewsQuery = {
-  __typename?: 'Query'
-  newsListByStore?:
-    | Array<{
-        __typename?: 'News'
-        id: string
-        creationTime: any
-        title: any
-        contents: Array<any>
-        category: any
-        imageUrls?: Array<any> | null | undefined
-      }>
-    | null
-    | undefined
+  menusByStore?: Maybe<
+    Array<{
+      __typename?: 'Menu'
+      id: string
+      name: any
+      price: number
+      isSoldOut: boolean
+      imageUrls: Array<any>
+      isLiked: boolean
+      hashtags?: Maybe<Array<any>>
+    }>
+  >
 }
 
 export type StoresByTownAndCategoriesQueryVariables = Exact<{
@@ -868,20 +850,19 @@ export type StoresByTownAndCategoriesQueryVariables = Exact<{
 
 export type StoresByTownAndCategoriesQuery = {
   __typename?: 'Query'
-  storesByTownAndCategories?:
-    | Array<{
-        __typename?: 'Store'
-        id: string
-        name: any
-        categories: Array<any>
-        imageUrls?: Array<any> | null | undefined
-        latitude: any
-        longitude: any
-        isLiked: boolean
-        hashtags?: Array<any> | null | undefined
-      }>
-    | null
-    | undefined
+  storesByTownAndCategories?: Maybe<
+    Array<{
+      __typename?: 'Store'
+      id: string
+      name: any
+      categories: Array<any>
+      imageUrls?: Maybe<Array<any>>
+      latitude: any
+      longitude: any
+      isLiked: boolean
+      hashtags?: Maybe<Array<any>>
+    }>
+  >
 }
 
 export const FeedCardFragmentDoc = gql`
@@ -1499,9 +1480,87 @@ export type MenusByTownAndCategoryQueryResult = Apollo.QueryResult<
   MenusByTownAndCategoryQuery,
   MenusByTownAndCategoryQueryVariables
 >
-export const NewsListDocument = gql`
-  query NewsList($town: NonEmptyString, $option: NewsOptions, $categories: [NonEmptyString!]) {
-    newsListByTown(town: $town, option: $option, categories: $categories) {
+export const NewsListByStoreDocument = gql`
+  query NewsListByStore(
+    $categories: [NonEmptyString!]
+    $order: NewsOrder
+    $pagination: Pagination!
+    $storeId: ID!
+  ) {
+    newsListByStore(
+      categories: $categories
+      order: $order
+      pagination: $pagination
+      storeId: $storeId
+    ) {
+      id
+      creationTime
+      title
+      contents
+      category
+      imageUrls
+    }
+  }
+`
+
+/**
+ * __useNewsListByStoreQuery__
+ *
+ * To run a query within a React component, call `useNewsListByStoreQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNewsListByStoreQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNewsListByStoreQuery({
+ *   variables: {
+ *      categories: // value for 'categories'
+ *      order: // value for 'order'
+ *      pagination: // value for 'pagination'
+ *      storeId: // value for 'storeId'
+ *   },
+ * });
+ */
+export function useNewsListByStoreQuery(
+  baseOptions: Apollo.QueryHookOptions<NewsListByStoreQuery, NewsListByStoreQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<NewsListByStoreQuery, NewsListByStoreQueryVariables>(
+    NewsListByStoreDocument,
+    options
+  )
+}
+export function useNewsListByStoreLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<NewsListByStoreQuery, NewsListByStoreQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<NewsListByStoreQuery, NewsListByStoreQueryVariables>(
+    NewsListByStoreDocument,
+    options
+  )
+}
+export type NewsListByStoreQueryHookResult = ReturnType<typeof useNewsListByStoreQuery>
+export type NewsListByStoreLazyQueryHookResult = ReturnType<typeof useNewsListByStoreLazyQuery>
+export type NewsListByStoreQueryResult = Apollo.QueryResult<
+  NewsListByStoreQuery,
+  NewsListByStoreQueryVariables
+>
+export const NewsListByTownDocument = gql`
+  query NewsListByTown(
+    $town: NonEmptyString
+    $option: NewsOptions
+    $categories: [NonEmptyString!]
+    $order: NewsOrder
+    $pagination: Pagination!
+  ) {
+    newsListByTown(
+      town: $town
+      option: $option
+      categories: $categories
+      order: $order
+      pagination: $pagination
+    ) {
       id
       creationTime
       title
@@ -1518,38 +1577,49 @@ export const NewsListDocument = gql`
 `
 
 /**
- * __useNewsListQuery__
+ * __useNewsListByTownQuery__
  *
- * To run a query within a React component, call `useNewsListQuery` and pass it any options that fit your needs.
- * When your component renders, `useNewsListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useNewsListByTownQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNewsListByTownQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useNewsListQuery({
+ * const { data, loading, error } = useNewsListByTownQuery({
  *   variables: {
  *      town: // value for 'town'
  *      option: // value for 'option'
  *      categories: // value for 'categories'
+ *      order: // value for 'order'
+ *      pagination: // value for 'pagination'
  *   },
  * });
  */
-export function useNewsListQuery(
-  baseOptions?: Apollo.QueryHookOptions<NewsListQuery, NewsListQueryVariables>
+export function useNewsListByTownQuery(
+  baseOptions: Apollo.QueryHookOptions<NewsListByTownQuery, NewsListByTownQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<NewsListQuery, NewsListQueryVariables>(NewsListDocument, options)
+  return Apollo.useQuery<NewsListByTownQuery, NewsListByTownQueryVariables>(
+    NewsListByTownDocument,
+    options
+  )
 }
-export function useNewsListLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<NewsListQuery, NewsListQueryVariables>
+export function useNewsListByTownLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<NewsListByTownQuery, NewsListByTownQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<NewsListQuery, NewsListQueryVariables>(NewsListDocument, options)
+  return Apollo.useLazyQuery<NewsListByTownQuery, NewsListByTownQueryVariables>(
+    NewsListByTownDocument,
+    options
+  )
 }
-export type NewsListQueryHookResult = ReturnType<typeof useNewsListQuery>
-export type NewsListLazyQueryHookResult = ReturnType<typeof useNewsListLazyQuery>
-export type NewsListQueryResult = Apollo.QueryResult<NewsListQuery, NewsListQueryVariables>
+export type NewsListByTownQueryHookResult = ReturnType<typeof useNewsListByTownQuery>
+export type NewsListByTownLazyQueryHookResult = ReturnType<typeof useNewsListByTownLazyQuery>
+export type NewsListByTownQueryResult = Apollo.QueryResult<
+  NewsListByTownQuery,
+  NewsListByTownQueryVariables
+>
 export const StoreDocument = gql`
   query Store($storeId: ID!) {
     store(id: $storeId) {
@@ -1783,50 +1853,6 @@ export function useStoreMenusLazyQuery(
 export type StoreMenusQueryHookResult = ReturnType<typeof useStoreMenusQuery>
 export type StoreMenusLazyQueryHookResult = ReturnType<typeof useStoreMenusLazyQuery>
 export type StoreMenusQueryResult = Apollo.QueryResult<StoreMenusQuery, StoreMenusQueryVariables>
-export const StoreNewsDocument = gql`
-  query StoreNews($storeId: ID!) {
-    newsListByStore(storeId: $storeId) {
-      id
-      creationTime
-      title
-      contents
-      category
-      imageUrls
-    }
-  }
-`
-
-/**
- * __useStoreNewsQuery__
- *
- * To run a query within a React component, call `useStoreNewsQuery` and pass it any options that fit your needs.
- * When your component renders, `useStoreNewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useStoreNewsQuery({
- *   variables: {
- *      storeId: // value for 'storeId'
- *   },
- * });
- */
-export function useStoreNewsQuery(
-  baseOptions: Apollo.QueryHookOptions<StoreNewsQuery, StoreNewsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<StoreNewsQuery, StoreNewsQueryVariables>(StoreNewsDocument, options)
-}
-export function useStoreNewsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<StoreNewsQuery, StoreNewsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<StoreNewsQuery, StoreNewsQueryVariables>(StoreNewsDocument, options)
-}
-export type StoreNewsQueryHookResult = ReturnType<typeof useStoreNewsQuery>
-export type StoreNewsLazyQueryHookResult = ReturnType<typeof useStoreNewsLazyQuery>
-export type StoreNewsQueryResult = Apollo.QueryResult<StoreNewsQuery, StoreNewsQueryVariables>
 export const StoresByTownAndCategoriesDocument = gql`
   query StoresByTownAndCategories(
     $town: NonEmptyString
