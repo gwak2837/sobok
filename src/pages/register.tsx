@@ -3,7 +3,7 @@ import { Button, Input } from 'antd'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { toastApolloError } from 'src/apollo/error'
-import PageHead from 'src/component/PageHead'
+import PageHead from 'src/components/PageHead'
 import {
   Gender,
   useIsEmailUniqueLazyQuery,
