@@ -8,38 +8,33 @@ import { currentTown } from 'src/models/recoil'
 import { TABLET_MIN_WIDTH, TOP_HEADER_HEIGHT } from 'src/utils/constants'
 import styled from 'styled-components'
 
+import { FlexContainerBetweenCenter } from '../styles/styles'
+
 const { TabPane } = Tabs
 
-const HomeContainer = styled.div`
-  //position: relative;
-  max-width: ${TABLET_MIN_WIDTH};
-  left: 50%;
-  padding-top: ${TOP_HEADER_HEIGHT};
-  //transform: translateX(-50%);
+const PaddingTop = styled.div`
+  padding-top: 98px;
 `
 
 const FixedPosition = styled.div`
   position: fixed;
   top: 0;
-  //left: 50%;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
   width: 100%;
   max-width: ${TABLET_MIN_WIDTH};
-  height: ${TOP_HEADER_HEIGHT};
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   background: #fff;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08); //구분을 위해 우선 넣음
 
-  //transform: translateX(-50%);
+  padding: 1rem 1rem 0;
 `
 
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
+
+  gap: 0.5rem;
 `
+
 const LocationH3 = styled.h3`
   display: inline-block;
   color: black;
@@ -52,6 +47,17 @@ const TopIconDiv = styled.div`
   height: 1.3rem;
   margin: 0;
 `
+
+function getActiveKey(asPath: string) {
+  switch (asPath) {
+    case '/':
+    case '/menus':
+    case '/feed':
+      return asPath
+    default:
+      return '/'
+  }
+}
 
 type Props = {
   children: ReactNode
@@ -72,30 +78,33 @@ export default function HomeLayout({ children }: Props) {
   // }, [])
 
   return (
-    <HomeContainer>
+    <>
       <FixedPosition>
-        <ClientSideLink href="/location">
-          <FlexContainer>
-            <LocationH3>{townName}</LocationH3>
-            <Image src="/images/arrow-down.svg" alt="arrow-down.svg" width={11} height={6} />
-          </FlexContainer>
-        </ClientSideLink>
-        <TopIconDiv>
-          <ClientSideLink href="/map">
-            <Image src="/images/map.svg" alt="map.svg" width={19} height={21} />
+        <FlexContainerBetweenCenter>
+          <ClientSideLink href="/location">
+            <FlexContainer>
+              <LocationH3>{townName}</LocationH3>
+              <Image src="/images/arrow-down.svg" alt="arrow-down.svg" width={11} height={6} />
+            </FlexContainer>
           </ClientSideLink>
-          <ClientSideLink href="/search">
-            <Image src="/images/search.svg" alt="search.svg" width={20} height={22} />
-          </ClientSideLink>
-        </TopIconDiv>
+          <TopIconDiv>
+            <ClientSideLink href="/map">
+              <Image src="/images/map.svg" alt="map.svg" width={19} height={21} />
+            </ClientSideLink>
+            <ClientSideLink href="/search">
+              <Image src="/images/search.svg" alt="search.svg" width={20} height={22} />
+            </ClientSideLink>
+          </TopIconDiv>
+        </FlexContainerBetweenCenter>
+        <Tabs activeKey={getActiveKey(router.asPath)} onTabClick={goToTabPage}>
+          <TabPane tab="공간" key="/"></TabPane>
+          <TabPane tab="메뉴" key="/menus" />
+          <TabPane tab="피드" key="/feed" />
+        </Tabs>
       </FixedPosition>
-      <Tabs defaultActiveKey={router.asPath} onTabClick={goToTabPage}>
-        <TabPane tab="공간" key="/"></TabPane>
-        <TabPane tab="메뉴" key="/menus" />
-        <TabPane tab="피드" key="/feed" />
-      </Tabs>
 
+      <PaddingTop />
       {children}
-    </HomeContainer>
+    </>
   )
 }

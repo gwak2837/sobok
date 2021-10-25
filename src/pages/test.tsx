@@ -1,13 +1,10 @@
-import React from 'react'
-import {
-  HeartFilledIcon,
-  HeartIcon,
-  HomeIcon,
-  NewsIcon,
-  PersonIcon,
-  TrendIcon,
-} from 'src/components/atoms/SVG'
 import PageHead from 'src/components/PageHead'
+import HeartFilledIcon from 'src/svgs/HeartFilledIcon'
+import HeartIcon from 'src/svgs/HeartIcon'
+import HomeIcon from 'src/svgs/HomeIcon'
+import NewsIcon from 'src/svgs/NewsIcon'
+import PersonIcon from 'src/svgs/PersonIcon'
+import TrendIcon from 'src/svgs/TrendIcon'
 import { SOBOK_COLOR } from 'src/utils/constants'
 import styled from 'styled-components'
 
@@ -36,6 +33,12 @@ export default function TestPage() {
         <HeartFilledIcon />
       </Div>
       <Div>
+        <HeartIcon color={SOBOK_COLOR} />
+      </Div>
+      <Div>
+        <HeartIcon />
+      </Div>
+      <Div>
         <TrendIcon color={SOBOK_COLOR} />
       </Div>
       <Div>
@@ -53,12 +56,12 @@ export default function TestPage() {
       <Div>
         <NewsIcon />
       </Div>
-      <Div>
+      {/* <Div>
         <HeartIcon color={SOBOK_COLOR} />
       </Div>
       <Div>
         <HeartIcon />
-      </Div>
+      </Div> */}
       <Div>
         <HomeIcon color={SOBOK_COLOR} />
       </Div>
