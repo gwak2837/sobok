@@ -4,10 +4,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
-import { FlexContainerCenterCenter } from 'src/components/atoms/Styles'
-import { BackArrow, HeartFilledIcon } from 'src/components/atoms/SVG'
 import { useStoreQuery } from 'src/graphql/generated/types-and-hooks'
 import { currentStore as storeRecoil } from 'src/models/recoil'
+import { FlexContainerCenterCenter } from 'src/styles/styles'
+import BackArrowIcon from 'src/svgs/BackArrowIcon'
+import HeartFilledIcon from 'src/svgs/HeartFilledIcon'
 import styled from 'styled-components'
 
 const Relative = styled.div`
@@ -125,7 +126,7 @@ export default function StoreLayout({ children }: Props) {
         objectFit="cover"
       />
       <AbsoluteTopLeft onClick={goBackFromStorePage}>
-        <BackArrow color="#fff" />
+        <BackArrowIcon color="#fff" />
       </AbsoluteTopLeft>
       <AbsoluteTopRight onClick={toggleLikedStore}>
         <HeartFilledIcon filled={store?.isLiked} />
