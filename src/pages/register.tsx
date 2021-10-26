@@ -3,7 +3,6 @@ import { Button, Input } from 'antd'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { toastApolloError } from 'src/apollo/error'
-import { MarginH4, RedText } from 'src/components/atoms/Styles'
 import PageHead from 'src/components/PageHead'
 import {
   Gender,
@@ -11,6 +10,7 @@ import {
   useIsUniqueNameUniqueLazyQuery,
   useRegisterMutation,
 } from 'src/graphql/generated/types-and-hooks'
+import { MarginH4, RedText } from 'src/styles/styles'
 
 type RegisterFormValues = {
   uniqueName: string

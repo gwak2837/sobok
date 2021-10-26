@@ -14,27 +14,28 @@ const FlexContainerLi = styled.li`
   height: 100%;
   border-radius: 0.4rem;
   overflow: hidden;
-  //background-color: #c4c4c4;
 `
+
 const CardImage = styled.div`
   position: relative;
   height: 7.5em;
   padding-bottom: 15.63%;
   border-radius: 0.4rem;
   overflow: hidden;
-  //background-color: #cee7f5;
 `
 
 const CardInfo = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0.2rem;
-  //background-color: #eaf7e7;
+  /* background-color: #eaf7e7; */
 `
+
 const CardCategory = styled.div`
   flex-wrap: wrap;
   padding: 0.2rem;
 `
+
 const CategoryButton = styled.button`
   padding: 0.4rem 0.5rem;
   text-align: center;
@@ -51,6 +52,7 @@ const CardTags = styled.div`
   padding: 0.2rem;
   //background-color: #eaf7e7;
 `
+
 const Tag = styled.span`
   flex-wrap: nowrap;
   color: grey;

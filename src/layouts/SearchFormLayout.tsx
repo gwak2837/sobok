@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { ReactNode } from 'react'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
-import { BackArrow } from 'src/components/atoms/SVG'
+import BackArrowIcon from 'src/svgs/BackArrowIcon'
 import { TABLET_MIN_WIDTH, TOP_HEADER_HEIGHT } from 'src/utils/constants'
 import styled from 'styled-components'
 
@@ -64,7 +64,7 @@ export default function SearchFormLayout({ children }: Props) {
       <FixedPosition>
         <TopIconDiv>
           <ClientSideLink href="/">
-            <BackArrow color="#707070" />
+            <BackArrowIcon color="#707070" />
           </ClientSideLink>
         </TopIconDiv>
         <SearchFormContainer>

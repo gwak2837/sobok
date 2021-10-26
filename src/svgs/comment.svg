@@ -1,0 +1,12 @@
+<svg width="14.752" height="13.333">
+  <g transform="translate(-666.511 -153.551)">
+    <path
+      d="M671.87 153.551a5.359 5.359 0 00-5.359 5.36v7.074a.9.9 0 001.653.486l1.152-1.79a.9.9 0 01.755-.411h5.829a5.359 5.359 0 005.359-5.359 5.359 5.359 0 00-5.359-5.36z"
+      fill="#dbdcdc" />
+    <g>
+      <circle fill="#fff" cx=".979" cy=".979" r=".979" transform="translate(670.504 158.302)" />
+      <circle fill="#fff" cx=".979" cy=".979" r=".979" transform="translate(673.28 158.302)" />
+      <circle fill="#fff" cx=".979" cy=".979" r=".979" transform="translate(676.056 158.302)" />
+    </g>
+  </g>
+</svg>

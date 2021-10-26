@@ -1,38 +1,36 @@
 import { InMemoryCache } from '@apollo/client'
 
+function infiniteScroll(existing: unknown[], incoming: unknown[]) {
+  if (!existing) {
+    return incoming
+  } else {
+    return [...existing, ...incoming]
+  }
+}
+
 const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
         storesByTownAndCategories: {
-          merge(existing, incoming) {
-            if (!existing) {
-              return incoming
-            } else {
-              return [...existing, ...incoming]
-            }
-          },
+          merge: infiniteScroll,
           keyArgs: ['town', 'categories', 'order'],
         },
         menusByTownAndCategory: {
-          merge(existing, incoming) {
-            if (!existing) {
-              return incoming
-            } else {
-              return [...existing, ...incoming]
-            }
-          },
+          merge: infiniteScroll,
           keyArgs: ['town', 'categories', 'order'],
         },
         feedListByTown: {
-          merge(existing, incoming) {
-            if (!existing) {
-              return incoming
-            } else {
-              return [...existing, ...incoming]
-            }
-          },
+          merge: infiniteScroll,
           keyArgs: ['town', 'option', 'order'],
+        },
+        newsListByTown: {
+          merge: infiniteScroll,
+          keyArgs: ['categories', 'option', 'order', 'town'],
+        },
+        newsListByStore: {
+          merge: infiniteScroll,
+          keyArgs: ['categories', 'storeId', 'order'],
         },
       },
     },
