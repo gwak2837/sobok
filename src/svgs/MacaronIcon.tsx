@@ -5,13 +5,12 @@ type Props = {
 function MacaronIcon({ selected }: Props) {
   return (
     <svg width="100%" height="100%" viewBox="0 0 68 68">
-      <defs>
-        <style>
-          {'.prefix__cls-2{fill:#fcc6a1}.prefix__cls-6{fill:#f9b093}.prefix__cls-8{fill:#72543f}'}
-        </style>
-      </defs>
       <g transform="translate(-189 -240)">
-        <g transform="translate(189 240)" stroke="#f0f0f0" fill={selected ? '#ffe5e5' : '#fff'}>
+        <g
+          transform="translate(189 240)"
+          stroke={selected ? '#ffd6d6' : '#f0f0f0'}
+          fill={selected ? '#ffe5e5' : '#fff'}
+        >
           <rect width={68} height={68} rx={16} stroke="none" />
           <rect x={0.5} y={0.5} width={67} height={67} rx={15.5} />
         </g>

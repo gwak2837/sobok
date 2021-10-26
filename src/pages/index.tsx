@@ -125,6 +125,22 @@ export default function HomePage() {
     },
   })
 
+  const [categories, setCategories] = useState<string[]>([])
+
+  function updateCategories(e: any) {
+    const clickedCategory = e.currentTarget.children[1].textContent
+
+    if (clickedCategory === '전체') {
+      setCategories([])
+    } else {
+      if (categories.includes(clickedCategory)) {
+        setCategories((prev) => prev.filter((category) => category !== clickedCategory))
+      } else {
+        setCategories((prev) => [...prev, clickedCategory])
+      }
+    }
+  }
+
   return (
     <PageHead>
       <Carousel autoplay>
@@ -143,45 +159,45 @@ export default function HomePage() {
       </Carousel>
 
       <FlexContainerScroll>
-        <FlexContainerColumn>
-          <AllStoresIcon />
-          <SelectableH4>전체</SelectableH4>
+        <FlexContainerColumn onClick={updateCategories}>
+          <AllStoresIcon selected={categories.length === 0} />
+          <SelectableH4 selected={categories.length === 0}>전체</SelectableH4>
         </FlexContainerColumn>
-        <FlexContainerColumn>
-          <WideSofaIcon />
-          <SelectableH4>편한 의자</SelectableH4>
+        <FlexContainerColumn onClick={updateCategories}>
+          <WideSofaIcon selected={categories.includes('편한 의자')} />
+          <SelectableH4 selected={categories.includes('편한 의자')}>편한 의자</SelectableH4>
         </FlexContainerColumn>
-        <FlexContainerColumn>
-          <WideTableIcon />
-          <SelectableH4>큰 테이블</SelectableH4>
+        <FlexContainerColumn onClick={updateCategories}>
+          <WideTableIcon selected={categories.includes('큰 테이블')} />
+          <SelectableH4 selected={categories.includes('큰 테이블')}>큰 테이블</SelectableH4>
         </FlexContainerColumn>
-        <FlexContainerColumn>
-          <OutletIcon />
-          <SelectableH4>콘센트</SelectableH4>
+        <FlexContainerColumn onClick={updateCategories}>
+          <OutletIcon selected={categories.includes('콘센트')} />
+          <SelectableH4 selected={categories.includes('콘센트')}>콘센트</SelectableH4>
         </FlexContainerColumn>
-        <FlexContainerColumn>
-          <RooftopIcon selected />
-          <SelectableH4 selected>야외석</SelectableH4>
+        <FlexContainerColumn onClick={updateCategories}>
+          <RooftopIcon selected={categories.includes('야외석')} />
+          <SelectableH4 selected={categories.includes('야외석')}>야외석</SelectableH4>
         </FlexContainerColumn>
-        <FlexContainerColumn>
-          <WholeGlassIcon />
-          <SelectableH4>통유리</SelectableH4>
+        <FlexContainerColumn onClick={updateCategories}>
+          <WholeGlassIcon selected={categories.includes('통유리')} />
+          <SelectableH4 selected={categories.includes('통유리')}>통유리</SelectableH4>
         </FlexContainerColumn>
-        <FlexContainerColumn>
-          <ParkingIcon />
-          <SelectableH4>주차장</SelectableH4>
+        <FlexContainerColumn onClick={updateCategories}>
+          <ParkingIcon selected={categories.includes('주차장')} />
+          <SelectableH4 selected={categories.includes('주차장')}>주차장</SelectableH4>
         </FlexContainerColumn>
-        <FlexContainerColumn>
-          <PetIcon />
-          <SelectableH4>애견동반</SelectableH4>
+        <FlexContainerColumn onClick={updateCategories}>
+          <PetIcon selected={categories.includes('애견동반')} />
+          <SelectableH4 selected={categories.includes('애견동반')}>애견동반</SelectableH4>
         </FlexContainerColumn>
-        <FlexContainerColumn>
-          <NoKidsIcon />
-          <SelectableH4>노키즈</SelectableH4>
+        <FlexContainerColumn onClick={updateCategories}>
+          <NoKidsIcon selected={categories.includes('노키즈')} />
+          <SelectableH4 selected={categories.includes('노키즈')}>노키즈</SelectableH4>
         </FlexContainerColumn>
-        <FlexContainerColumn>
-          <SmokeIcon />
-          <SelectableH4>흡연</SelectableH4>
+        <FlexContainerColumn onClick={updateCategories}>
+          <SmokeIcon selected={categories.includes('흡연')} />
+          <SelectableH4 selected={categories.includes('흡연')}>흡연</SelectableH4>
         </FlexContainerColumn>
       </FlexContainerScroll>
 

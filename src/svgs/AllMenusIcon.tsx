@@ -9,6 +9,7 @@ const Path = styled.path`
 type Props = {
   selected?: boolean
 }
+// <g fill={selected ? '#ffece5' : '#fff'}>
 
 function AllMenusIcon({ selected }: Props) {
   return (
@@ -16,13 +17,13 @@ function AllMenusIcon({ selected }: Props) {
       <g transform="translate(-18 -138)">
         <g fill={selected ? '#ffece5' : '#fff'}>
           <path
-            d="M52 67.35H16a15.25 15.25 0 01-10.854-4.496A15.25 15.25 0 01.65 52V16c0-4.1 1.597-7.955 4.496-10.854A15.25 15.25 0 0116 .65h36c4.1 0 7.955 1.597 10.854 4.496A15.25 15.25 0 0167.35 16v36c0 4.1-1.597 7.955-4.496 10.854A15.25 15.25 0 0152 67.35z"
+            d="M16 0h36a16 16 0 0116 16v36a16 16 0 01-16 16H16A16 16 0 010 52V16A16 16 0 0116 0z"
             transform="translate(18 138)"
           />
           <path
             d="M16 1.3c-3.927 0-7.618 1.53-10.394 4.306A14.604 14.604 0 001.3 16v36c0 3.927 1.53 7.618 4.306 10.394A14.604 14.604 0 0016 66.7h36c3.927 0 7.618-1.53 10.394-4.306A14.604 14.604 0 0066.7 52V16c0-3.927-1.53-7.618-4.306-10.394A14.604 14.604 0 0052 1.3H16M16 0h36c8.837 0 16 7.163 16 16v36c0 8.837-7.163 16-16 16H16C7.163 68 0 60.837 0 52V16C0 7.163 7.163 0 16 0z"
             transform="translate(18 138)"
-            fill="#f0f0f0"
+            fill={selected ? 'rgba(255,159,116,.15)' : '#f0f0f0'}
           />
         </g>
         <g transform="translate(-357.079 100.733)">
