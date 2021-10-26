@@ -14,7 +14,6 @@ const FlexContainerLi = styled.li`
   height: 100%;
   border-radius: 0.4rem;
   overflow: hidden;
-  //background-color: #c4c4c4;
 `
 
 const CardImage = styled.div`
@@ -23,14 +22,13 @@ const CardImage = styled.div`
   padding-bottom: 15.63%;
   border-radius: 0.4rem;
   overflow: hidden;
-  //background-color: #cee7f5;
 `
 
 const CardInfo = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0.2rem;
-  //background-color: #eaf7e7;
+  /* background-color: #eaf7e7; */
 `
 
 const CardCategory = styled.div`
