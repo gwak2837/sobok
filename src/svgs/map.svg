@@ -1,0 +1,18 @@
+<svg width="18.534" height="20.2">
+  <defs>
+    <style>
+      .map {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.5px
+      }
+    </style>
+  </defs>
+  <g transform="translate(-446.991 -329.016)">
+    <path class="map" d="M459.1 334.441l-5.678-4.675-5.678 4.675v14.025l5.678-4.4 5.678 4.4 5.678-4.4v-14.3z" />
+    <path class="map" transform="translate(453.419 329.766)" d="M0 0v14.3" />
+    <path class="map" transform="translate(459.097 334.441)" d="M0 0v14.025" />
+  </g>
+</svg>

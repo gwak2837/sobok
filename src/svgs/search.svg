@@ -1,0 +1,17 @@
+<svg width="19.474" height="21.2">
+  <defs>
+    <style>
+      .search {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.5px
+      }
+    </style>
+  </defs>
+  <g transform="translate(-474.702 -330.416)">
+    <circle class="search" cx="7.546" cy="7.546" r="7.546" transform="translate(475.452 331.166)" />
+    <path class="search" transform="translate(487.9 344.449)" d="M0 0l5.219 6.109" />
+  </g>
+</svg>

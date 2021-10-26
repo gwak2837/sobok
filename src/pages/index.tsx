@@ -148,40 +148,40 @@ export default function HomePage() {
           <SelectableH4>전체</SelectableH4>
         </FlexContainerColumn>
         <FlexContainerColumn>
-          <NoKidsIcon />
-          <SelectableH4>노키즈</SelectableH4>
+          <WideSofaIcon />
+          <SelectableH4>편한 의자</SelectableH4>
+        </FlexContainerColumn>
+        <FlexContainerColumn>
+          <WideTableIcon />
+          <SelectableH4>큰 테이블</SelectableH4>
         </FlexContainerColumn>
         <FlexContainerColumn>
           <OutletIcon />
           <SelectableH4>콘센트</SelectableH4>
         </FlexContainerColumn>
         <FlexContainerColumn>
-          <ParkingIcon selected />
-          <SelectableH4 selected>주차장</SelectableH4>
-        </FlexContainerColumn>
-        <FlexContainerColumn>
-          <PetIcon />
-          <SelectableH4>애견동반</SelectableH4>
-        </FlexContainerColumn>
-        <FlexContainerColumn>
-          <RooftopIcon />
-          <SelectableH4>루프탑</SelectableH4>
-        </FlexContainerColumn>
-        <FlexContainerColumn>
-          <SmokeIcon />
-          <SelectableH4>흡연</SelectableH4>
+          <RooftopIcon selected />
+          <SelectableH4 selected>야외석</SelectableH4>
         </FlexContainerColumn>
         <FlexContainerColumn>
           <WholeGlassIcon />
           <SelectableH4>통유리</SelectableH4>
         </FlexContainerColumn>
         <FlexContainerColumn>
-          <WideSofaIcon />
-          <SelectableH4>큰 쇼파</SelectableH4>
+          <ParkingIcon />
+          <SelectableH4>주차장</SelectableH4>
         </FlexContainerColumn>
         <FlexContainerColumn>
-          <WideTableIcon />
-          <SelectableH4>큰 테이블</SelectableH4>
+          <PetIcon />
+          <SelectableH4>애견동반</SelectableH4>
+        </FlexContainerColumn>
+        <FlexContainerColumn>
+          <NoKidsIcon />
+          <SelectableH4>노키즈</SelectableH4>
+        </FlexContainerColumn>
+        <FlexContainerColumn>
+          <SmokeIcon />
+          <SelectableH4>흡연</SelectableH4>
         </FlexContainerColumn>
       </FlexContainerScroll>
 

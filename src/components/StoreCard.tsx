@@ -16,6 +16,7 @@ const FlexContainerLi = styled.li`
   overflow: hidden;
   //background-color: #c4c4c4;
 `
+
 const CardImage = styled.div`
   position: relative;
   height: 7.5em;
@@ -31,10 +32,12 @@ const CardInfo = styled.div`
   padding: 0.2rem;
   //background-color: #eaf7e7;
 `
+
 const CardCategory = styled.div`
   flex-wrap: wrap;
   padding: 0.2rem;
 `
+
 const CategoryButton = styled.button`
   padding: 0.4rem 0.5rem;
   text-align: center;
@@ -51,6 +54,7 @@ const CardTags = styled.div`
   padding: 0.2rem;
   //background-color: #eaf7e7;
 `
+
 const Tag = styled.span`
   flex-wrap: nowrap;
   color: grey;

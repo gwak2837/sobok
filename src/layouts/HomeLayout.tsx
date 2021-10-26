@@ -5,7 +5,10 @@ import { ReactNode } from 'react'
 import { useRecoilValue } from 'recoil'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import { currentTown } from 'src/models/recoil'
-import { TABLET_MIN_WIDTH, TOP_HEADER_HEIGHT } from 'src/utils/constants'
+import ArrowDownIcon from 'src/svgs/arrow-down.svg'
+import MapIcon from 'src/svgs/map.svg'
+import SearchIcon from 'src/svgs/search.svg'
+import { TABLET_MIN_WIDTH } from 'src/utils/constants'
 import styled from 'styled-components'
 
 import { FlexContainerBetweenCenter } from '../styles/styles'
@@ -48,6 +51,10 @@ const TopIconDiv = styled.div`
   margin: 0;
 `
 
+const ArrowDownIconWrapper = styled.div`
+  width: 11px;
+`
+
 function getActiveKey(asPath: string) {
   switch (asPath) {
     case '/':
@@ -84,15 +91,19 @@ export default function HomeLayout({ children }: Props) {
           <ClientSideLink href="/location">
             <FlexContainer>
               <LocationH3>{townName}</LocationH3>
-              <Image src="/images/arrow-down.svg" alt="arrow-down.svg" width={11} height={6} />
+              <ArrowDownIconWrapper>
+                <ArrowDownIcon />
+              </ArrowDownIconWrapper>
             </FlexContainer>
           </ClientSideLink>
           <TopIconDiv>
             <ClientSideLink href="/map">
-              <Image src="/images/map.svg" alt="map.svg" width={19} height={21} />
+              <MapIcon />
+              {/* <Image src="/images/map.svg" alt="map.svg" width={19} height={21} /> */}
             </ClientSideLink>
             <ClientSideLink href="/search">
-              <Image src="/images/search.svg" alt="search.svg" width={20} height={22} />
+              <SearchIcon />
+              {/* <Image src="/images/search.svg" alt="search.svg" width={20} height={22} /> */}
             </ClientSideLink>
           </TopIconDiv>
         </FlexContainerBetweenCenter>
