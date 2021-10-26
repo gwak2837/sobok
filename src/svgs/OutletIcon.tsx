@@ -8,7 +8,7 @@ function OutletIcon({ selected }: Props) {
       <g transform="translate(-99 -30)">
         <g
           transform="translate(99 30)"
-          stroke="#ddd"
+          stroke="#f0f0f0"
           strokeWidth={1.3}
           fill={selected ? '#eee' : '#fff'}
         >

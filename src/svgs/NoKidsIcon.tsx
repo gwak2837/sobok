@@ -2,7 +2,7 @@ type Props = {
   selected?: boolean
 }
 
-function AllStoresIcon({ selected }: Props) {
+function NoKidsIcon({ selected }: Props) {
   return (
     <svg width="100%" height="100%" viewBox="0 0 62 62">
       <g transform="translate(-1276 -978)">
@@ -96,4 +96,4 @@ function AllStoresIcon({ selected }: Props) {
   )
 }
 
-export default AllStoresIcon
+export default NoKidsIcon

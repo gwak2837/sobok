@@ -1,11 +1,3 @@
-import styled from 'styled-components'
-
-const Path = styled.path`
-  fill: #ff7957;
-  stroke: #ff6359;
-  stroke-miterlimit: 10;
-`
-
 type Props = {
   selected?: boolean
 }

@@ -1,11 +1,9 @@
 import { Carousel } from 'antd'
 import Image from 'next/image'
-import Link from 'next/link'
-import { ReactElement, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { toastApolloError } from 'src/apollo/error'
-import Category from 'src/components/Category'
 import PageHead from 'src/components/PageHead'
 import StoreCard from 'src/components/StoreCard'
 import {
@@ -16,11 +14,18 @@ import useInfiniteScroll from 'src/hooks/useInfiniteScroll'
 import HomeLayout from 'src/layouts/HomeLayout'
 import NavigationLayout from 'src/layouts/NavigationLayout'
 import { currentCoordinates, currentTown } from 'src/models/recoil'
-import { sleep } from 'src/utils'
+import AllStoresIcon from 'src/svgs/AllStoresIcon'
+import NoKidsIcon from 'src/svgs/NoKidsIcon'
+import OutletIcon from 'src/svgs/OutletIcon'
+import ParkingIcon from 'src/svgs/ParkingIcon'
+import PetIcon from 'src/svgs/PetIcon'
+import RooftopIcon from 'src/svgs/RooftopIcon'
+import SmokeIcon from 'src/svgs/SmokeIcon'
+import WholeGlassIcon from 'src/svgs/WholeGlassIcon'
+import WideSofaIcon from 'src/svgs/WideSofaIcon'
+import WideTableIcon from 'src/svgs/WideTableIcon'
 import { getCurrentPositionFromGeolocationAPI } from 'src/utils/web-api'
-import styled from 'styled-components'
-
-import stores from './search/stores'
+import styled, { css } from 'styled-components'
 
 const CarouselDiv = styled.div`
   position: relative;
@@ -36,7 +41,39 @@ const GridContainerUl = styled.ul`
   grid-auto-rows: minmax(calc(180px + 10vw), auto);
   padding: 1rem;
   gap: 1rem;
-  background-color: #fcfcfc;
+  background: #fcfcfc;
+`
+
+const FlexContainerScroll = styled.ul`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  height: 9rem;
+  padding: 1rem;
+  background: #fff;
+  overflow: scroll hidden;
+`
+
+const FlexContainerColumn = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.3rem;
+
+  width: 5rem;
+  cursor: pointer;
+`
+
+const NotSelected = css`
+  font-weight: normal;
+  color: #8e8e8e;
+`
+
+const SelectableH4 = styled.h4<{ selected?: boolean }>`
+  ${(p) => !p.selected && NotSelected}
 `
 
 const limit = 4
@@ -69,25 +106,23 @@ export default function HomePage() {
 
   const [hasMoreData, setHasMoreData] = useState(true)
 
-  async function fetchMoreStores() {
-    if (stores && stores.length > 0) {
-      const lastStore = stores[stores.length - 1]
-      const response = await fetchMore({
-        variables: {
-          pagination: {
-            lastId: lastStore.id,
-            limit,
-          },
-        },
-      }).catch(() => setHasMoreData(false))
-
-      if (response?.data.storesByTownAndCategories?.length !== limit) setHasMoreData(false)
-    }
-  }
-
   const infiniteScrollRef = useInfiniteScroll({
     hasMoreData,
-    onIntersecting: fetchMoreStores,
+    onIntersecting: async () => {
+      if (stores && stores.length > 0) {
+        const lastStore = stores[stores.length - 1]
+        const response = await fetchMore({
+          variables: {
+            pagination: {
+              lastId: lastStore.id,
+              limit,
+            },
+          },
+        }).catch(() => setHasMoreData(false))
+
+        if (response?.data.storesByTownAndCategories?.length !== limit) setHasMoreData(false)
+      }
+    },
   })
 
   return (
@@ -107,7 +142,48 @@ export default function HomePage() {
         </CarouselDiv>
       </Carousel>
 
-      <Category />
+      <FlexContainerScroll>
+        <FlexContainerColumn>
+          <AllStoresIcon />
+          <SelectableH4>전체</SelectableH4>
+        </FlexContainerColumn>
+        <FlexContainerColumn>
+          <NoKidsIcon />
+          <SelectableH4>노키즈</SelectableH4>
+        </FlexContainerColumn>
+        <FlexContainerColumn>
+          <OutletIcon />
+          <SelectableH4>콘센트</SelectableH4>
+        </FlexContainerColumn>
+        <FlexContainerColumn>
+          <ParkingIcon selected />
+          <SelectableH4 selected>주차장</SelectableH4>
+        </FlexContainerColumn>
+        <FlexContainerColumn>
+          <PetIcon />
+          <SelectableH4>애견동반</SelectableH4>
+        </FlexContainerColumn>
+        <FlexContainerColumn>
+          <RooftopIcon />
+          <SelectableH4>루프탑</SelectableH4>
+        </FlexContainerColumn>
+        <FlexContainerColumn>
+          <SmokeIcon />
+          <SelectableH4>흡연</SelectableH4>
+        </FlexContainerColumn>
+        <FlexContainerColumn>
+          <WholeGlassIcon />
+          <SelectableH4>통유리</SelectableH4>
+        </FlexContainerColumn>
+        <FlexContainerColumn>
+          <WideSofaIcon />
+          <SelectableH4>큰 쇼파</SelectableH4>
+        </FlexContainerColumn>
+        <FlexContainerColumn>
+          <WideTableIcon />
+          <SelectableH4>큰 테이블</SelectableH4>
+        </FlexContainerColumn>
+      </FlexContainerScroll>
 
       {stores ? (
         <GridContainerUl>
