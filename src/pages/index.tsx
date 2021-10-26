@@ -141,8 +141,6 @@ export default function HomePage() {
     }
   }
 
-  console.log('👀 - categories', categories)
-
   return (
     <PageHead>
       <Carousel autoplay>

@@ -103,40 +103,56 @@ export default function MenusPage() {
     },
   })
 
+  const [categories, setCategories] = useState<string[]>([])
+
+  function updateCategories(e: any) {
+    const clickedCategory = e.currentTarget.children[1].textContent
+
+    if (clickedCategory === '전체') {
+      setCategories([])
+    } else {
+      if (categories.includes(clickedCategory)) {
+        setCategories((prev) => prev.filter((category) => category !== clickedCategory))
+      } else {
+        setCategories((prev) => [...prev, clickedCategory])
+      }
+    }
+  }
+
   return (
     <PageHead title={`${townName} 메뉴 - 소복`} description={description}>
       <GridContainerUl>
-        <FlexContainer>
-          <AllMenusIcon selected />
-          <SelectableH4 selected>전체</SelectableH4>
+        <FlexContainer onClick={updateCategories}>
+          <AllMenusIcon selected={categories.length === 0} />
+          <SelectableH4 selected={categories.length === 0}>전체</SelectableH4>
         </FlexContainer>
-        <FlexContainer>
-          <BeverageIcon />
-          <SelectableH4>음료</SelectableH4>
+        <FlexContainer onClick={updateCategories}>
+          <BeverageIcon selected={categories.includes('음료')} />
+          <SelectableH4 selected={categories.includes('음료')}>음료</SelectableH4>
         </FlexContainer>
-        <FlexContainer>
-          <BreadIcon />
-          <SelectableH4>베이커리</SelectableH4>
+        <FlexContainer onClick={updateCategories}>
+          <BreadIcon selected={categories.includes('베이커리')} />
+          <SelectableH4 selected={categories.includes('베이커리')}>베이커리</SelectableH4>
         </FlexContainer>
-        <FlexContainer>
-          <BrunchIcon />
-          <SelectableH4>브런치</SelectableH4>
+        <FlexContainer onClick={updateCategories}>
+          <BrunchIcon selected={categories.includes('브런치')} />
+          <SelectableH4 selected={categories.includes('브런치')}>브런치</SelectableH4>
         </FlexContainer>
-        <FlexContainer>
-          <CakeIcon />
-          <SelectableH4>케이크</SelectableH4>
+        <FlexContainer onClick={updateCategories}>
+          <CakeIcon selected={categories.includes('케이크')} />
+          <SelectableH4 selected={categories.includes('케이크')}>케이크</SelectableH4>
         </FlexContainer>
-        <FlexContainer>
-          <CoffeeIcon />
-          <SelectableH4>커피</SelectableH4>
+        <FlexContainer onClick={updateCategories}>
+          <CoffeeIcon selected={categories.includes('커피')} />
+          <SelectableH4 selected={categories.includes('커피')}>커피</SelectableH4>
         </FlexContainer>
-        <FlexContainer>
-          <CookieIcon />
-          <SelectableH4>구움과자</SelectableH4>
+        <FlexContainer onClick={updateCategories}>
+          <CookieIcon selected={categories.includes('구움과자')} />
+          <SelectableH4 selected={categories.includes('구움과자')}>구움과자</SelectableH4>
         </FlexContainer>
-        <FlexContainer>
-          <MacaronIcon />
-          <SelectableH4>마카롱</SelectableH4>
+        <FlexContainer onClick={updateCategories}>
+          <MacaronIcon selected={categories.includes('마카롱')} />
+          <SelectableH4 selected={categories.includes('마카롱')}>마카롱</SelectableH4>
         </FlexContainer>
       </GridContainerUl>
 
