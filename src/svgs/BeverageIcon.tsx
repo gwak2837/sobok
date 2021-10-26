@@ -14,7 +14,7 @@ function BeverageIcon({ selected }: Props) {
       <g transform="translate(-104 -138)">
         <g
           transform="translate(104 138)"
-          stroke="#f0f0f0"
+          stroke={selected ? '#dbfcff' : '#f0f0f0'}
           fill={selected ? 'rgba(208,248,255,.44)' : '#fff'}
         >
           <rect width={68} height={68} rx={16} stroke="none" />

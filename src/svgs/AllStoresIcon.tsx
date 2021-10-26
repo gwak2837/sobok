@@ -10,6 +10,8 @@ type Props = {
   selected?: boolean
 }
 
+// fill={selected ? 'rgba(255,159,116,.12)' : '#f0f0f0'}
+
 function AllStoresIcon({ selected }: Props) {
   return (
     <svg width="100%" height="100%" viewBox="0 0 62 62">
@@ -22,7 +24,7 @@ function AllStoresIcon({ selected }: Props) {
           <path
             d="M20 1.3A18.58 18.58 0 006.777 6.777 18.578 18.578 0 001.3 20v22a18.58 18.58 0 005.477 13.223A18.578 18.578 0 0020 60.7h22a18.58 18.58 0 0013.223-5.477A18.578 18.578 0 0060.7 42V20a18.58 18.58 0 00-5.477-13.223A18.578 18.578 0 0042 1.3H20M20 0h22c11.046 0 20 8.954 20 20v22c0 11.046-8.954 20-20 20H20C8.954 62 0 53.046 0 42V20C0 8.954 8.954 0 20 0z"
             transform="translate(28 30)"
-            fill="#f0f0f0"
+            fill={selected ? 'rgba(255,159,116,.15)' : '#f0f0f0'}
           />
         </g>
         <g transform="translate(-350.079 -8.267)">
