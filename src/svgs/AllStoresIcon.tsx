@@ -10,8 +10,6 @@ type Props = {
   selected?: boolean
 }
 
-// fill={selected ? 'rgba(255,159,116,.12)' : '#f0f0f0'}
-
 function AllStoresIcon({ selected }: Props) {
   return (
     <svg width="100%" height="100%" viewBox="0 0 62 62">

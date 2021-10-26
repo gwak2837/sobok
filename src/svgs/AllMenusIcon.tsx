@@ -9,7 +9,6 @@ const Path = styled.path`
 type Props = {
   selected?: boolean
 }
-// <g fill={selected ? '#ffece5' : '#fff'}>
 
 function AllMenusIcon({ selected }: Props) {
   return (

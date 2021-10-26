@@ -64,6 +64,7 @@ const FlexContainerColumn = styled.div`
   gap: 0.3rem;
 
   width: 5rem;
+  height: 7rem; // for safari
   cursor: pointer;
 `
 
