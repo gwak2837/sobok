@@ -1,4 +1,4 @@
-import { Carousel } from 'antd'
+import { Carousel, Dropdown, Menu } from 'antd'
 import Image from 'next/image'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
@@ -8,12 +8,14 @@ import PageHead from 'src/components/PageHead'
 import StoreCard from 'src/components/StoreCard'
 import {
   StoreOrder,
+  StoreOrderBy,
   useStoresByTownAndCategoriesQuery,
 } from 'src/graphql/generated/types-and-hooks'
 import useInfiniteScroll from 'src/hooks/useInfiniteScroll'
 import HomeLayout from 'src/layouts/HomeLayout'
 import NavigationLayout from 'src/layouts/NavigationLayout'
 import { currentCoordinates, currentTown } from 'src/models/recoil'
+import { Padding } from 'src/styles/styles'
 import AllStoresIcon from 'src/svgs/AllStoresIcon'
 import NoKidsIcon from 'src/svgs/NoKidsIcon'
 import OutletIcon from 'src/svgs/OutletIcon'
@@ -77,35 +79,50 @@ const SelectableH4 = styled.h4<{ selected?: boolean }>`
   ${(p) => !p.selected && NotSelected}
 `
 
+const Button = styled.button`
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: solid 1px #e8e8e8;
+  background-color: white;
+`
+
 const limit = 4
+
+function getOrderBy(key?: StoreOrderBy) {
+  switch (key) {
+    case StoreOrderBy.Name:
+      return '이름순'
+    default:
+      return '최근순'
+  }
+}
 
 export default function HomePage() {
   const townName = useRecoilValue(currentTown)
 
   const [coordinates, setCoordinates] = useRecoilState(currentCoordinates)
+  const [hasMoreData, setHasMoreData] = useState(true)
+  const [categories, setCategories] = useState<string[]>([])
+  const [orderBy, setOrderBy] = useState<StoreOrderBy>()
 
-  useEffect(() => {
-    if (!coordinates) {
-      getCurrentPositionFromGeolocationAPI()
-        .then((position) => setCoordinates(position.coords))
-        .catch((error) => toast.warn(error))
-    }
-  }, [coordinates, setCoordinates])
-
-  const [lastId, setLastId] = useState('')
-  const [lastValue, setLastValue] = useState('')
-  const [order, setOrder] = useState<StoreOrder>({})
-
+  // 데이터 요청
   const { data, loading, fetchMore, refetch } = useStoresByTownAndCategoriesQuery({
     notifyOnNetworkStatusChange: true,
     onError: toastApolloError,
     skip: !townName,
-    variables: { town: townName, pagination: { limit } },
+    variables: {
+      ...(categories.length !== 0 && { categories }),
+      town: townName,
+      ...(orderBy && {
+        order: {
+          by: orderBy,
+        },
+      }),
+      pagination: { limit },
+    },
   })
 
   const stores = data?.storesByTownAndCategories
-
-  const [hasMoreData, setHasMoreData] = useState(true)
 
   const infiniteScrollRef = useInfiniteScroll({
     hasMoreData,
@@ -116,6 +133,7 @@ export default function HomePage() {
           variables: {
             pagination: {
               lastId: lastStore.id,
+              // lastValue: lastStore.????
               limit,
             },
           },
@@ -126,20 +144,37 @@ export default function HomePage() {
     },
   })
 
-  const [categories, setCategories] = useState<string[]>([])
-
-  function updateCategories(e: any) {
-    const clickedCategory = e.currentTarget.children[1].textContent
-
-    if (clickedCategory === '전체') {
-      setCategories([])
-    } else {
-      if (categories.includes(clickedCategory)) {
-        setCategories((prev) => prev.filter((category) => category !== clickedCategory))
-      } else {
-        setCategories((prev) => [...prev, clickedCategory])
-      }
+  // 현위치
+  useEffect(() => {
+    if (!coordinates) {
+      getCurrentPositionFromGeolocationAPI()
+        .then((position) => setCoordinates(position.coords))
+        .catch((error) => toast.warn(error))
     }
+  }, [coordinates, setCoordinates])
+
+  // 카테고리
+  function updateCategories(e: any) {
+    if (!loading) {
+      const clickedCategory = e.currentTarget.children[1].textContent
+
+      if (clickedCategory === '전체') {
+        setCategories([])
+      } else {
+        if (categories.includes(clickedCategory)) {
+          setCategories((prev) => prev.filter((category) => category !== clickedCategory))
+        } else {
+          setCategories((prev) => [...prev, clickedCategory])
+        }
+      }
+      setHasMoreData(true)
+    }
+  }
+
+  // 정렬
+  function updateOrderBy(item: any) {
+    setOrderBy(item.key)
+    setHasMoreData(true)
   }
 
   return (
@@ -197,12 +232,29 @@ export default function HomePage() {
           <SelectableH4 selected={categories.includes('노키즈')}>노키즈</SelectableH4>
         </FlexContainerColumn>
         <FlexContainerColumn onClick={updateCategories}>
-          <SmokeIcon selected={categories.includes('흡연')} />
-          <SelectableH4 selected={categories.includes('흡연')}>흡연</SelectableH4>
+          <SmokeIcon selected={categories.includes('흡연실')} />
+          <SelectableH4 selected={categories.includes('흡연실')}>흡연실</SelectableH4>
         </FlexContainerColumn>
       </FlexContainerScroll>
 
-      <button></button>
+      <Padding>
+        <Dropdown
+          disabled={loading}
+          overlay={
+            <Menu onClick={updateOrderBy} style={{ width: 'fit-content' }}>
+              <Menu.Item key={undefined}>
+                <div>최근순</div>
+              </Menu.Item>
+              <Menu.Item key={StoreOrderBy.Name}>
+                <div>이름순</div>
+              </Menu.Item>
+            </Menu>
+          }
+          trigger={['click']}
+        >
+          <Button>{getOrderBy(orderBy)}</Button>
+        </Dropdown>
+      </Padding>
 
       {stores ? (
         <GridContainerUl>
