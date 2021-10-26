@@ -119,12 +119,11 @@ export default function FeedPage() {
               <FeedCard key={feed.id} feed={feed} />
             ))}
           </GridContainerUl>
-        ) : loading ? (
-          <div>loading...</div>
         ) : (
-          <div>결과 없음</div>
+          !loading && <div>피드가 없어요</div>
         )}
 
+        {loading && <div>loading...</div>}
         {!loading && hasMoreData && <div ref={infiniteScrollRef}>무한 스크롤</div>}
       </FeedContainer>
     </PageHead>

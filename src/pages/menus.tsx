@@ -50,13 +50,15 @@ const GridContainerUl = styled.ul`
   }
 `
 
-const FlexContainer = styled.div`
+const FlexContainerColumn = styled.div`
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   gap: 0.3rem;
+
+  height: 7rem; // for safari
+  cursor: pointer;
 `
 
 const NotSelected = css`
@@ -122,38 +124,38 @@ export default function MenusPage() {
   return (
     <PageHead title={`${townName} 메뉴 - 소복`} description={description}>
       <GridContainerUl>
-        <FlexContainer onClick={updateCategories}>
+        <FlexContainerColumn onClick={updateCategories}>
           <AllMenusIcon selected={categories.length === 0} />
           <SelectableH4 selected={categories.length === 0}>전체</SelectableH4>
-        </FlexContainer>
-        <FlexContainer onClick={updateCategories}>
+        </FlexContainerColumn>
+        <FlexContainerColumn onClick={updateCategories}>
           <BeverageIcon selected={categories.includes('음료')} />
           <SelectableH4 selected={categories.includes('음료')}>음료</SelectableH4>
-        </FlexContainer>
-        <FlexContainer onClick={updateCategories}>
+        </FlexContainerColumn>
+        <FlexContainerColumn onClick={updateCategories}>
           <BreadIcon selected={categories.includes('베이커리')} />
           <SelectableH4 selected={categories.includes('베이커리')}>베이커리</SelectableH4>
-        </FlexContainer>
-        <FlexContainer onClick={updateCategories}>
+        </FlexContainerColumn>
+        <FlexContainerColumn onClick={updateCategories}>
           <BrunchIcon selected={categories.includes('브런치')} />
           <SelectableH4 selected={categories.includes('브런치')}>브런치</SelectableH4>
-        </FlexContainer>
-        <FlexContainer onClick={updateCategories}>
+        </FlexContainerColumn>
+        <FlexContainerColumn onClick={updateCategories}>
           <CakeIcon selected={categories.includes('케이크')} />
           <SelectableH4 selected={categories.includes('케이크')}>케이크</SelectableH4>
-        </FlexContainer>
-        <FlexContainer onClick={updateCategories}>
+        </FlexContainerColumn>
+        <FlexContainerColumn onClick={updateCategories}>
           <CoffeeIcon selected={categories.includes('커피')} />
           <SelectableH4 selected={categories.includes('커피')}>커피</SelectableH4>
-        </FlexContainer>
-        <FlexContainer onClick={updateCategories}>
+        </FlexContainerColumn>
+        <FlexContainerColumn onClick={updateCategories}>
           <CookieIcon selected={categories.includes('구움과자')} />
           <SelectableH4 selected={categories.includes('구움과자')}>구움과자</SelectableH4>
-        </FlexContainer>
-        <FlexContainer onClick={updateCategories}>
+        </FlexContainerColumn>
+        <FlexContainerColumn onClick={updateCategories}>
           <MacaronIcon selected={categories.includes('마카롱')} />
           <SelectableH4 selected={categories.includes('마카롱')}>마카롱</SelectableH4>
-        </FlexContainer>
+        </FlexContainerColumn>
       </GridContainerUl>
 
       <MenuContainer>
@@ -165,12 +167,11 @@ export default function MenusPage() {
               <MenuCard key={menu.id} menu={menu} />
             ))}
           </ul>
-        ) : loading ? (
-          <div>loading...</div>
         ) : (
-          <div>메뉴가 없어요</div>
+          !loading && <div>메뉴가 없어요</div>
         )}
 
+        {loading && <div>loading...</div>}
         {!loading && hasMoreData && <div ref={infiniteScrollRef}>무한 스크롤</div>}
       </MenuContainer>
     </PageHead>
