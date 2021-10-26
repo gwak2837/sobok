@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CSSProperties, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { stopPropagation } from 'src/utils'
 
 type Props = {
