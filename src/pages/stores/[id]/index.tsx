@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { ReactElement, useRef } from 'react'
 import { useRecoilValue } from 'recoil'
-import PageHead from 'src/component/PageHead'
+import PageHead from 'src/components/PageHead'
 import { useStoreDetailQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
 import { currentStore } from 'src/models/recoil'
