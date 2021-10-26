@@ -13,7 +13,7 @@ import { FlexContainerBetweenCenter } from '../styles/styles'
 const { TabPane } = Tabs
 
 const PaddingTop = styled.div`
-  padding-top: 98px;
+  padding-top: 93px;
 `
 
 const FixedPosition = styled.div`

@@ -2,15 +2,21 @@ import { ReactElement, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { toastApolloError } from 'src/apollo/error'
 import MenuCard from 'src/components/MenuCard'
-import MenuCategory from 'src/components/MenuCategory'
 import PageHead from 'src/components/PageHead'
 import { useMenusByTownAndCategoryQuery } from 'src/graphql/generated/types-and-hooks'
 import useInfiniteScroll from 'src/hooks/useInfiniteScroll'
 import HomeLayout from 'src/layouts/HomeLayout'
 import NavigationLayout from 'src/layouts/NavigationLayout'
 import { currentTown } from 'src/models/recoil'
-import { sleep } from 'src/utils'
-import styled from 'styled-components'
+import AllMenusIcon from 'src/svgs/AllMenusIcon'
+import BeverageIcon from 'src/svgs/BeverageIcon'
+import BreadIcon from 'src/svgs/BreadIcon'
+import BrunchIcon from 'src/svgs/BrunchIcon'
+import CakeIcon from 'src/svgs/CakeIcon'
+import CoffeeIcon from 'src/svgs/CoffeeIcon'
+import CookieIcon from 'src/svgs/CookieIcon'
+import MacaronIcon from 'src/svgs/MacaronIcon'
+import styled, { css } from 'styled-components'
 
 const description = ''
 
@@ -30,6 +36,38 @@ const FilterButton = styled.button`
   margin-bottom: 1rem;
 `
 
+const GridContainerUl = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+  place-items: center center;
+  gap: 1rem;
+  padding: 1rem;
+
+  background: #fff;
+
+  @media (max-width: 349px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+`
+
+const FlexContainer = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  gap: 0.3rem;
+`
+
+const NotSelected = css`
+  font-weight: normal;
+  color: #8e8e8e;
+`
+
+const SelectableH4 = styled.h4<{ selected?: boolean }>`
+  ${(p) => !p.selected && NotSelected}
+`
+
 const limit = 4
 
 export default function MenusPage() {
@@ -46,30 +84,62 @@ export default function MenusPage() {
 
   const [hasMoreData, setHasMoreData] = useState(true)
 
-  async function fetchMoreMenus() {
-    if (menus && menus.length > 0) {
-      const lastMenu = menus[menus.length - 1]
-      const response = await fetchMore({
-        variables: {
-          pagination: {
-            lastId: lastMenu.id,
-            limit,
-          },
-        },
-      }).catch(() => setHasMoreData(false))
-
-      if (response?.data.menusByTownAndCategory?.length !== limit) setHasMoreData(false)
-    }
-  }
-
   const infiniteScrollRef = useInfiniteScroll({
     hasMoreData,
-    onIntersecting: fetchMoreMenus,
+    onIntersecting: async () => {
+      if (menus && menus.length > 0) {
+        const lastMenu = menus[menus.length - 1]
+        const response = await fetchMore({
+          variables: {
+            pagination: {
+              lastId: lastMenu.id,
+              limit,
+            },
+          },
+        }).catch(() => setHasMoreData(false))
+
+        if (response?.data.menusByTownAndCategory?.length !== limit) setHasMoreData(false)
+      }
+    },
   })
 
   return (
     <PageHead title={`${townName} 메뉴 - 소복`} description={description}>
-      <MenuCategory />
+      <GridContainerUl>
+        <FlexContainer>
+          <AllMenusIcon selected />
+          <SelectableH4 selected>전체</SelectableH4>
+        </FlexContainer>
+        <FlexContainer>
+          <BeverageIcon />
+          <SelectableH4>음료</SelectableH4>
+        </FlexContainer>
+        <FlexContainer>
+          <BreadIcon />
+          <SelectableH4>베이커리</SelectableH4>
+        </FlexContainer>
+        <FlexContainer>
+          <BrunchIcon />
+          <SelectableH4>브런치</SelectableH4>
+        </FlexContainer>
+        <FlexContainer>
+          <CakeIcon />
+          <SelectableH4>케이크</SelectableH4>
+        </FlexContainer>
+        <FlexContainer>
+          <CoffeeIcon />
+          <SelectableH4>커피</SelectableH4>
+        </FlexContainer>
+        <FlexContainer>
+          <CookieIcon />
+          <SelectableH4>구움과자</SelectableH4>
+        </FlexContainer>
+        <FlexContainer>
+          <MacaronIcon />
+          <SelectableH4>마카롱</SelectableH4>
+        </FlexContainer>
+      </GridContainerUl>
+
       <MenuContainer>
         <FilterButton>거리순</FilterButton>
 
