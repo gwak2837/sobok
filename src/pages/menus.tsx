@@ -167,12 +167,11 @@ export default function MenusPage() {
               <MenuCard key={menu.id} menu={menu} />
             ))}
           </ul>
-        ) : loading ? (
-          <div>loading...</div>
         ) : (
-          <div>메뉴가 없어요</div>
+          !loading && <div>메뉴가 없어요</div>
         )}
 
+        {loading && <div>loading...</div>}
         {!loading && hasMoreData && <div ref={infiniteScrollRef}>무한 스크롤</div>}
       </MenuContainer>
     </PageHead>
