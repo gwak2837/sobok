@@ -7,7 +7,6 @@ import { toastApolloError } from 'src/apollo/error'
 import PageHead from 'src/components/PageHead'
 import StoreCard from 'src/components/StoreCard'
 import {
-  StoreOrder,
   StoreOrderBy,
   useStoresByTownAndCategoriesQuery,
 } from 'src/graphql/generated/types-and-hooks'
@@ -29,6 +28,8 @@ import WideTableIcon from 'src/svgs/WideTableIcon'
 import { getCurrentPositionFromGeolocationAPI } from 'src/utils/web-api'
 import styled, { css } from 'styled-components'
 
+import { OrderButton } from './menus'
+
 const CarouselDiv = styled.div`
   position: relative;
   height: 9.7rem;
@@ -37,11 +38,11 @@ const CarouselDiv = styled.div`
   background: #f6f6f6;
 `
 
-const GridContainerUl = styled.ul`
+const GridContainerStore = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: minmax(calc(180px + 10vw), auto);
-  padding: 1rem;
+  padding: 1rem 0;
   gap: 1rem;
   background: #fcfcfc;
 `
@@ -79,13 +80,6 @@ const SelectableH4 = styled.h4<{ selected?: boolean }>`
   ${(p) => !p.selected && NotSelected}
 `
 
-const Button = styled.button`
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  border: solid 1px #e8e8e8;
-  background-color: white;
-`
-
 const limit = 4
 
 function getOrderBy(key?: StoreOrderBy) {
@@ -97,33 +91,42 @@ function getOrderBy(key?: StoreOrderBy) {
   }
 }
 
+function getLastValue(key?: StoreOrderBy) {
+  switch (key) {
+    case StoreOrderBy.Name:
+      return 'name'
+    default:
+      return 'id'
+  }
+}
+
 export default function HomePage() {
   const townName = useRecoilValue(currentTown)
-
   const [coordinates, setCoordinates] = useRecoilState(currentCoordinates)
   const [hasMoreData, setHasMoreData] = useState(true)
   const [categories, setCategories] = useState<string[]>([])
   const [orderBy, setOrderBy] = useState<StoreOrderBy>()
 
   // 데이터 요청
-  const { data, loading, fetchMore, refetch } = useStoresByTownAndCategoriesQuery({
+  const { data, loading, fetchMore } = useStoresByTownAndCategoriesQuery({
     notifyOnNetworkStatusChange: true,
     onError: toastApolloError,
     skip: !townName,
     variables: {
       ...(categories.length !== 0 && { categories }),
-      town: townName,
       ...(orderBy && {
         order: {
           by: orderBy,
         },
       }),
       pagination: { limit },
+      town: townName,
     },
   })
 
   const stores = data?.storesByTownAndCategories
 
+  // 무한 스크롤
   const infiniteScrollRef = useInfiniteScroll({
     hasMoreData,
     onIntersecting: async () => {
@@ -133,7 +136,7 @@ export default function HomePage() {
           variables: {
             pagination: {
               lastId: lastStore.id,
-              // lastValue: lastStore.????
+              ...(orderBy && { lastValue: lastStore[getLastValue(orderBy)] }),
               limit,
             },
           },
@@ -172,8 +175,8 @@ export default function HomePage() {
   }
 
   // 정렬
-  function updateOrderBy(item: any) {
-    setOrderBy(item.key)
+  function updateOrderBy(menuItem: any) {
+    setOrderBy(menuItem.key)
     setHasMoreData(true)
   }
 
@@ -241,33 +244,35 @@ export default function HomePage() {
         <Dropdown
           disabled={loading}
           overlay={
-            <Menu onClick={updateOrderBy} style={{ width: 'fit-content' }}>
-              <Menu.Item key={undefined}>
+            <Menu onClick={updateOrderBy} style={{ textAlign: 'center' }}>
+              <Menu.Item key="">
                 <div>최근순</div>
               </Menu.Item>
+              <Menu.Divider />
               <Menu.Item key={StoreOrderBy.Name}>
                 <div>이름순</div>
               </Menu.Item>
             </Menu>
           }
+          placement="bottomCenter"
           trigger={['click']}
         >
-          <Button>{getOrderBy(orderBy)}</Button>
+          <OrderButton size="large">{getOrderBy(orderBy)}</OrderButton>
         </Dropdown>
+
+        {stores ? (
+          <GridContainerStore>
+            {stores.map((store) => (
+              <StoreCard key={store.id} store={store} coordinates={coordinates} />
+            ))}
+          </GridContainerStore>
+        ) : (
+          !loading && <div>매장이 없어요</div>
+        )}
+
+        {loading && <div>loading...</div>}
+        {!loading && hasMoreData && <div ref={infiniteScrollRef}>무한 스크롤</div>}
       </Padding>
-
-      {stores ? (
-        <GridContainerUl>
-          {stores.map((store) => (
-            <StoreCard key={store.id} store={store} coordinates={coordinates} />
-          ))}
-        </GridContainerUl>
-      ) : (
-        !loading && <div>매장이 없어요</div>
-      )}
-
-      {loading && <div>loading...</div>}
-      {!loading && hasMoreData && <div ref={infiniteScrollRef}>무한 스크롤</div>}
     </PageHead>
   )
 }
