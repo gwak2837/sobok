@@ -1,0 +1,10 @@
+query FeedListByTown(
+  $town: NonEmptyString
+  $option: FeedOptions
+  $order: FeedOrder
+  $pagination: Pagination!
+) {
+  feedListByTown(town: $town, option: $option, order: $order, pagination: $pagination) {
+    ...feedCard
+  }
+}

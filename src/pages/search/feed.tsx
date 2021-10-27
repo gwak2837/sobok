@@ -1,7 +1,8 @@
 import type { ReactElement } from 'react'
 import PageHead from 'src/components/PageHead'
-import { SearchResultLayout } from './all'
 import SearchFormLayout from 'src/layouts/SearchFormLayout'
+
+import { SearchResultLayout } from './all'
 
 const description = ''
 

@@ -1,0 +1,22 @@
+<svg width="24" height="24">
+  <defs>
+    <style>
+      .add-button {
+        fill: none;
+        stroke: #ff9f74;
+        stroke-linecap: round;
+        stroke-width: 1.7px
+      }
+    </style>
+  </defs>
+  <g transform="translate(-322 -132)">
+    <g transform="translate(322 132)" fill="#fff" stroke="#f0f0f0">
+      <circle cx="12" cy="12" r="12" stroke="none" />
+      <circle cx="12" cy="12" r="11.5" fill="none" />
+    </g>
+    <g transform="translate(55.618 4.911)">
+      <path class="add-button" d="M704.382 145h8.633" transform="translate(-430 -5.808)" />
+      <path class="add-button" d="M0 0h8.633" transform="rotate(90 71.911 206.787)" />
+    </g>
+  </g>
+</svg>

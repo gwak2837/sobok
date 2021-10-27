@@ -1,0 +1,27 @@
+query NewsListByTown(
+  $town: NonEmptyString
+  $option: NewsOptions
+  $categories: [NonEmptyString!]
+  $order: NewsOrder
+  $pagination: Pagination!
+) {
+  newsListByTown(
+    town: $town
+    option: $option
+    categories: $categories
+    order: $order
+    pagination: $pagination
+  ) {
+    id
+    creationTime
+    title
+    contents
+    category
+    imageUrls
+    store {
+      id
+      name
+      imageUrls
+    }
+  }
+}

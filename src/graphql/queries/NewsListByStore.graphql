@@ -1,0 +1,20 @@
+query NewsListByStore(
+  $categories: [NonEmptyString!]
+  $order: NewsOrder
+  $pagination: Pagination!
+  $storeId: ID!
+) {
+  newsListByStore(
+    categories: $categories
+    order: $order
+    pagination: $pagination
+    storeId: $storeId
+  ) {
+    id
+    creationTime
+    title
+    contents
+    category
+    imageUrls
+  }
+}

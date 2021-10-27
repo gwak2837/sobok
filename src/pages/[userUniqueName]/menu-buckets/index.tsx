@@ -7,7 +7,7 @@ import { useMenuBucketsQuery } from 'src/graphql/generated/types-and-hooks'
 import BucketLayout from 'src/layouts/BucketLayout'
 import NavigationLayout from 'src/layouts/NavigationLayout'
 import { currentUser } from 'src/models/recoil'
-import { getUserUniqueName } from 'src/utils/commons'
+import { getUserUniqueName } from 'src/utils'
 
 const description = ''
 

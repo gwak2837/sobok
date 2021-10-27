@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { useRecoilValue } from 'recoil'
 import FeedCard from 'src/components/FeedCard'
 import PageHead from 'src/components/PageHead'
-import { useStoreFeedQuery } from 'src/graphql/generated/types-and-hooks'
+import { useFeedListByStoreQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
 import { currentStore } from 'src/models/recoil'
 import styled from 'styled-components'
@@ -18,10 +18,14 @@ const GridContainerUl = styled.ul`
   padding: 1rem;
 `
 
+const limit = 4
+
 export default function StoreFeedPage() {
   const { id: storeId, name: storeName } = useRecoilValue(currentStore)
 
-  const { data, loading, error } = useStoreFeedQuery({ variables: { storeId } })
+  const { data, loading, error } = useFeedListByStoreQuery({
+    variables: { storeId, pagination: { limit } },
+  })
 
   const storeFeed = data?.feedListByStore
 

@@ -1,5 +1,0 @@
-query Stores($town: NonEmptyString, $categories: [NonEmptyString!]) {
-  storesByTownAndCategory(town: $town, categories: $categories) {
-    ...storeCard
-  }
-}

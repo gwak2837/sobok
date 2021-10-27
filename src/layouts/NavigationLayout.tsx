@@ -3,16 +3,20 @@ import { ReactNode } from 'react'
 import { useRecoilValue } from 'recoil'
 import ClientSideLink from 'src/components/atoms/ClientSideLink'
 import { useMeQuery } from 'src/graphql/generated/types-and-hooks'
-import {
-  SOBOK_COLOR,
-  SOBOK_ACHROMATIC_COLOR,
-  SOBOK_TEXT_COLOR,
-  NAVIGATION_HEIGHT,
-} from 'src/utils/constants'
 import { currentUser } from 'src/models/recoil'
+import HeartIcon from 'src/svgs/HeartIcon'
+import HomeIcon from 'src/svgs/HomeIcon'
+import NewsIcon from 'src/svgs/NewsIcon'
+import PersonIcon from 'src/svgs/PersonIcon'
+import TrendIcon from 'src/svgs/TrendIcon'
+import {
+  NAVIGATION_HEIGHT,
+  SOBOK_ACHROMATIC_COLOR,
+  SOBOK_COLOR,
+  SOBOK_TEXT_COLOR,
+} from 'src/utils/constants'
 import { TABLET_MIN_WIDTH } from 'src/utils/constants'
 import styled from 'styled-components'
-import { HeartIcon, HomeIcon, NewsIcon, PersonIcon, TrendIcon } from 'src/components/atoms/SVG'
 
 const Padding = styled.div`
   padding: ${NAVIGATION_HEIGHT};
@@ -76,7 +80,7 @@ export default function NavigationLayout({ children }: Props) {
 
   const doesNewsSelected = asPath.startsWith('/news')
   const doesTrendSelected = asPath.startsWith('/trends')
-  const doesHomeSelected = asPath === '/'
+  const doesHomeSelected = asPath === '/' || asPath === '/menus' || asPath === '/feed'
   const doesHeartSelected = asPath === storeBucketUrl || asPath === menuBucketUrl
   const doesPersonSelected = asPath === myPageUrl
 
@@ -84,6 +88,7 @@ export default function NavigationLayout({ children }: Props) {
     <>
       {children}
       <Padding />
+
       <FixedNavigation>
         <SClientSideLink
           color={doesNewsSelected ? SOBOK_TEXT_COLOR : SOBOK_ACHROMATIC_COLOR}

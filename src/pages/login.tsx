@@ -1,17 +1,18 @@
-import { Input, Button, Checkbox } from 'antd'
+import { Button, Checkbox, Input } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { useSetRecoilState } from 'recoil'
-import { handleApolloError } from 'src/apollo/error'
-import { MarginH4, RedText } from 'src/components/atoms/Styles'
+import { toastApolloError } from 'src/apollo/error'
 import PageHead from 'src/components/PageHead'
 import { useLoginMutation } from 'src/graphql/generated/types-and-hooks'
 import { currentUser } from 'src/models/recoil'
-import { ko2en } from 'src/utils/commons'
-import { validateId, validatePassword, renderPasswordInputIcon } from './register'
+import { MarginH4, RedText } from 'src/styles/styles'
+import { ko2en } from 'src/utils'
+
+import { renderPasswordInputIcon, validateId, validatePassword } from './register'
 
 type LoginFormValues = {
   uniqueNameOrEmail: string
@@ -54,7 +55,7 @@ export default function LoginPage() {
       router.replace(sessionStorage.getItem('redirectionUrlAfterLogin') ?? '/')
       sessionStorage.removeItem('redirectionUrlAfterLogin')
     },
-    onError: handleApolloError,
+    onError: toastApolloError,
   })
 
   function onSubmit({ uniqueNameOrEmail, password }: LoginFormValues) {

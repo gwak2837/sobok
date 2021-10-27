@@ -1,13 +1,15 @@
-import { ReactElement } from 'react'
+import Image from 'next/image'
+import { ReactElement, useState } from 'react'
 import { useRecoilValue } from 'recoil'
+import { toastApolloError } from 'src/apollo/error'
 import FeedCard from 'src/components/FeedCard'
 import PageHead from 'src/components/PageHead'
-import { useFeedListQuery } from 'src/graphql/generated/types-and-hooks'
+import { useFeedListByTownQuery } from 'src/graphql/generated/types-and-hooks'
+import useInfiniteScroll from 'src/hooks/useInfiniteScroll'
 import HomeLayout from 'src/layouts/HomeLayout'
 import NavigationLayout from 'src/layouts/NavigationLayout'
-import styled from 'styled-components'
-import Image from 'next/image'
 import { currentTown } from 'src/models/recoil'
+import styled from 'styled-components'
 
 const description = ''
 
@@ -60,12 +62,42 @@ const GridContainerUl = styled.ul`
   gap: 1rem;
 `
 
+const limit = 4
+
 export default function FeedPage() {
   const townName = useRecoilValue(currentTown)
 
-  const { data, loading } = useFeedListQuery({ skip: !townName, variables: { town: townName } })
+  const { data, loading, fetchMore } = useFeedListByTownQuery({
+    onError: toastApolloError,
+    notifyOnNetworkStatusChange: true,
+    skip: !townName,
+    variables: { town: townName, pagination: { limit } },
+  })
 
   const feedList = data?.feedListByTown
+
+  const [hasMoreData, setHasMoreData] = useState(true)
+
+  async function fetchMoreFeedList() {
+    if (feedList && feedList.length > 0) {
+      const lastFeed = feedList[feedList.length - 1]
+      const response = await fetchMore({
+        variables: {
+          pagination: {
+            lastId: lastFeed.id,
+            limit,
+          },
+        },
+      }).catch(() => setHasMoreData(false))
+
+      if (response?.data.feedListByTown?.length !== limit) setHasMoreData(false)
+    }
+  }
+
+  const infiniteScrollRef = useInfiniteScroll({
+    hasMoreData,
+    onIntersecting: fetchMoreFeedList,
+  })
 
   return (
     <PageHead title={`${townName} 피드 - 소복`} description={description}>
@@ -81,17 +113,18 @@ export default function FeedPage() {
           </AddButtonWrapper>
         </FeedHeader>
 
-        {loading ? (
-          <div>loading...</div>
-        ) : feedList ? (
+        {feedList ? (
           <GridContainerUl>
             {feedList.map((feed) => (
               <FeedCard key={feed.id} feed={feed} />
             ))}
           </GridContainerUl>
         ) : (
-          <div>결과 없음</div>
+          !loading && <div>피드가 없어요</div>
         )}
+
+        {loading && <div>loading...</div>}
+        {!loading && hasMoreData && <div ref={infiniteScrollRef}>무한 스크롤</div>}
       </FeedContainer>
     </PageHead>
   )

@@ -2,8 +2,7 @@ import { LockTwoTone, UnlockTwoTone } from '@ant-design/icons'
 import { Button, Input } from 'antd'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { handleApolloError } from 'src/apollo/error'
-import { MarginH4, RedText } from 'src/components/atoms/Styles'
+import { toastApolloError } from 'src/apollo/error'
 import PageHead from 'src/components/PageHead'
 import {
   Gender,
@@ -11,6 +10,7 @@ import {
   useIsUniqueNameUniqueLazyQuery,
   useRegisterMutation,
 } from 'src/graphql/generated/types-and-hooks'
+import { MarginH4, RedText } from 'src/styles/styles'
 
 type RegisterFormValues = {
   uniqueName: string
@@ -94,7 +94,7 @@ export default function RegisterPage() {
       toast.success('회원가입에 성공했어요.')
       console.log(register)
     },
-    onError: handleApolloError,
+    onError: toastApolloError,
   })
 
   function verifyId() {

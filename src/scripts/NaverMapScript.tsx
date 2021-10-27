@@ -1,5 +1,4 @@
 import Script from 'next/script'
-import React from 'react'
 
 type Props = {
   onLoad?: (e: any) => void

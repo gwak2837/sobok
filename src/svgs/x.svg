@@ -1,0 +1,16 @@
+<svg width="9.107" height="9.106">
+  <defs>
+    <style>
+      .x {
+        fill: none;
+        stroke: #ff9f74;
+        stroke-linecap: round;
+        stroke-width: 1.4px
+      }
+    </style>
+  </defs>
+  <g transform="translate(-157.704 -131.81)">
+    <path class="x" d="M617.694 5621.8l7.126 7.126" transform="translate(-459 -5489)" />
+    <path class="x" d="M0 0l7.126 7.127" transform="rotate(90 16.51 149.31)" />
+  </g>
+</svg>
