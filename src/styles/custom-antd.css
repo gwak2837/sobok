@@ -34,6 +34,7 @@ html {
   background: #ff9f74;
 }
 
+
 .ant-tabs-tab:hover,
 .ant-tabs-tab-btn:focus,
 .ant-tabs-tab-remove:focus,
@@ -42,6 +43,12 @@ html {
 .ant-tabs-tab-btn:active,
 .ant-tabs-tab-remove:active {
   color: #ff9f74;
+}
+
+.ant-btn:hover, 
+.ant-btn:focus {
+  color: #ff9f74;
+  border-color: #ff9f74;
 }
 
 .ant-tabs > .ant-tabs-nav {
@@ -73,3 +80,4 @@ html {
 .ant-btn-link {
   color: #ff9f74;
 }
+
