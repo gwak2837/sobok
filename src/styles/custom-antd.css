@@ -44,6 +44,12 @@ html {
   color: #ff9f74;
 }
 
+.ant-btn:hover,
+.ant-btn:focus {
+  color: #ff9f74;
+  border-color: #ff9f74;
+}
+
 .ant-tabs > .ant-tabs-nav {
   background: white;
   width: 100%;

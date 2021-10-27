@@ -16,7 +16,6 @@ const FlexContainerLi = styled.li`
   border-radius: 10px;
   border: solid 1px #f0f0f0;
   background-color: white;
-  margin-bottom: 1rem;
   overflow: hidden;
 `
 
