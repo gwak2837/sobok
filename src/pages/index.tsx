@@ -5,16 +5,17 @@ import { toast } from 'react-toastify'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { toastApolloError } from 'src/apollo/error'
 import PageHead from 'src/components/PageHead'
-import StoreCard from 'src/components/StoreCard'
+import StoreCard, { StoreLoadingCard } from 'src/components/StoreCard'
 import {
   StoreOrderBy,
+  useIsLikedOfStoreLazyQuery,
   useStoresByTownAndCategoriesQuery,
 } from 'src/graphql/generated/types-and-hooks'
 import useInfiniteScroll from 'src/hooks/useInfiniteScroll'
 import HomeLayout from 'src/layouts/HomeLayout'
 import NavigationLayout from 'src/layouts/NavigationLayout'
 import { currentCoordinates, currentTown } from 'src/models/recoil'
-import { Padding } from 'src/styles/styles'
+import { Padding } from 'src/styles'
 import AllStoresIcon from 'src/svgs/AllStoresIcon'
 import NoKidsIcon from 'src/svgs/NoKidsIcon'
 import OutletIcon from 'src/svgs/OutletIcon'
@@ -25,6 +26,7 @@ import SmokeIcon from 'src/svgs/SmokeIcon'
 import WholeGlassIcon from 'src/svgs/WholeGlassIcon'
 import WideSofaIcon from 'src/svgs/WideSofaIcon'
 import WideTableIcon from 'src/svgs/WideTableIcon'
+import { TABLET_MIN_WIDTH } from 'src/utils/constants'
 import { getCurrentPositionFromGeolocationAPI } from 'src/utils/web-api'
 import styled, { css } from 'styled-components'
 
@@ -40,11 +42,14 @@ const CarouselDiv = styled.div`
 
 const GridContainerStore = styled.ul`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: minmax(calc(180px + 10vw), auto);
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   padding: 1rem 0;
   gap: 1rem;
   background: #fcfcfc;
+  
+  @media (min-width: ${TABLET_MIN_WIDTH}) {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
 `
 
 const FlexContainerScroll = styled.ul`
@@ -110,7 +115,10 @@ export default function HomePage() {
   // 데이터 요청
   const { data, loading, fetchMore } = useStoresByTownAndCategoriesQuery({
     notifyOnNetworkStatusChange: true,
-    onError: toastApolloError,
+    onError: (error) => {
+      toastApolloError(error)
+      setHasMoreData(false)
+    },
     skip: !townName,
     variables: {
       ...(categories.length !== 0 && { categories }),
@@ -125,6 +133,8 @@ export default function HomePage() {
   })
 
   const stores = data?.storesByTownAndCategories
+
+  const [isLikedOfStoreLazyQuery] = useIsLikedOfStoreLazyQuery()
 
   // 무한 스크롤
   const infiniteScrollRef = useInfiniteScroll({
@@ -257,7 +267,7 @@ export default function HomePage() {
           placement="bottomCenter"
           trigger={['click']}
         >
-          <OrderButton size="large">{getOrderBy(orderBy)}</OrderButton>
+          <OrderButton>{getOrderBy(orderBy)}</OrderButton>
         </Dropdown>
 
         {stores ? (
@@ -265,12 +275,17 @@ export default function HomePage() {
             {stores.map((store) => (
               <StoreCard key={store.id} store={store} coordinates={coordinates} />
             ))}
+            {loading && (
+              <>
+                <StoreLoadingCard />
+                <StoreLoadingCard />
+              </>
+            )}
           </GridContainerStore>
         ) : (
           !loading && <div>매장이 없어요</div>
         )}
 
-        {loading && <div>loading...</div>}
         {!loading && hasMoreData && <div ref={infiniteScrollRef}>무한 스크롤</div>}
       </Padding>
     </PageHead>
