@@ -1,0 +1,3 @@
+mutation ToggleLikedStore($id: ID!) {
+  toggleLikedStore(id: $id)
+}

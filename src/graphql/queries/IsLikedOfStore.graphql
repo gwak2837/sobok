@@ -1,0 +1,6 @@
+query IsLikedOfStore($id: ID!) {
+  store(id: $id) {
+    id
+    isLiked
+  }
+}
