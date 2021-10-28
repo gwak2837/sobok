@@ -9,7 +9,7 @@ import { toastApolloError } from 'src/apollo/error'
 import PageHead from 'src/components/PageHead'
 import { useLoginMutation } from 'src/graphql/generated/types-and-hooks'
 import { currentUser } from 'src/models/recoil'
-import { MarginH4, RedText } from 'src/styles/styles'
+import { MarginH4, RedText } from 'src/styles'
 import { ko2en } from 'src/utils'
 
 import { renderPasswordInputIcon, validateId, validatePassword } from './register'

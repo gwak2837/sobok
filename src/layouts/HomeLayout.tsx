@@ -11,7 +11,7 @@ import SearchIcon from 'src/svgs/search.svg'
 import { TABLET_MIN_WIDTH } from 'src/utils/constants'
 import styled from 'styled-components'
 
-import { FlexContainerBetweenCenter } from '../styles/styles'
+import { FlexContainerBetweenCenter } from '../styles'
 
 const { TabPane } = Tabs
 
