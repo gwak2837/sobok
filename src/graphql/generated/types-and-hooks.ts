@@ -156,7 +156,7 @@ export type Mutation = {
   /** 회원가입에 필요한 정보를 주면 성공했을 때 인증 토큰을 반환함 */
   register?: Maybe<UserAuthentication>
   /** 해당 매장을 찜하거나 이미 찜한 매장을 헤제합니다. `True`: 찜 성공, `False`: 찜 해제 */
-  toggleLikedStore: Scalars['Boolean']
+  toggleLikedStore?: Maybe<Store>
   /** 회원탈퇴 시 사용자 정보가 모두 초기화됩 */
   unregister: Scalars['Boolean']
 }
@@ -583,7 +583,10 @@ export type ToggleLikedStoreMutationVariables = Exact<{
   id: Scalars['ID']
 }>
 
-export type ToggleLikedStoreMutation = { __typename?: 'Mutation'; toggleLikedStore: boolean }
+export type ToggleLikedStoreMutation = {
+  __typename?: 'Mutation'
+  toggleLikedStore?: { __typename?: 'Store'; id: string; isLiked: boolean } | null | undefined
+}
 
 export type BucketMenusQueryVariables = Exact<{
   bucketId: Scalars['ID']
@@ -1081,7 +1084,10 @@ export type RegisterMutationOptions = Apollo.BaseMutationOptions<
 >
 export const ToggleLikedStoreDocument = gql`
   mutation ToggleLikedStore($id: ID!) {
-    toggleLikedStore(id: $id)
+    toggleLikedStore(id: $id) {
+      id
+      isLiked
+    }
   }
 `
 export type ToggleLikedStoreMutationFn = Apollo.MutationFunction<

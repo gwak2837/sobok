@@ -8,7 +8,6 @@ import PageHead from 'src/components/PageHead'
 import StoreCard, { StoreLoadingCard } from 'src/components/StoreCard'
 import {
   StoreOrderBy,
-  useIsLikedOfStoreLazyQuery,
   useStoresByTownAndCategoriesQuery,
 } from 'src/graphql/generated/types-and-hooks'
 import useInfiniteScroll from 'src/hooks/useInfiniteScroll'
@@ -133,8 +132,6 @@ export default function HomePage() {
   })
 
   const stores = data?.storesByTownAndCategories
-
-  const [isLikedOfStoreLazyQuery] = useIsLikedOfStoreLazyQuery()
 
   // 무한 스크롤
   const infiniteScrollRef = useInfiniteScroll({

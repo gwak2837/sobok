@@ -1,3 +1,6 @@
 mutation ToggleLikedStore($id: ID!) {
-  toggleLikedStore(id: $id)
+  toggleLikedStore(id: $id) {
+    id
+    isLiked
+  }
 }

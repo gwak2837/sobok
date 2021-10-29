@@ -92,6 +92,9 @@ export function StoreLoadingCard() {
         <AbsolutePositionSkeleton>
           <Skeleton height="100%" width="100%" />
         </AbsolutePositionSkeleton>
+        <AbsolutePositionHeart>
+          <HeartFilledIcon loading />
+        </AbsolutePositionHeart>
       </Frame16to10>
 
       <FlexContainerBetweenCenter>
@@ -117,7 +120,6 @@ export function StoreLoadingCard() {
 
 type Props = {
   store: StoreCardFragment
-  afterToggleLikedStore?: (a: any) => void
   coordinates?: GeolocationCoordinates
 }
 
@@ -125,13 +127,8 @@ function StoreCard({ store, coordinates }: Props) {
   const router = useRouter()
 
   const [toggleLikedStoreMutation, { loading }] = useToggleLikedStoreMutation({
-    onCompleted: (data) => {
-      console.log(data.toggleLikedStore)
-    },
     onError: toastApolloError,
-    variables: {
-      id: store.id,
-    },
+    variables: { id: store.id },
   })
 
   useEffect(() => {
