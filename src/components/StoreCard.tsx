@@ -57,14 +57,14 @@ const CategoryButton = styled.button`
   font-size: 0.85rem;
   padding: 0.4rem 0.7rem 0.5rem;
   text-align: center;
-  white-space: nowrap; 
+  white-space: nowrap;
 `
 
 const Tag = styled.span`
   flex-wrap: nowrap;
   color: grey;
   font-size: 0.85rem;
-  white-space: nowrap; 
+  white-space: nowrap;
 `
 
 const AbsolutePositionHeart = styled.div`
@@ -110,7 +110,7 @@ export function StoreLoadingCard() {
         <Skeleton borderRadius="9999px" width="5rem" height="2rem" />
       </FlexContainerGap>
 
-      <Skeleton width="80%" />
+      <Skeleton width="80%" height="1.3rem" />
     </GridContainerGap>
   )
 }

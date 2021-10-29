@@ -46,7 +46,7 @@ const GridContainerStore = styled.ul`
   padding: 1rem 0;
   gap: 1rem;
   background: #fcfcfc;
-  
+
   @media (min-width: ${TABLET_MIN_WIDTH}) {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
@@ -275,6 +275,7 @@ export default function HomePage() {
             {stores.map((store) => (
               <StoreCard key={store.id} store={store} coordinates={coordinates} />
             ))}
+            <StoreLoadingCard />
             {loading && (
               <>
                 <StoreLoadingCard />

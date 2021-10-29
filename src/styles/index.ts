@@ -106,9 +106,14 @@ const skeletonLoading = keyframes`
 `
 
 export const Skeleton = styled.div<{ height?: string; width?: string; borderRadius?: string }>`
-  width:  ${(p) => p.width ?? '50%'};
+  width: ${(p) => p.width ?? '50%'};
   height: ${(p) => p.height ?? '1.5rem'};
-  background: linear-gradient(90deg, rgba(207, 216, 220, 0.4), rgba(207, 216, 220, 0.6), rgba(207, 216, 220, 0.4));
+  background: linear-gradient(
+    90deg,
+    rgba(207, 216, 220, 0.3),
+    rgba(207, 216, 220, 0.6),
+    rgba(207, 216, 220, 0.3)
+  );
   background-size: 600% 600%;
   animation: ${skeletonLoading} 3s ease infinite;
   border-radius: ${(p) => p.borderRadius ?? '4px'};
