@@ -129,7 +129,7 @@ export default function StoreLayout({ children }: Props) {
         <BackArrowIcon color="#fff" />
       </AbsoluteTopLeft>
       <AbsoluteTopRight onClick={toggleLikedStore}>
-        <HeartFilledIcon filled={store?.isLiked} />
+        <HeartFilledIcon colored={store?.isLiked} loading={loading} />
       </AbsoluteTopRight>
 
       {loading ? (
