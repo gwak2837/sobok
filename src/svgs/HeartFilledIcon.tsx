@@ -11,7 +11,7 @@ const Svg = styled.svg`
 
 const Path = styled.path`
   stroke-linejoin: round;
-  stroke-width: .8px;
+  stroke-width: 0.8px;
 
   transition: stroke 0.5s ease;
 `
