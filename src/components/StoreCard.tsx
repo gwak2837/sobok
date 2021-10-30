@@ -72,7 +72,7 @@ const AbsolutePositionHeart = styled.div`
   bottom: 0.5rem;
   right: 0.5rem;
 
-  width: max(1rem, min(5vw, 1.2rem));
+  width: max(1.1rem, min(5vw, 1.3rem));
   height: max(1rem, min(5vw, 1.2rem));
   cursor: pointer;
 `
