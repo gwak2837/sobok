@@ -6,7 +6,7 @@ import { useStoreDetailQuery } from 'src/graphql/generated/types-and-hooks'
 import StoreLayout from 'src/layouts/StoreLayout'
 import { currentStore } from 'src/models/recoil'
 import NaverMapScript from 'src/scripts/NaverMapScript'
-import { SquareFrame } from 'src/styles/styles'
+import { SquareFrame } from 'src/styles'
 import { createNaverMap } from 'src/utils'
 import styled from 'styled-components'
 

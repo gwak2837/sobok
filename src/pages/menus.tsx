@@ -9,7 +9,7 @@ import useInfiniteScroll from 'src/hooks/useInfiniteScroll'
 import HomeLayout from 'src/layouts/HomeLayout'
 import NavigationLayout from 'src/layouts/NavigationLayout'
 import { currentTown } from 'src/models/recoil'
-import { Padding } from 'src/styles/styles'
+import { Padding } from 'src/styles'
 import AllMenusIcon from 'src/svgs/AllMenusIcon'
 import BeverageIcon from 'src/svgs/BeverageIcon'
 import BreadIcon from 'src/svgs/BreadIcon'
@@ -102,7 +102,10 @@ export default function MenusPage() {
   // 데이터 요청
   const { data, loading, fetchMore } = useMenusByTownAndCategoryQuery({
     notifyOnNetworkStatusChange: true,
-    onError: toastApolloError,
+    onError: (error) => {
+      toastApolloError(error)
+      setHasMoreData(false)
+    },
     skip: !townName,
     variables: {
       ...(category && { category }),
@@ -217,7 +220,7 @@ export default function MenusPage() {
           placement="bottomCenter"
           trigger={['click']}
         >
-          <OrderButton size="large">{getOrderBy(orderBy)}</OrderButton>
+          <OrderButton>{getOrderBy(orderBy)}</OrderButton>
         </Dropdown>
 
         {menus ? (

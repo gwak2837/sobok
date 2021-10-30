@@ -19,7 +19,7 @@
     "lint": "eslint . --fix --ignore-path .gitignore",
     "type": "tsc --pretty",
     "test": "jest",
-    "pre-push": "yarn format && yarn lint && yarn type",
+    "pre-push": "yarn format && yarn type",
     "generate": "rm -rf src/graphql/generated && graphql-codegen dotenv_config_path=.env.development --require dotenv/config",
     "postinstall": "husky install"
   },
