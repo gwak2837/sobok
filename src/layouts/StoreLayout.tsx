@@ -6,7 +6,7 @@ import { ReactNode, useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { useStoreQuery } from 'src/graphql/generated/types-and-hooks'
 import { currentStore as storeRecoil } from 'src/models/recoil'
-import { FlexContainerCenterCenter } from 'src/styles/styles'
+import { FlexContainerCenterCenter } from 'src/styles'
 import BackArrowIcon from 'src/svgs/BackArrowIcon'
 import HeartFilledIcon from 'src/svgs/HeartFilledIcon'
 import styled from 'styled-components'
@@ -129,7 +129,7 @@ export default function StoreLayout({ children }: Props) {
         <BackArrowIcon color="#fff" />
       </AbsoluteTopLeft>
       <AbsoluteTopRight onClick={toggleLikedStore}>
-        <HeartFilledIcon filled={store?.isLiked} />
+        <HeartFilledIcon colored={store?.isLiked} loading={loading} />
       </AbsoluteTopRight>
 
       {loading ? (

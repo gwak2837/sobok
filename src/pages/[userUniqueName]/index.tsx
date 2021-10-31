@@ -16,6 +16,13 @@ export default function UserPage() {
       <div>
         <Link href="/">홈으로</Link>
       </div>
+
+      {!userId && (
+        <div>
+          <Link href="/login">로그인</Link>
+        </div>
+      )}
+
       <div>사용자 페이지</div>
       <div>사용자 아이디: {userId}</div>
     </PageHead>

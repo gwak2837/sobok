@@ -10,7 +10,7 @@ import {
   useIsUniqueNameUniqueLazyQuery,
   useRegisterMutation,
 } from 'src/graphql/generated/types-and-hooks'
-import { MarginH4, RedText } from 'src/styles/styles'
+import { MarginH4, RedText } from 'src/styles'
 
 type RegisterFormValues = {
   uniqueName: string

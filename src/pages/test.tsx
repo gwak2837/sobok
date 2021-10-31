@@ -108,12 +108,6 @@ export default function TestPage() {
       </Div>
 
       <Div>
-        <HeartFilledIcon filled />
-      </Div>
-      <Div>
-        <HeartFilledIcon />
-      </Div>
-      <Div>
         <HeartIcon color={SOBOK_COLOR} />
       </Div>
       <Div>
