@@ -113,7 +113,7 @@ export default function StoreLayout({ children }: Props) {
   }
 
   function toggleLikedStore() {
-    console.log('toggleLikedStore')
+    console.log('toggleLikedStore1')
   }
 
   return (
