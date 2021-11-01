@@ -55,7 +55,7 @@ const LogoWrapper = styled.div`
 
   svg {
     grid-column: 2 / 3;
-	  grid-row: 2 / 3;
+    grid-row: 2 / 3;
   }
 `
 
@@ -76,9 +76,9 @@ const EmailIconWraptper = styled.div`
 
 const PasswordIconWraptper = styled.div`
   width: 1rem;
-  
+
   svg {
-    display: block; 
+    display: block;
     margin: auto;
   }
 `
@@ -95,7 +95,7 @@ const StyledButton = styled(Button)`
   width: 100%;
 `
 
-const A = styled.div`
+const CenterText = styled.div`
   text-align: center;
 `
 
@@ -217,14 +217,18 @@ export default function LoginPage() {
 
           <Padding1 />
 
-          <A>
-            <Link href="/register">
-              <BlackText>회원가입</BlackText>
+          <CenterText>
+            <Link href="/register" passHref>
+              <a>
+                <BlackText>회원가입</BlackText>
+              </a>
             </Link>
-            <Link href="/register">
-              <BlackText>아이디/비밀번호 찾기</BlackText>
+            <Link href="/register" passHref>
+              <a>
+                <BlackText>아이디/비밀번호 찾기</BlackText>
+              </a>
             </Link>
-          </A>
+          </CenterText>
         </form>
       </Padding>
     </PageHead>
