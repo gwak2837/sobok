@@ -56,7 +56,7 @@ const LogoWrapper = styled.div`
   svg {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
-    width: 100%;
+    width: 100%; // for safari
   }
 `
 
