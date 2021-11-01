@@ -21,11 +21,23 @@ type RegisterFormValues = {
   gender: Gender
 }
 
-export const validateId = {
-  required: '필수 항목입니다.',
+export const validateUniqueNameOrEmail = {
+  required: '아이디 또는 이메일을 입력해주세요.',
   minLength: {
-    value: 5,
-    message: '최소 5글자 이상 입력해주세요.',
+    value: 3,
+    message: '아이디 또는 이메일을 최소 3글자 이상 입력해주세요.',
+  },
+  maxLength: {
+    value: 50,
+    message: '아이디 또는 이메일을 최대 50글자 이하로 입력해주세요.',
+  },
+}
+
+export const validateId = {
+  required: '아이디를 입력해주세요.',
+  minLength: {
+    value: 3,
+    message: '최소 3글자 이상 입력해주세요.',
   },
   maxLength: {
     value: 50,
@@ -34,10 +46,10 @@ export const validateId = {
 }
 
 export const validateEmail = {
-  required: '필수 항목입니다.',
+  required: '이메일을 입력해주세요.',
   maxLength: {
     value: 50,
-    message: '최대 50글자 이하로 입력해주세요.',
+    message: '이메일을 최대 50글자 이하로 입력해주세요.',
   },
   pattern: {
     value: /\S+@\S+\.\S+/,
@@ -46,20 +58,11 @@ export const validateEmail = {
 }
 
 export const validatePassword = {
-  required: '필수 항목입니다.',
+  required: '비밀번호를 입력해주세요.',
   minLength: {
     value: 8,
-    message: '최소 8글자 이상 입력해주세요.',
+    message: '비밀번호를 최소 8글자 이상 입력해주세요.',
   },
-}
-
-const PASSWORD_INPUT_ICONS = [
-  <UnlockTwoTone key={1} style={{ fontSize: '1.2rem' }} twoToneColor="#c4801a" />,
-  <LockTwoTone key={2} style={{ fontSize: '1.2rem' }} twoToneColor="#52c41a" />,
-]
-
-export function renderPasswordInputIcon(visible: boolean) {
-  return visible ? PASSWORD_INPUT_ICONS[0] : PASSWORD_INPUT_ICONS[1]
 }
 
 const description = ''

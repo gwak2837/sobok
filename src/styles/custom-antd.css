@@ -44,11 +44,33 @@ html {
   color: #ff9f74;
 }
 
+
 .ant-btn:hover,
-.ant-btn:focus {
+.ant-btn:focus,
+.ant-btn:active {
   color: #ff9f74;
   border-color: #ff9f74;
 }
+
+.ant-btn-primary {
+  color: #fff;
+  border-color: #ff9f74;
+  background: #ff9f74;
+}
+
+.ant-btn-primary:hover {
+  color: #fff;
+  border-color: #ffa074cc;
+  background: #ffa074cc;
+}
+
+.ant-btn-primary:focus,
+.ant-btn-primary:active {
+  color: #fff;
+  border-color: #ff9f74;
+  background: #ff9f74;
+}
+
 
 .ant-tabs > .ant-tabs-nav {
   background: white;

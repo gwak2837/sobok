@@ -1,5 +1,4 @@
 import { Button, Checkbox, Input } from 'antd'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Controller, useForm } from 'react-hook-form'
@@ -9,10 +8,96 @@ import { toastApolloError } from 'src/apollo/error'
 import PageHead from 'src/components/PageHead'
 import { useLoginMutation } from 'src/graphql/generated/types-and-hooks'
 import { currentUser } from 'src/models/recoil'
-import { MarginH4, RedText } from 'src/styles'
+import { RedText } from 'src/styles'
 import { ko2en } from 'src/utils'
+import styled from 'styled-components'
 
-import { renderPasswordInputIcon, validateId, validatePassword } from './register'
+import EmailIcon from '../svgs/email.svg'
+import PasswordIcon from '../svgs/password.svg'
+import SobokLogo from '../svgs/sobok-logo.svg'
+import { validateId, validatePassword } from './register'
+
+const Padding = styled.div`
+  padding: 1rem;
+  background: #fcfcfc;
+  height: 100vh;
+  max-width: 400px;
+  margin: 0 auto;
+`
+
+const Padding1 = styled.div`
+  padding: 1rem 0;
+  text-align: right;
+`
+
+const Padding4 = styled.div`
+  padding-top: 4rem;
+  text-align: right;
+`
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr 1px 1fr;
+  place-items: center center;
+  gap: 0.5rem 0;
+
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: solid 1px #e0e0e0;
+  background: #fff;
+`
+
+const LogoWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr 0.5fr;
+
+  svg {
+    grid-column: 2 / 3;
+	  grid-row: 2 / 3;
+  }
+`
+
+const BlackText = styled.span`
+  color: black;
+  cursor: pointer;
+  padding: 0.5rem;
+`
+
+const EmailIconWraptper = styled.div`
+  width: 1.5rem;
+
+  svg {
+    display: block;
+    margin: auto;
+  }
+`
+
+const PasswordIconWraptper = styled.div`
+  width: 1rem;
+  
+  svg {
+    display: block; 
+    margin: auto;
+  }
+`
+
+const HorizontalLine = styled.div`
+  width: 100%;
+
+  grid-column: 1 / 3;
+  border-top: solid 1px #e0e0e0;
+`
+
+const StyledButton = styled(Button)`
+  height: 3.5rem;
+  width: 100%;
+`
+
+const A = styled.div`
+  text-align: center;
+`
 
 type LoginFormValues = {
   uniqueNameOrEmail: string
@@ -20,7 +105,7 @@ type LoginFormValues = {
   remember: boolean
 }
 
-const description = ''
+const description = '소복에 로그인하세요'
 
 export default function LoginPage() {
   const setCurrentUser = useSetRecoilState(currentUser)
@@ -66,61 +151,82 @@ export default function LoginPage() {
 
   return (
     <PageHead title="로그인 - 소복" description={description}>
-      <Image src="/images/sobok-logo.svg" alt="sobok-logo.svg" width="102" height="89" />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="uniqueNameOrEmail">
-          <MarginH4>아이디</MarginH4>
-          <Controller
-            control={control}
-            name="uniqueNameOrEmail"
-            render={({ field }) => (
-              <Input placeholder="밥은 대충 먹더라도" size="large" {...field} />
-            )}
-            rules={validateId}
-          />
-          <RedText>{errors.uniqueNameOrEmail ? errors.uniqueNameOrEmail.message : <br />}</RedText>
-        </label>
+      <Padding>
+        <LogoWrapper>
+          <SobokLogo />
+        </LogoWrapper>
 
-        <label htmlFor="password">
-          <MarginH4>비밀번호</MarginH4>
-          <Controller
-            control={control}
-            name="password"
-            render={({ field }) => (
-              <Input.Password
-                iconRender={renderPasswordInputIcon}
-                placeholder="디저트는 예쁘고 맛있는 걸 먹자"
-                size="large"
-                type="password"
-                {...field}
-              />
-            )}
-            rules={validatePassword}
-          />
-          <RedText>{errors.password ? errors.password.message : <br />}</RedText>
-        </label>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <GridContainer>
+            <EmailIconWraptper>
+              <EmailIcon />
+            </EmailIconWraptper>
+            <Controller
+              control={control}
+              name="uniqueNameOrEmail"
+              render={({ field }) => (
+                <Input bordered={false} placeholder="밥은 대충 먹더라도" size="large" {...field} />
+              )}
+              rules={validateId}
+            />
 
-        <Controller
-          control={control}
-          name="remember"
-          render={({ field }) => (
-            <Checkbox checked={field.value} disabled={loading} {...field}>
-              로그인 유지
-            </Checkbox>
-          )}
-        />
+            <HorizontalLine />
 
-        <Button loading={loading} htmlType="submit" size="large">
-          로그인
-        </Button>
+            <PasswordIconWraptper>
+              <PasswordIcon />
+            </PasswordIconWraptper>
+            <Controller
+              control={control}
+              name="password"
+              render={({ field }) => (
+                <Input
+                  bordered={false}
+                  placeholder="디저트는 예쁘고 맛있는 걸 먹자"
+                  size="large"
+                  type="password"
+                  {...field}
+                />
+              )}
+              rules={validatePassword}
+            />
+          </GridContainer>
 
-        <Button loading={loading} htmlType="submit" size="large">
-          간편 로그인
-        </Button>
+          <RedText>{errors.uniqueNameOrEmail?.message || errors.password?.message}</RedText>
 
-        <Link href="/register">회원가입</Link>
-        <Link href="/register">아이디/비밀번호 찾기</Link>
-      </form>
+          <Padding1>
+            <Controller
+              control={control}
+              name="remember"
+              render={({ field }) => (
+                <Checkbox checked={field.value} disabled={loading} {...field}>
+                  로그인 유지
+                </Checkbox>
+              )}
+            />
+          </Padding1>
+
+          <StyledButton loading={loading} htmlType="submit" size="large" type="primary">
+            로그인
+          </StyledButton>
+
+          <Padding4 />
+
+          <StyledButton loading={loading} htmlType="submit" size="large">
+            간편 로그인
+          </StyledButton>
+
+          <Padding1 />
+
+          <A>
+            <Link href="/register">
+              <BlackText>회원가입</BlackText>
+            </Link>
+            <Link href="/register">
+              <BlackText>아이디/비밀번호 찾기</BlackText>
+            </Link>
+          </A>
+        </form>
+      </Padding>
     </PageHead>
   )
 }
