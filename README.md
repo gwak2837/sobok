@@ -45,7 +45,7 @@ $ code --version
 ### Download codes
 
 ```shell
-$ git clone https://github.com/teamsindy20/sobok.git
+$ git clone https://github.com/rmfpdlxmtidl/sobok.git
 $ cd sobok
 $ git checkout main
 $ yarn
