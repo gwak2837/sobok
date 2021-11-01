@@ -6,7 +6,6 @@ addAssignees: author
 
 # 리뷰어 명단
 reviewers:
-  - hy57in
   - rmfpdlxmtidl
 
 # 최소 리뷰어 등록 수
