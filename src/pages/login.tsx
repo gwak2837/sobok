@@ -52,10 +52,11 @@ const LogoWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr 1fr 0.5fr;
-
+  
   svg {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
+    width: 100%;
   }
 `
 
