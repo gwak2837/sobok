@@ -50,7 +50,7 @@ export const MarginH4 = styled.h4`
 `
 
 export const RedText = styled.h5`
-  margin: 0.5rem 0.2rem;
+  margin: 0 0.5rem;
   color: #800000;
 `
 

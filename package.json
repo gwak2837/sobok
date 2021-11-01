@@ -4,12 +4,12 @@
   "description": "sobok-frontend",
   "homepage": "https://sobok.vercel.app",
   "bugs": {
-    "url": "https://github.com/teamsindy20/sobok/issues",
+    "url": "https://github.com/rmfpdlxmtidl/sobok/issues",
     "email": "teamsindy20@gmail.com"
   },
   "license": "GPL-3.0-only",
   "author": "sindy <teamsindy20@gmail.com>",
-  "repository": "https://github.com/teamsindy20/sobok.git",
+  "repository": "https://github.com/rmfpdlxmtidl/sobok.git",
   "scripts": {
     "clean": "rm -rf .yarn/cache .yarn/unplugged .yarn/install-state.gz dist .pnp.cjs yarn.lock",
     "dev": "next dev",

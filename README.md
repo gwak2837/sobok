@@ -45,7 +45,7 @@ $ code --version
 ### Download codes
 
 ```shell
-$ git clone https://github.com/teamsindy20/sobok.git
+$ git clone https://github.com/rmfpdlxmtidl/sobok.git
 $ cd sobok
 $ git checkout main
 $ yarn
@@ -61,6 +61,7 @@ $ yarn
 NEXT_PUBLIC_BACKEND_URL=
 NEXT_PUBLIC_GOOGLE_ANALITICS_ID=
 NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY=
+NEXT_PUBLIC_NAVER_CLIENT_ID=
 ```
 
 프로젝트 루트 경로에 `.env.development`과 `.env.production` 파일을 생성하고 거기에 프로젝트에 필요한 환경 변수를 설정합니다.
