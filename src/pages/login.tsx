@@ -1,4 +1,4 @@
-import { Button, Checkbox, Input } from 'antd'
+import { Button, Input } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Controller, useForm } from 'react-hook-form'
@@ -6,14 +6,16 @@ import { toast } from 'react-toastify'
 import { useSetRecoilState } from 'recoil'
 import { toastApolloError } from 'src/apollo/error'
 import PageHead from 'src/components/PageHead'
+import Checkbox from 'src/components/atoms/Checkbox'
 import { useLoginMutation } from 'src/graphql/generated/types-and-hooks'
 import { currentUser } from 'src/models/recoil'
 import { RedText } from 'src/styles'
+
 import { ko2en } from 'src/utils'
 import styled from 'styled-components'
 
-import EmailIcon from '../svgs/email.svg'
-import PasswordIcon from '../svgs/password.svg'
+import EmailIcon from '../svgs/EmailIcon'
+import PasswordIcon from '../svgs/PasswordIcon'
 import SobokLogo from '../svgs/sobok-logo.svg'
 import { validateId, validatePassword } from './register'
 
@@ -52,7 +54,7 @@ const LogoWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr 1fr 0.5fr;
-  
+
   svg {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
@@ -118,6 +120,7 @@ export default function LoginPage() {
     formState: { errors },
     getValues,
     handleSubmit,
+    watch,
   } = useForm<LoginFormValues>({
     defaultValues: {
       uniqueNameOrEmail: 'bok@sindy.in',
@@ -150,6 +153,8 @@ export default function LoginPage() {
     login({ variables: { uniqueNameOrEmail, passwordHash: ko2en(password) } })
   }
 
+  console.log(watch('remember'))
+
   return (
     <PageHead title="로그인 - 소복" description={description}>
       <Padding>
@@ -160,7 +165,7 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <GridContainer>
             <EmailIconWraptper>
-              <EmailIcon />
+              <EmailIcon colored={Boolean(watch('uniqueNameOrEmail'))} />
             </EmailIconWraptper>
             <Controller
               control={control}
@@ -174,7 +179,7 @@ export default function LoginPage() {
             <HorizontalLine />
 
             <PasswordIconWraptper>
-              <PasswordIcon />
+              <PasswordIcon colored={Boolean(watch('password'))} />
             </PasswordIconWraptper>
             <Controller
               control={control}
