@@ -29,8 +29,7 @@ function useInfiniteScroll({ onIntersecting, hasMoreData }: Options) {
     return () => {
       observer.current?.disconnect()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [infiniteScrollRef.current, onIntersecting])
+  }, [onIntersecting])
 
   useEffect(() => {
     if (!hasMoreData) {
