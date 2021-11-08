@@ -15,7 +15,7 @@ import { useEffect } from 'react'
 import { ToastContainer, cssTransition } from 'react-toastify'
 import { RecoilRoot } from 'recoil'
 import { client } from 'src/apollo/client'
-import { TABLET_MIN_WIDTH } from 'src/utils/constants'
+import { TABLET_MIN_WIDTH } from 'src/models/constants'
 import { pageview } from 'src/utils/google-analytics'
 import styled from 'styled-components'
 

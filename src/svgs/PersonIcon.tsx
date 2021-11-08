@@ -1,4 +1,4 @@
-import { SOBOK_ACHROMATIC_COLOR } from 'src/utils/constants'
+import { SOBOK_ACHROMATIC_COLOR } from 'src/models/constants'
 import styled from 'styled-components'
 
 const Svg = styled.svg`

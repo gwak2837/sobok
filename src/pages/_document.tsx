@@ -4,7 +4,7 @@ import {
   APPLICATION_SHORT_NAME,
   CANONICAL_URL,
   PRIMARY_BACKGROUND_COLOR,
-} from 'src/utils/constants'
+} from 'src/models/constants'
 import { GOOGLE_ANALYTICS_ID } from 'src/utils/google-analytics'
 import { ServerStyleSheet } from 'styled-components'
 

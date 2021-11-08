@@ -25,7 +25,7 @@ import SmokeIcon from 'src/svgs/SmokeIcon'
 import WholeGlassIcon from 'src/svgs/WholeGlassIcon'
 import WideSofaIcon from 'src/svgs/WideSofaIcon'
 import WideTableIcon from 'src/svgs/WideTableIcon'
-import { TABLET_MIN_WIDTH } from 'src/utils/constants'
+import { TABLET_MIN_WIDTH } from 'src/models/constants'
 import { getCurrentPositionFromGeolocationAPI } from 'src/utils/web-api'
 import styled, { css } from 'styled-components'
 

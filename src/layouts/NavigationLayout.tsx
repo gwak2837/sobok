@@ -14,8 +14,8 @@ import {
   SOBOK_ACHROMATIC_COLOR,
   SOBOK_COLOR,
   SOBOK_TEXT_COLOR,
-} from 'src/utils/constants'
-import { TABLET_MIN_WIDTH } from 'src/utils/constants'
+} from 'src/models/constants'
+import { TABLET_MIN_WIDTH } from 'src/models/constants'
 import styled from 'styled-components'
 
 const Padding = styled.div`
