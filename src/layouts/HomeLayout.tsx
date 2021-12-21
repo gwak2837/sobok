@@ -8,7 +8,7 @@ import { currentTown } from 'src/models/recoil'
 import ArrowDownIcon from 'src/svgs/arrow-down.svg'
 import MapIcon from 'src/svgs/map.svg'
 import SearchIcon from 'src/svgs/search.svg'
-import { TABLET_MIN_WIDTH } from 'src/utils/constants'
+import { TABLET_MIN_WIDTH } from 'src/models/constants'
 import styled from 'styled-components'
 
 import { FlexContainerBetweenCenter } from '../styles'

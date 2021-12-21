@@ -18,7 +18,7 @@ const CheckIconWrapper = styled.div<{ checked: boolean }>`
   border: solid 1px #e8e8e8;
   background: white;
   display: inline-block;
-  
+
   svg {
     display: block;
     margin: auto;

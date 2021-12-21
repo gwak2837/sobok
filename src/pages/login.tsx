@@ -59,6 +59,7 @@ const LogoWrapper = styled.div`
     grid-column: 2 / 3;
     grid-row: 2 / 3;
     width: 100%; // for safari
+    cursor: pointer;
   }
 `
 
@@ -129,7 +130,7 @@ export default function LoginPage() {
     },
   })
 
-  const [login, { loading }] = useLoginMutation({
+  const [loginMutation, { loading }] = useLoginMutation({
     onCompleted: ({ login }) => {
       toast.success('로그인에 성공했어요.')
 
@@ -147,22 +148,20 @@ export default function LoginPage() {
     onError: toastApolloError,
   })
 
-  function onSubmit({ uniqueNameOrEmail, password }: LoginFormValues) {
+  function login({ uniqueNameOrEmail, password }: LoginFormValues) {
     // const passwordHash = await digestMessageWithSHA256(ko2en(password))
     // login({ variables: { uniqueNameOrEmail, passwordHash } })
-    login({ variables: { uniqueNameOrEmail, passwordHash: ko2en(password) } })
+    loginMutation({ variables: { uniqueNameOrEmail, passwordHash: ko2en(password) } })
   }
-
-  console.log(watch('remember'))
 
   return (
     <PageHead title="로그인 - 소복" description={description}>
       <Padding>
         <LogoWrapper>
-          <SobokLogo />
+          <SobokLogo onClick={() => router.push('/')} />
         </LogoWrapper>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(login)}>
           <GridContainer>
             <EmailIconWraptper>
               <EmailIcon colored={Boolean(watch('uniqueNameOrEmail'))} />

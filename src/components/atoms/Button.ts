@@ -5,7 +5,7 @@ import {
   SECONDARY_BACKGROUND_COLOR,
   SECONDARY_TEXT_COLOR,
   TABLET_MIN_WIDTH,
-} from 'src/utils/constants'
+} from 'src/models/constants'
 import styled from 'styled-components'
 
 export const StyledButton = styled(Button)`

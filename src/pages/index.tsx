@@ -13,6 +13,7 @@ import {
 import useInfiniteScroll from 'src/hooks/useInfiniteScroll'
 import HomeLayout from 'src/layouts/HomeLayout'
 import NavigationLayout from 'src/layouts/NavigationLayout'
+import { TABLET_MIN_WIDTH } from 'src/models/constants'
 import { currentCoordinates, currentTown } from 'src/models/recoil'
 import { Padding } from 'src/styles'
 import AllStoresIcon from 'src/svgs/AllStoresIcon'
@@ -25,7 +26,6 @@ import SmokeIcon from 'src/svgs/SmokeIcon'
 import WholeGlassIcon from 'src/svgs/WholeGlassIcon'
 import WideSofaIcon from 'src/svgs/WideSofaIcon'
 import WideTableIcon from 'src/svgs/WideTableIcon'
-import { TABLET_MIN_WIDTH } from 'src/utils/constants'
 import { getCurrentPositionFromGeolocationAPI } from 'src/utils/web-api'
 import styled, { css } from 'styled-components'
 
@@ -267,22 +267,24 @@ export default function HomePage() {
           <OrderButton>{getOrderBy(orderBy)}</OrderButton>
         </Dropdown>
 
-        {stores ? (
-          <GridContainerStore>
-            {stores.map((store) => (
-              <StoreCard key={store.id} store={store} coordinates={coordinates} />
-            ))}
-            <StoreLoadingCard />
-            {loading && (
-              <>
-                <StoreLoadingCard />
-                <StoreLoadingCard />
-              </>
-            )}
-          </GridContainerStore>
-        ) : (
-          !loading && <div>매장이 없어요</div>
-        )}
+        <GridContainerStore>
+          {stores ? (
+            <>
+              {stores.map((store) => (
+                <StoreCard key={store.id} store={store} coordinates={coordinates} />
+              ))}
+              <StoreLoadingCard />
+            </>
+          ) : (
+            !loading && <div>매장이 없어요</div>
+          )}
+          {loading && (
+            <>
+              <StoreLoadingCard />
+              <StoreLoadingCard />
+            </>
+          )}
+        </GridContainerStore>
 
         {!loading && hasMoreData && <div ref={infiniteScrollRef}>무한 스크롤</div>}
       </Padding>

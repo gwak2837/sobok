@@ -24,7 +24,7 @@ import TrendIcon from 'src/svgs/TrendIcon'
 import WholeGlassIcon from 'src/svgs/WholeGlassIcon'
 import WideSofaIcon from 'src/svgs/WideSofaIcon'
 import WideTableIcon from 'src/svgs/WideTableIcon'
-import { SOBOK_COLOR } from 'src/utils/constants'
+import { SOBOK_COLOR } from 'src/models/constants'
 import styled from 'styled-components'
 
 const Div = styled.div`
